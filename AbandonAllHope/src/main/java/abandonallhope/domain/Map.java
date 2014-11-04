@@ -1,6 +1,8 @@
 
 package abandonallhope.domain;
 
+import java.awt.Point;
+
 public class Map {
 	
 	private int width;
@@ -11,7 +13,8 @@ public class Map {
 		this.height = height;
 	}
 	
-	public boolean isValidMove(int x, int y) {
-		return x >= 0 && x <= width && y >= 0 && y <= height;
+	public boolean isValidMove(Point point) {
+		return point.x >= 0 && point.x <= width && 
+				point.y >= 0 && point.y <= height;
 	}
 }

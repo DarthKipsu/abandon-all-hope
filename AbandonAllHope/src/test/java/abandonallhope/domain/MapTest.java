@@ -1,10 +1,8 @@
 
 package abandonallhope.domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
+import java.awt.Point;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,32 +17,32 @@ public class MapTest {
 	
 	@Test
 	public void movementToLeftUpperCornerIsValid() {
-		assertTrue(map.isValidMove(0, 500));
+		assertTrue(map.isValidMove(new Point(0, 500)));
 	}
 	
 	@Test
 	public void movementToRightUpperCornerIsValid() {
-		assertTrue(map.isValidMove(500, 500));
+		assertTrue(map.isValidMove(new Point(500, 500)));
 	}
 	
 	@Test
 	public void movementToLeftLowerCornerIsValid() {
-		assertTrue(map.isValidMove(0, 0));
+		assertTrue(map.isValidMove(new Point(0, 0)));
 	}
 	
 	@Test
 	public void movementToRightLowerCornerIsValid() {
-		assertTrue(map.isValidMove(500, 0));
+		assertTrue(map.isValidMove(new Point(500, 0)));
 	}
 	
 	@Test
 	public void movementToNegativeCoordinatesIsNotValid() {
-		assertFalse(map.isValidMove(-1, -1));
+		assertFalse(map.isValidMove(new Point(-1, -1)));
 	}
 	
 	@Test
 	public void movementToOutsideCoordinatesIsNotValid() {
-		assertFalse(map.isValidMove(501, 501));
+		assertFalse(map.isValidMove(new Point(501, 501)));
 	}
 	
 }
