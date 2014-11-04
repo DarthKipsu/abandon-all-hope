@@ -46,10 +46,4 @@ public class Game {
 		}
 	}
 	
-	// Only here for now...
-	public static void main(String[] args) {
-		Game game = new Game(500);
-		game.addZombies(10);
-		game.run();
-	}
 }
