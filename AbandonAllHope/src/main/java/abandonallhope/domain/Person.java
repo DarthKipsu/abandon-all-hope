@@ -25,4 +25,9 @@ public abstract class Person {
 		else if (x > 0) return speed;
 		else return -1 * speed;
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + ", current location: " + location.x + "," + location.y;
+	}
 }
