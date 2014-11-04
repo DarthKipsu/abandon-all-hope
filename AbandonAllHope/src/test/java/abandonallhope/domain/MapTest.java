@@ -17,22 +17,22 @@ public class MapTest {
 	
 	@Test
 	public void movementToLeftUpperCornerIsValid() {
-		assertTrue(map.isValidMove(new Point(0, 500)));
-	}
-	
-	@Test
-	public void movementToRightUpperCornerIsValid() {
-		assertTrue(map.isValidMove(new Point(500, 500)));
-	}
-	
-	@Test
-	public void movementToLeftLowerCornerIsValid() {
 		assertTrue(map.isValidMove(new Point(0, 0)));
 	}
 	
 	@Test
-	public void movementToRightLowerCornerIsValid() {
+	public void movementToRightUpperCornerIsValid() {
 		assertTrue(map.isValidMove(new Point(500, 0)));
+	}
+	
+	@Test
+	public void movementToLeftLowerCornerIsValid() {
+		assertTrue(map.isValidMove(new Point(0, 500)));
+	}
+	
+	@Test
+	public void movementToRightLowerCornerIsValid() {
+		assertTrue(map.isValidMove(new Point(500, 500)));
 	}
 	
 	@Test
