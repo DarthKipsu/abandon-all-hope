@@ -45,4 +45,24 @@ public class MapTest {
 		assertFalse(map.isValidMove(new Point(501, 501)));
 	}
 	
+	@Test
+	public void movementDownFromLowerLeftCornerIsNotValid() {
+		assertFalse(map.isValidMove(new Point(0, 500), 0, 1));
+	}
+	
+	@Test
+	public void movementRightFromLowerRirghtCornerIsNotValid() {
+		assertFalse(map.isValidMove(new Point(500, 500), 1, 0));
+	}
+	
+	@Test
+	public void movementUpFromUpperRirghtCornerIsNotValid() {
+		assertFalse(map.isValidMove(new Point(500, 0), 0, -1));
+	}
+	
+	@Test
+	public void movementLeftFromUpperLeftCornerIsNotValid() {
+		assertFalse(map.isValidMove(new Point(0, 0), -1, 0));
+	}
+	
 }

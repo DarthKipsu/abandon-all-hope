@@ -7,7 +7,7 @@ public class AbandonAllHope {
 	
 	public static void main(String[] args) {
 		Game game = new Game(500);
-		game.addZombies(10);
+		game.addZombies(1);
 		game.run();
 	}
 	

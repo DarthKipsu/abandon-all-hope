@@ -19,12 +19,16 @@ public abstract class Person {
 	}
 	
 	public void move(int x, int y) {
-		location.translate(normalize(x), normalize(y));
+		int dx = normalize(x);
+		int dy = normalize(y);
+		if (map.isValidMove(location, dx, dy)) {
+			location.translate(dx, dy);
+		}
 	}
 
-	private int normalize(int x) {
-		if (x == 0) return 0;
-		else if (x > 0) return speed;
+	private int normalize(int direction) {
+		if (direction == 0) return 0;
+		else if (direction > 0) return speed;
 		else return -1 * speed;
 	}
 

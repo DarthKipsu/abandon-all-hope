@@ -33,7 +33,7 @@ public class Game {
 	private void moveZombies() {
 		Random random = new Random();
 		for (Person zombie : zombies) {
-			zombie.move(random.nextInt(2) - 1, random.nextInt(2) - 1);
+			zombie.move(random.nextInt(3) - 1, random.nextInt(3) - 1);
 			System.out.println(zombie);
 		}
 	}

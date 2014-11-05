@@ -22,4 +22,9 @@ public class Map {
 		return point.x >= 0 && point.x <= width && 
 				point.y >= 0 && point.y <= height;
 	}
+	
+	public boolean isValidMove(Point point, int dx, int dy) {
+		return point.x + dx >= 0 && point.x + dx <= width && 
+				point.y + dy >= 0 && point.y + dy <= height;
+	}
 }
