@@ -63,9 +63,26 @@ public class ZombieTest {
 	
 	@Test
 	public void printsZombieLocationCorrectly() {
-		zombie.move(1, 1);
-		zombie.move(1, 1);
+		moveNtimes(1, 1, 2);
 		assertEquals("Zombie location: 20,20", zombie.toString());
+	}
+	
+	@Test
+	public void zombieDoesNotMoveOutsideMap() {
+		moveNtimes(-1, -1, 3);
+		assertEquals(new Point(0, 0), zombie.getLocation());
+	}
+	
+	@Test
+	public void zombieDoesNotMoveOutsideMap2() {
+		moveNtimes(1, 1, 5);
+		assertEquals(new Point(30, 30), zombie.getLocation());
+	}
+	
+	private void moveNtimes(int x, int y, int n) {
+		for (int i = 0; i < n; i++) {
+			zombie.move(x, y);
+		}
 	}
 	
 }
