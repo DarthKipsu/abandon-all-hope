@@ -12,6 +12,11 @@ public class Map {
 		this.width = width;
 		this.height = height;
 	}
+
+	public Map(int size) {
+		width = size;
+		height = size;
+	}
 	
 	public boolean isValidMove(Point point) {
 		return point.x >= 0 && point.x <= width && 

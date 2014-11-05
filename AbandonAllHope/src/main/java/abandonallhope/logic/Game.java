@@ -42,7 +42,7 @@ public class Game {
 	public void addZombies(int amount) {
 		Random random = new Random();
 		for (int i = 0; i < amount; i++) {
-			zombies.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500))));
+			zombies.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500)), map));
 		}
 	}
 	

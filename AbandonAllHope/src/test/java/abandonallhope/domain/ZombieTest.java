@@ -9,10 +9,12 @@ import static org.junit.Assert.*;
 public class ZombieTest {
 	
 	private Zombie zombie;
+	private Map map;
 	
 	@Before
 	public void setUp() {
-		zombie = new Zombie(new Point(10, 10));
+		map = new Map(30);
+		zombie = new Zombie(new Point(10, 10), map);
 	}
 	
 	@Test

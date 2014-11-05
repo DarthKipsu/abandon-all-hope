@@ -6,10 +6,12 @@ import java.awt.Point;
 public abstract class Person {
 	
 	private Point location;
+	private Map map;
 	protected int speed;
 
-	public Person(Point startingLocation) {
+	public Person(Point startingLocation, Map map) {
 		location = startingLocation;
+		this.map = map;
 	}
 	
 	public Point getLocation() {
