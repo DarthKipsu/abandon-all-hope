@@ -59,4 +59,11 @@ public class ZombieTest {
 		assertEquals(new Point(20, 15), zombie.getLocation());
 	}
 	
+	@Test
+	public void printsZombieLocationCorrectly() {
+		zombie.move(1, 1);
+		zombie.move(1, 1);
+		assertEquals("Zombie location: 20,20", zombie.toString());
+	}
+	
 }

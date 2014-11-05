@@ -28,6 +28,6 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return getClass().getName() + ", current location: " + location.x + "," + location.y;
+		return getClass().getName().substring(22) + " location: " + location.x + "," + location.y;
 	}
 }
