@@ -5,8 +5,8 @@ import java.awt.Point;
 
 public abstract class Person {
 	
-	private Point location;
-	private Map map;
+	protected Point location;
+	protected Map map;
 	protected int speed;
 
 	public Person(Point startingLocation, Map map) {
@@ -25,8 +25,11 @@ public abstract class Person {
 			location.translate(dx, dy);
 		}
 	}
+	
+	public void move() {
+	}
 
-	private int normalize(int direction) {
+	protected int normalize(int direction) {
 		if (direction == 0) return 0;
 		else if (direction > 0) return speed;
 		else return -1 * speed;

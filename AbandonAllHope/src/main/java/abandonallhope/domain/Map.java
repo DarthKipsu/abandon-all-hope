@@ -2,20 +2,26 @@
 package abandonallhope.domain;
 
 import java.awt.Point;
+import java.util.List;
 
 public class Map {
 	
 	private int width;
 	private int height;
+	private List<Person> survivors;
 
-	public Map(int width, int height) {
+	public Map(int width, int height, List<Person> survivors) {
 		this.width = width;
 		this.height = height;
+		this.survivors = survivors;
 	}
 
-	public Map(int size) {
-		width = size;
-		height = size;
+	public Map(int size, List<Person> survivors) {
+		this(size, size, survivors);
+	}
+
+	public List<Person> getSurvivors() {
+		return survivors;
 	}
 	
 	public boolean isValidMove(Point point) {

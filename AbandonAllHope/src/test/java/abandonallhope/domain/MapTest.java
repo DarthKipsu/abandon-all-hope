@@ -2,17 +2,23 @@
 package abandonallhope.domain;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MapTest {
 	
-	public Map map;
+	private Map map;
+	private List<Person> survivors;
 	
 	@Before
 	public void setUp() {
-		map = new Map(500, 500);
+		survivors = new ArrayList<>();
+		map = new Map(500, 500, survivors);
+		survivors.add(new Survivor(new Point(50, 20), map));
+		survivors.add(new Survivor(new Point(20, 50), map));
 	}
 	
 	@Test
@@ -63,6 +69,11 @@ public class MapTest {
 	@Test
 	public void movementLeftFromUpperLeftCornerIsNotValid() {
 		assertFalse(map.isValidMove(new Point(0, 0), -1, 0));
+	}
+	
+	@Test
+	public void getSurvivors() {
+		assertEquals(2, map.getSurvivors().size());
 	}
 	
 }

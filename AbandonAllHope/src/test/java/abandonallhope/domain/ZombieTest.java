@@ -2,6 +2,8 @@
 package abandonallhope.domain;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -10,11 +12,42 @@ public class ZombieTest {
 	
 	private Zombie zombie;
 	private Map map;
+	private List<Person> survivors;
 	
 	@Before
 	public void setUp() {
-		map = new Map(30);
+		survivors = new ArrayList<>();
+		map = new Map(30, survivors);
 		zombie = new Zombie(new Point(10, 10), map);
+		survivors.add(new Survivor(new Point(20,20), map));
+	}
+	
+	@Test
+	public void movesTowardsNearestSurvivor1() {
+		zombie.move();
+		assertEquals(new Point(11, 11), zombie.getLocation());
+	}
+	
+	@Test
+	public void movesTowardsNearestSurvivor2() {
+		survivors.add(new Survivor(new Point(8, 8), map));
+		zombie.move();
+		assertEquals(new Point(9, 9), zombie.getLocation());
+	}
+	
+	@Test
+	public void movesTowardsNearestSurvivor3() {
+		survivors.add(new Survivor(new Point(12, 8), map));
+		survivors.add(new Survivor(new Point(6, 8), map));
+		zombie.move();
+		assertEquals(new Point(11, 9), zombie.getLocation());
+	}
+	
+	@Test
+	public void doesNotMoveIfOnTopOfSurvivor() {
+		survivors.add(new Survivor(new Point(10, 10), map));
+		zombie.move();
+		assertEquals(new Point(10, 10), zombie.getLocation());
 	}
 	
 	@Test

@@ -2,6 +2,8 @@
 package abandonallhope.domain;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -10,10 +12,12 @@ public class SurvivorTest {
 	
 	private Survivor survivor;
 	private Map map;
+	private List<Person> survivors;
 	
 	@Before
 	public void setUp() {
-		map = new Map(30);
+		survivors = new ArrayList<>();
+		map = new Map(30, survivors);
 		survivor = new Survivor(new Point(10, 10), map);
 	}
 	
@@ -77,6 +81,12 @@ public class SurvivorTest {
 	public void survivorDoesNotMoveOutsideMap2() {
 		moveNtimes(1, 1, 15);
 		assertEquals(new Point(30, 30), survivor.getLocation());
+	}
+	
+	@Test
+	public void doesNotMoveWithoutCoordinates() {
+		survivor.move();
+		assertEquals(new Point(10, 10), survivor.getLocation());
 	}
 	
 	private void moveNtimes(int x, int y, int n) {

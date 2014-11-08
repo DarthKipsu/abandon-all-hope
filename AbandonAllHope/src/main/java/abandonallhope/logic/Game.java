@@ -19,9 +19,9 @@ public class Game implements EventHandler {
 	private List<Person> survivors;
 
 	public Game(int mapSize) {
-		map = new Map(mapSize, mapSize);
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
+		map = new Map(mapSize, mapSize, survivors);
 		addFigures(5, 1);
 	}
 
@@ -35,13 +35,21 @@ public class Game implements EventHandler {
 
 	@Override
 	public void handle(Event t) {
+		moveSurvivors();
 		moveZombies();
 	}
 
-	private void moveZombies() {
+	private void moveSurvivors() {
 		Random random = new Random();
+		for (Person survivor : survivors) {
+			survivor.move(random.nextInt(3) - 1, random.nextInt(3) - 1);
+			System.out.println(survivor);
+		}
+	}
+
+	private void moveZombies() {
 		for (Person zombie : zombies) {
-			zombie.move(random.nextInt(3) - 1, random.nextInt(3) - 1);
+			zombie.move();
 			System.out.println(zombie);
 		}
 	}
