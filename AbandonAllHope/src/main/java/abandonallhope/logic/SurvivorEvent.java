@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 public class SurvivorEvent implements EventHandler<MouseEvent> {
 	
 	private List<Survivor> survivors;
+	private Survivor newSelection;
+	private Survivor oldSelection;
 
 	public SurvivorEvent(Game game) {
 		survivors = game.getSurvivors();
@@ -17,32 +19,41 @@ public class SurvivorEvent implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent event) {
-		Survivor newSelection = null;
-		Survivor oldSelection = null;
-		for (Survivor survivor : survivors) {
-			int survX = survivor.getLocation().x;
-			int survY = survivor.getLocation().y;
-			if (Math.abs(event.getX() - survX) < 5 && Math.abs(event.getY() - survY) < 5) {
-				if (!survivor.isSelected()) {
-					survivor.select();
-					newSelection = survivor;
-					break;
-				} else {
-					survivor.unselect();
-				}
-			} else if (survivor.isSelected()) {
-				oldSelection = survivor;
-			}
-		}
+		newSelection = null;
+		oldSelection = null;
+		checkIfSurvivorsNeedToBeSelected(event);
 		if (newSelection != null) {
 			unselectOtherSurvivors(newSelection);
 		} else if (oldSelection != null) {
 			moveSurvivor(oldSelection, event);
 		}
 	}
-	
-	private void findSelections(Survivor newSelection, Survivor oldSelection, MouseEvent event) {
-		
+
+	private void checkIfSurvivorsNeedToBeSelected(MouseEvent event) {
+		for (Survivor survivor : survivors) {
+			if (eventCloseToSurvivor(event, survivor)) {
+				changeSelectionStatusFor(survivor);
+				break;
+			} else if (survivor.isSelected()) {
+				oldSelection = survivor;
+				break;
+			}
+		}
+	}
+
+	private static boolean eventCloseToSurvivor(MouseEvent event, Survivor survivor) {
+		int survX = survivor.getLocation().x;
+		int survY = survivor.getLocation().y;
+		return Math.abs(event.getX() - survX) < 5 && Math.abs(event.getY() - survY) < 5;
+	}
+
+	private void changeSelectionStatusFor(Survivor survivor) {
+		if (!survivor.isSelected()) {
+			survivor.select();
+			newSelection = survivor;
+		} else {
+			survivor.unselect();
+		}
 	}
 
 	private void unselectOtherSurvivors(Survivor selected) {
