@@ -41,9 +41,9 @@ public class Game implements EventHandler {
 
 	private void moveSurvivors() {
 		for (Survivor survivor : survivors) {
+			survivor.move();
 			if (survivor.isSelected()) {
 			System.out.println("selected: " + survivor);
-				
 			}
 		}
 	}
