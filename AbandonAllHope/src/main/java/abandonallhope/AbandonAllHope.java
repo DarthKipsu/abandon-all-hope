@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 public class AbandonAllHope extends Application {
 	
 	public static void main(String[] args) {
-//		Game game = new Game(500);
-//		game.addZombies(1);
-//		game.run();
 		launch(args);
 	}
 

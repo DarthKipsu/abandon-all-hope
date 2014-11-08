@@ -3,34 +3,39 @@ package abandonallhope.logic;
 
 import abandonallhope.domain.Map;
 import abandonallhope.domain.Person;
+import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import java.awt.Point;
-import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.util.Duration;
 
 public class Game implements EventHandler {
 	
 	private Map map;
 	private List<Person> zombies;
+	private List<Person> survivors;
 
 	public Game(int mapSize) {
 		map = new Map(mapSize, mapSize);
 		zombies = new ArrayList<>();
-		addZombies(5);
+		survivors = new ArrayList<>();
+		addFigures(5, 1);
+	}
+
+	public List<Person> getSurvivors() {
+		return survivors;
+	}
+
+	public List<Person> getZombies() {
+		return zombies;
 	}
 
 	@Override
 	public void handle(Event t) {
 		moveZombies();
-	}
-
-	public List<Person> getZombies() {
-		return zombies;
 	}
 
 	private void moveZombies() {
@@ -42,10 +47,13 @@ public class Game implements EventHandler {
 	}
 	
 	// Only here for now...
-	public void addZombies(int amount) {
+	public void addFigures(int zombie, int survivor) {
 		Random random = new Random();
-		for (int i = 0; i < amount; i++) {
+		for (int i = 0; i < zombie; i++) {
 			zombies.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500)), map));
+		}
+		for (int i = 0; i < survivor; i++) {
+			survivors.add(new Survivor(new Point(random.nextInt(500), random.nextInt(500)), map));
 		}
 	}
 	

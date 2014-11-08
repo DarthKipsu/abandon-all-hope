@@ -38,6 +38,22 @@ public class UserInterface implements EventHandler {
 		gameTimeline.play();
 		uiTimeline.play();
 	}
+
+	@Override
+	public void handle(Event t) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		drawSurvivors(gc);
+		drawZombies(gc);
+	}
+	
+	private void drawSurvivors(GraphicsContext gc) {
+		gc.setFill(Color.BLACK);
+		for (Person survivor : game.getSurvivors()) {
+			Point location = survivor.getLocation();
+			gc.fillRect((double)location.x, (double)location.y, 3.0, 3.0);
+		}
+	}
 	
 	private void drawZombies(GraphicsContext gc) {
 		gc.setFill(Color.GREEN);
@@ -45,12 +61,5 @@ public class UserInterface implements EventHandler {
 			Point location = zombie.getLocation();
 			gc.fillRect((double)location.x, (double)location.y, 2.0, 2.0);
 		}
-	}
-
-	@Override
-	public void handle(Event t) {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		drawZombies(gc);
 	}
 }
