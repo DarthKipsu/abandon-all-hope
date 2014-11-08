@@ -20,37 +20,37 @@ public class ZombieTest {
 	@Test
 	public void movesFiveSquaresUp() {
 		zombie.move(0, -1);
-		assertEquals(new Point(10, 5), zombie.getLocation());
+		assertEquals(new Point(10, 9), zombie.getLocation());
 	}
 	
 	@Test
 	public void movesFiveSquaresDown() {
 		zombie.move(0, 1);
-		assertEquals(new Point(10, 15), zombie.getLocation());
+		assertEquals(new Point(10, 11), zombie.getLocation());
 	}
 	
 	@Test
 	public void movesFiveSquaresRight() {
 		zombie.move(1, 0);
-		assertEquals(new Point(15, 10), zombie.getLocation());
+		assertEquals(new Point(11, 10), zombie.getLocation());
 	}
 	
 	@Test
 	public void movesFiveSquaresLeft() {
 		zombie.move(-1, 0);
-		assertEquals(new Point(5, 10), zombie.getLocation());
+		assertEquals(new Point(9, 10), zombie.getLocation());
 	}
 	
 	@Test
 	public void canMoveDiagonally() {
 		zombie.move(-1, -1);
-		assertEquals(new Point(5, 5), zombie.getLocation());
+		assertEquals(new Point(9, 9), zombie.getLocation());
 	}
 	
 	@Test
 	public void movesOnlyFiveSquaresUpWithOneMove() {
 		zombie.move(0, -20);
-		assertEquals(new Point(10, 5), zombie.getLocation());
+		assertEquals(new Point(10, 9), zombie.getLocation());
 	}
 	
 	@Test
@@ -58,24 +58,24 @@ public class ZombieTest {
 		zombie.move(0, 20);
 		zombie.move(50, 10);
 		zombie.move(80, -20);
-		assertEquals(new Point(20, 15), zombie.getLocation());
+		assertEquals(new Point(12, 11), zombie.getLocation());
 	}
 	
 	@Test
 	public void printsZombieLocationCorrectly() {
 		moveNtimes(1, 1, 2);
-		assertEquals("Zombie location: 20,20", zombie.toString());
+		assertEquals("Zombie location: 12,12", zombie.toString());
 	}
 	
 	@Test
 	public void zombieDoesNotMoveOutsideMap() {
-		moveNtimes(-1, -1, 3);
+		moveNtimes(-1, -1, 20);
 		assertEquals(new Point(0, 0), zombie.getLocation());
 	}
 	
 	@Test
 	public void zombieDoesNotMoveOutsideMap2() {
-		moveNtimes(1, 1, 5);
+		moveNtimes(1, 1, 25);
 		assertEquals(new Point(30, 30), zombie.getLocation());
 	}
 	
