@@ -9,8 +9,11 @@ import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 
-public class Game {
+public class Game implements EventHandler {
 	
 	private Map map;
 	private List<Person> zombies;
@@ -18,16 +21,16 @@ public class Game {
 	public Game(int mapSize) {
 		map = new Map(mapSize, mapSize);
 		zombies = new ArrayList<>();
+		addZombies(5);
 	}
-	
-	public void run() {
-		while (true) {
-			moveZombies();
-			try {
-				sleep(200);
-			} catch (InterruptedException ex) {
-			}
-		}
+
+	@Override
+	public void handle(Event t) {
+		moveZombies();
+	}
+
+	public List<Person> getZombies() {
+		return zombies;
 	}
 
 	private void moveZombies() {

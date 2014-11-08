@@ -7,7 +7,7 @@ public class Zombie extends Person {
 
 	public Zombie(Point startingLocation, Map map) {
 		super(startingLocation, map);
-		this.speed = 5;
+		this.speed = 1;
 	}
 	
 }
