@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class MapTest {
 	
 	private Map map;
-	private List<Person> survivors;
+	private List<Survivor> survivors;
 	
 	@Before
 	public void setUp() {

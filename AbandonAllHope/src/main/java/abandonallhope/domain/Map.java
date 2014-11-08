@@ -8,19 +8,19 @@ public class Map {
 	
 	private int width;
 	private int height;
-	private List<Person> survivors;
+	private List<Survivor> survivors;
 
-	public Map(int width, int height, List<Person> survivors) {
+	public Map(int width, int height, List<Survivor> survivors) {
 		this.width = width;
 		this.height = height;
 		this.survivors = survivors;
 	}
 
-	public Map(int size, List<Person> survivors) {
+	public Map(int size, List<Survivor> survivors) {
 		this(size, size, survivors);
 	}
 
-	public List<Person> getSurvivors() {
+	public List<Survivor> getSurvivors() {
 		return survivors;
 	}
 	

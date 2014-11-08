@@ -16,16 +16,16 @@ public class Game implements EventHandler {
 	
 	private Map map;
 	private List<Person> zombies;
-	private List<Person> survivors;
+	private List<Survivor> survivors;
 
 	public Game(int mapSize) {
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		map = new Map(mapSize, mapSize, survivors);
-		addFigures(5, 1);
+		addFigures(5, 2);
 	}
 
-	public List<Person> getSurvivors() {
+	public List<Survivor> getSurvivors() {
 		return survivors;
 	}
 
@@ -40,10 +40,11 @@ public class Game implements EventHandler {
 	}
 
 	private void moveSurvivors() {
-		Random random = new Random();
-		for (Person survivor : survivors) {
-			survivor.move(random.nextInt(3) - 1, random.nextInt(3) - 1);
-			System.out.println(survivor);
+		for (Survivor survivor : survivors) {
+			if (survivor.isSelected()) {
+			System.out.println("selected: " + survivor);
+				
+			}
 		}
 	}
 

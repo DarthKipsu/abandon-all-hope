@@ -12,13 +12,31 @@ public class SurvivorTest {
 	
 	private Survivor survivor;
 	private Map map;
-	private List<Person> survivors;
+	private List<Survivor> survivors;
 	
 	@Before
 	public void setUp() {
 		survivors = new ArrayList<>();
 		map = new Map(30, survivors);
 		survivor = new Survivor(new Point(10, 10), map);
+	}
+	
+	@Test
+	public void isInitiallyNotSelected() {
+		assertFalse(survivor.isSelected());
+	}
+	
+	@Test
+	public void canBeSelected() {
+		survivor.select();
+		assertTrue(survivor.isSelected());
+	}
+	
+	@Test
+	public void canBeUnselected() {
+		survivor.select();
+		survivor.unselect();
+		assertFalse(survivor.isSelected());
 	}
 	
 	@Test

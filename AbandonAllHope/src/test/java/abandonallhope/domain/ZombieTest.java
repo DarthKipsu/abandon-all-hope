@@ -12,7 +12,7 @@ public class ZombieTest {
 	
 	private Zombie zombie;
 	private Map map;
-	private List<Person> survivors;
+	private List<Survivor> survivors;
 	
 	@Before
 	public void setUp() {
