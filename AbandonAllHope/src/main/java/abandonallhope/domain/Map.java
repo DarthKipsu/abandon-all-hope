@@ -33,4 +33,9 @@ public class Map {
 		return point.x + dx >= 0 && point.x + dx <= width && 
 				point.y + dy >= 0 && point.y + dy <= height;
 	}
+
+	@Override
+	public String toString() {
+		return width + " x " + height;
+	}
 }

@@ -76,4 +76,9 @@ public class MapTest {
 		assertEquals(2, map.getSurvivors().size());
 	}
 	
+	@Test
+	public void toStringReturnsCorrectString() {
+		assertEquals("500 x 500", map.toString());
+	}
+	
 }

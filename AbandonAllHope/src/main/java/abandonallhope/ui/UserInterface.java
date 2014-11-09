@@ -4,7 +4,6 @@ package abandonallhope.ui;
 import abandonallhope.domain.Person;
 import abandonallhope.domain.Survivor;
 import abandonallhope.logic.Game;
-import abandonallhope.logic.SurvivorEvent;
 import java.awt.Point;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -61,7 +60,6 @@ public class UserInterface implements EventHandler {
 			Point location = survivor.getLocation();
 			gc.fillRect((double)location.x, (double)location.y, 3.0, 3.0);
 			if (survivor.isSelected()) {
-				System.out.println("SELECTED!");
 				gc.strokeRect((double)location.x - 2, (double)location.y - 2, 7.0, 7.0);
 			}
 		}

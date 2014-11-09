@@ -51,6 +51,13 @@ public class ZombieTest {
 	}
 	
 	@Test
+	public void doesNotMoveIfNoSurvivorsLeft() {
+		survivors.clear();
+		zombie.move();
+		assertEquals(new Point(10, 10), zombie.getLocation());
+	}
+	
+	@Test
 	public void movesFiveSquaresUp() {
 		zombie.move(0, -1);
 		assertEquals(new Point(10, 9), zombie.getLocation());

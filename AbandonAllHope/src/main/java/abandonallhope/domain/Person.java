@@ -26,8 +26,7 @@ public abstract class Person {
 		}
 	}
 	
-	public void move() {
-	}
+	public abstract void move();
 
 	protected int normalize(int direction) {
 		if (direction == 0) return 0;

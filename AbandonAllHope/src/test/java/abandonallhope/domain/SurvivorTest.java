@@ -40,6 +40,55 @@ public class SurvivorTest {
 	}
 	
 	@Test
+	public void movesTowardsDestination() {
+		survivor.moveTowards(new Point(14, 14));
+		survivor.move();
+		assertEquals(new Point(12, 12), survivor.getLocation());
+	}
+	
+	@Test
+	public void movesTowardsDestination2() {
+		survivor.moveTowards(new Point(14, 14));
+		moveNtimes(2);
+		assertEquals(new Point(14, 14), survivor.getLocation());
+	}
+	
+	@Test
+	public void movesTowardsDestination3() {
+		survivor.moveTowards(new Point(0, 0));
+		moveNtimes(3);
+		assertEquals(new Point(4, 4), survivor.getLocation());
+	}
+	
+	@Test
+	public void doesNotMovePastDestination() {
+		survivor.moveTowards(new Point(14, 14));
+		moveNtimes(4);
+		assertEquals(new Point(14, 14), survivor.getLocation());
+	}
+	
+	@Test
+	public void movesUntilDestinationHasBeenReached() {
+		survivor.moveTowards(new Point(20, 20));
+		moveNtimes(4);
+		assertFalse(survivor.hasReachedLocation());
+	}
+	
+	@Test
+	public void doesNotMoveFurtherIfHasReachedAsCloseAsItCanGet() {
+		survivor.moveTowards(new Point(15, 15));
+		moveNtimes(5);
+		assertEquals(new Point(14, 14), survivor.getLocation());
+	}
+	
+	@Test
+	public void doesNotMoveOutsideMap() {
+		survivor.moveTowards(new Point(10, -10));
+		moveNtimes(6);
+		assertEquals(new Point(10, 0), survivor.getLocation());
+	}
+	
+	@Test
 	public void movesFiveSquaresUp() {
 		survivor.move(0, -1);
 		assertEquals(new Point(10, 8), survivor.getLocation());
@@ -110,6 +159,12 @@ public class SurvivorTest {
 	private void moveNtimes(int x, int y, int n) {
 		for (int i = 0; i < n; i++) {
 			survivor.move(x, y);
+		}
+	}
+	
+	private void moveNtimes(int n) {
+		for (int i = 0; i < n; i++) {
+			survivor.move();
 		}
 	}
 	

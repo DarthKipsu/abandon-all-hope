@@ -42,9 +42,11 @@
                 <configuration>
                     <targetClasses>
                         <param>abandonallhope.domain.*</param>
+                        <param>abandonallhope.logic.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>abandonallhope.domain.*</param>
+                        <param>abandonallhope.logic.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

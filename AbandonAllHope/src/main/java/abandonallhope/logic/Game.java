@@ -22,7 +22,6 @@ public class Game implements EventHandler {
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		map = new Map(mapSize, mapSize, survivors);
-		addFigures(5, 2);
 	}
 
 	public List<Survivor> getSurvivors() {
@@ -33,36 +32,37 @@ public class Game implements EventHandler {
 		return zombies;
 	}
 
+	public Map getMap() {
+		return map;
+	}
+	
+	public void add(Survivor... survivors) {
+		for (Survivor survivor : survivors) {
+			this.survivors.add(survivor);
+		}
+	}
+	
+	public void add(Zombie... zombies) {
+		for (Zombie zombie : zombies) {
+			this.zombies.add(zombie);
+		}
+	}
+
 	@Override
 	public void handle(Event t) {
 		moveSurvivors();
 		moveZombies();
 	}
 
-	private void moveSurvivors() {
+	protected void moveSurvivors() {
 		for (Survivor survivor : survivors) {
 			survivor.move();
-			if (survivor.isSelected()) {
-			System.out.println("selected: " + survivor);
-			}
 		}
 	}
 
-	private void moveZombies() {
+	protected void moveZombies() {
 		for (Person zombie : zombies) {
 			zombie.move();
-			System.out.println(zombie);
-		}
-	}
-	
-	// Only here for now...
-	public void addFigures(int zombie, int survivor) {
-		Random random = new Random();
-		for (int i = 0; i < zombie; i++) {
-			zombies.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500)), map));
-		}
-		for (int i = 0; i < survivor; i++) {
-			survivors.add(new Survivor(new Point(random.nextInt(500), random.nextInt(500)), map));
 		}
 	}
 	
