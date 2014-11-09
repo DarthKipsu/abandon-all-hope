@@ -3,6 +3,7 @@ package abandonallhope.ui;
 
 import abandonallhope.domain.Person;
 import abandonallhope.domain.Survivor;
+import abandonallhope.domain.Zombie;
 import abandonallhope.logic.Game;
 import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,7 +28,7 @@ public class PersonDrawer {
 	
 	public void drawZombies() {
 		setGraphicsContextAttributes(Color.GREEN, Color.RED, 2);
-		for (Person zombie : game.getZombies()) {
+		for (Zombie zombie : game.getZombies()) {
 			drawAZombie(zombie);
 		}
 	}

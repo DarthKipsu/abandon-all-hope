@@ -13,7 +13,7 @@ import javafx.event.EventHandler;
 public class Game implements EventHandler {
 	
 	private Map map;
-	private List<Person> zombies;
+	private List<Zombie> zombies;
 	private List<Survivor> survivors;
 
 	public Game(int mapSize) {
@@ -26,7 +26,7 @@ public class Game implements EventHandler {
 		return survivors;
 	}
 
-	public List<Person> getZombies() {
+	public List<Zombie> getZombies() {
 		return zombies;
 	}
 
