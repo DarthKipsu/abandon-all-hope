@@ -31,17 +31,20 @@ public class UserInterface implements EventHandler {
 	}
 	
 	public void runGame() {
-		Timeline gameTimeline = new Timeline(new KeyFrame(frameDuration, game));
-		gameTimeline.setCycleCount(Timeline.INDEFINITE);
-		
-		Timeline uiTimeline = new Timeline(new KeyFrame(frameDuration, this));
-		uiTimeline.setCycleCount(Timeline.INDEFINITE);
+		Timeline gameTimeline = createTimeline(game);
+		Timeline uiTimeline = createTimeline(this);
 		
 		SurvivorEvent selection = new SurvivorEvent(game);
 		canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, selection);
 		
 		gameTimeline.play();
 		uiTimeline.play();
+	}
+
+	private Timeline createTimeline(EventHandler eventHandler) {
+		Timeline gameTimeline = new Timeline(new KeyFrame(frameDuration, eventHandler));
+		gameTimeline.setCycleCount(Timeline.INDEFINITE);
+		return gameTimeline;
 	}
 
 	@Override
@@ -53,23 +56,40 @@ public class UserInterface implements EventHandler {
 	}
 	
 	private void drawSurvivors(GraphicsContext gc) {
-		gc.setFill(Color.BLACK);
-		gc.setStroke(Color.RED);
-		gc.setLineWidth(2);
+		setGraphicsContextAttributes(gc, Color.BLACK, Color.RED, 2);
 		for (Survivor survivor : game.getSurvivors()) {
-			Point location = survivor.getLocation();
-			gc.fillRect((double)location.x, (double)location.y, 3.0, 3.0);
-			if (survivor.isSelected()) {
-				gc.strokeRect((double)location.x - 2, (double)location.y - 2, 7.0, 7.0);
-			}
+			drawASurvivor(survivor, gc);
 		}
+	}
+
+	private void setGraphicsContextAttributes(GraphicsContext gc, Color fill,
+			Color stroke, int lineWidth) {
+		gc.setFill(fill);
+		gc.setStroke(stroke);
+		gc.setLineWidth(lineWidth);
+	}
+
+	private void drawASurvivor(Survivor survivor, GraphicsContext gc) {
+		Point location = survivor.getLocation();
+		gc.fillRect((double)location.x, (double)location.y, 3.0, 3.0);
+		if (survivor.isSelected()) {
+			drawSelectionMarkerAroundSurvivor(gc, location);
+		}
+	}
+
+	private void drawSelectionMarkerAroundSurvivor(GraphicsContext gc, Point location) {
+		gc.strokeRect((double)location.x - 2, (double)location.y - 2, 7.0, 7.0);
 	}
 	
 	private void drawZombies(GraphicsContext gc) {
-		gc.setFill(Color.GREEN);
+		setGraphicsContextAttributes(gc, Color.GREEN, Color.RED, 2);
 		for (Person zombie : game.getZombies()) {
-			Point location = zombie.getLocation();
-			gc.fillRect((double)location.x, (double)location.y, 2.0, 2.0);
+			drawAZombie(zombie, gc);
 		}
+	}
+
+	private void drawAZombie(Person zombie, GraphicsContext gc) {
+		Point location = zombie.getLocation();
+		gc.fillRect((double)location.x, (double)location.y, 2.0, 2.0);
 	}
 }

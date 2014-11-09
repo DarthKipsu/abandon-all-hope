@@ -5,10 +5,8 @@ import abandonallhope.domain.Map;
 import abandonallhope.domain.Person;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
