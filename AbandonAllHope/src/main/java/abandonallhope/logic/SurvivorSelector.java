@@ -44,8 +44,8 @@ public class SurvivorSelector {
 	}
 
 	private boolean eventCloseToSurvivor(Survivor survivor) {
-		int survX = survivor.getLocation().x;
-		int survY = survivor.getLocation().y;
+		double survX = survivor.getLocation().x;
+		double survY = survivor.getLocation().y;
 		return Math.abs(clickX - survX) < 5 && Math.abs(clickY - survY) < 5;
 	}
 

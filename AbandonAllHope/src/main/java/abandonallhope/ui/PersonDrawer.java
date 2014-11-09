@@ -2,10 +2,10 @@
 package abandonallhope.ui;
 
 import abandonallhope.domain.Person;
+import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import abandonallhope.logic.Game;
-import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -41,18 +41,18 @@ public class PersonDrawer {
 
 	private void drawASurvivor(Survivor survivor) {
 		Point location = survivor.getLocation();
-		gc.fillRect((double)location.x, (double)location.y, 3.0, 3.0);
+		gc.fillRect(location.x - 1.5, location.y - 1.5, 3.0, 3.0);
 		if (survivor.isSelected()) {
 			drawSelectionMarkerAroundSurvivor(location);
 		}
 	}
 
 	private void drawSelectionMarkerAroundSurvivor(Point location) {
-		gc.strokeRect((double)location.x - 2, (double)location.y - 2, 7.0, 7.0);
+		gc.strokeRect(location.x - 3.5, location.y - 3.5, 7.0, 7.0);
 	}
 
 	private void drawAZombie(Person zombie) {
 		Point location = zombie.getLocation();
-		gc.fillRect((double)location.x, (double)location.y, 2.0, 2.0);
+		gc.fillRect(location.x - 1, location.y - 1, 2.0, 2.0);
 	}
 }

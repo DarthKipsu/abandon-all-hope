@@ -2,8 +2,8 @@
 package abandonallhope.logic;
 
 import abandonallhope.domain.Map;
+import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;

@@ -1,8 +1,6 @@
 
 package abandonallhope.domain;
 
-import java.awt.Point;
-
 public class Survivor extends Person {
 	
 	private boolean selected;
@@ -10,7 +8,7 @@ public class Survivor extends Person {
 
 	public Survivor(Point startingLocation, Map map) {
 		super(startingLocation, map);
-		this.speed = 2;
+		this.speed = 0.5;
 		selected = false;
 	}
 
@@ -41,8 +39,8 @@ public class Survivor extends Person {
 	}
 	
 	protected boolean hasReachedLocation() {
-		return Math.abs(location.x - destination.x) < 2
-			   && Math.abs(location.y - destination.y) < 2;
+		return Math.abs(location.x - destination.x) < 0.5
+			   && Math.abs(location.y - destination.y) < 0.5;
 	}
 	
 }

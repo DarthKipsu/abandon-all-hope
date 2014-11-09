@@ -23,7 +23,7 @@ public class UserInterface implements EventHandler {
 		gc = canvas.getGraphicsContext2D();
 		this.game = game;
 		personDrawer = new PersonDrawer(game, gc);
-		frameDuration = Duration.millis(1000/12);
+		frameDuration = Duration.millis(1000/60);
 	}
 
 	public Canvas getCanvas() {

@@ -1,13 +1,11 @@
 
 package abandonallhope.domain;
 
-import java.awt.Point;
-
 public abstract class Person {
 	
 	protected Point location;
 	protected Map map;
-	protected int speed;
+	protected double speed;
 
 	public Person(Point startingLocation, Map map) {
 		location = startingLocation;
@@ -17,10 +15,14 @@ public abstract class Person {
 	public Point getLocation() {
 		return location;
 	}
+
+	public double getSpeed() {
+		return speed;
+	}
 	
-	public void move(int x, int y) {
-		int dx = normalize(x);
-		int dy = normalize(y);
+	public void move(double x, double y) {
+		double dx = normalize(x);
+		double dy = normalize(y);
 		if (map.isValidMove(location, dx, dy)) {
 			location.translate(dx, dy);
 		}
@@ -28,7 +30,7 @@ public abstract class Person {
 	
 	public abstract void move();
 
-	protected int normalize(int direction) {
+	protected double normalize(double direction) {
 		if (direction == 0) return 0;
 		else if (direction > 0) return speed;
 		else return -1 * speed;
@@ -36,6 +38,6 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return getClass().getName().substring(22) + " location: " + location.x + "," + location.y;
+		return String.format("%s location: %.1f,%.1f", getClass().getName().substring(22), location.x, location.y);
 	}
 }

@@ -1,10 +1,10 @@
 
 package abandonallhope.ui;
 
+import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.logic.Game;
 import abandonallhope.logic.SurvivorSelector;
-import java.awt.Point;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -26,7 +26,7 @@ public class SurvivorEvent implements EventHandler<MouseEvent> {
 	}
 
 	private void moveSurvivor(Survivor oldSelection, MouseEvent event) {
-		oldSelection.moveTowards(new Point((int)event.getX(), (int)event.getY()));
+		oldSelection.moveTowards(new Point(event.getX(), event.getY()));
 	}
 	
 }

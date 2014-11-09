@@ -1,7 +1,6 @@
 
 package abandonallhope.domain;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -78,7 +77,7 @@ public class MapTest {
 	
 	@Test
 	public void toStringReturnsCorrectString() {
-		assertEquals("500 x 500", map.toString());
+		assertEquals("500.0 x 500.0", map.toString());
 	}
 	
 }

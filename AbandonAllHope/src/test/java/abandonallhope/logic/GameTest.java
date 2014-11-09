@@ -1,11 +1,9 @@
 
 package abandonallhope.logic;
 
+import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
-import abandonallhope.ui.SurvivorEvent;
-import java.awt.Point;
-import javafx.event.Event;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,7 +61,7 @@ public class GameTest {
 
 	@Test
 	public void returnsMapWithGetMap() {
-		assertEquals("30 x 30", game.getMap().toString());
+		assertEquals("30.0 x 30.0", game.getMap().toString());
 	}
 	
 	@Test
@@ -72,7 +70,7 @@ public class GameTest {
 		game.add(new Survivor(new Point(10, 10), game.getMap()));
 		game.add(zombie);
 		game.moveZombies();
-		assertEquals(new Point(19, 19), zombie.getLocation());
+		assertEquals(new Point(20 - zombie.getSpeed(), 20 - zombie.getSpeed()), zombie.getLocation());
 	}
 	
 	@Test
@@ -81,7 +79,7 @@ public class GameTest {
 		survivor.moveTowards(new Point(20, 20));
 		game.add(survivor);
 		game.moveSurvivors();
-		assertEquals(new Point(12, 12), survivor.getLocation());
+		assertEquals(new Point(10 + survivor.getSpeed(), 10 + survivor.getSpeed()), survivor.getLocation());
 	}
 	
 }

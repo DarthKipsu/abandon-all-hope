@@ -3,9 +3,9 @@ package abandonallhope;
 
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
+import abandonallhope.domain.Point;
 import abandonallhope.logic.Game;
 import abandonallhope.ui.UserInterface;
-import java.awt.Point;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Group;
