@@ -16,16 +16,20 @@ public class SurvivorSelector {
 	}
 	
 	public Survivor select(double clickX, double clickY) {
-		newSelection = null;
-		oldSelection = null;
-		this.clickX = clickX;
-		this.clickY = clickY;
+		resetVariables(clickX, clickY);
 		checkIfSurvivorsNeedToBeSelected();
-		if (newSelection != null) {
+		if (survivorHasBeenSelected()) {
 			unselectOtherSurvivors(newSelection);
 			return null;
 		}
 		return oldSelection;
+	}
+
+	private void resetVariables(double clickX1, double clickY1) {
+		newSelection = null;
+		oldSelection = null;
+		this.clickX = clickX1;
+		this.clickY = clickY1;
 	}
 
 	private void checkIfSurvivorsNeedToBeSelected() {
@@ -52,6 +56,10 @@ public class SurvivorSelector {
 		} else {
 			survivor.unselect();
 		}
+	}
+
+	private boolean survivorHasBeenSelected() {
+		return newSelection != null;
 	}
 
 	private void unselectOtherSurvivors(Survivor selected) {
