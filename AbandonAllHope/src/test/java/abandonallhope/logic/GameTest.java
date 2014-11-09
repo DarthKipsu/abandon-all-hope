@@ -82,4 +82,44 @@ public class GameTest {
 		assertEquals(new Point(10 + survivor.getSpeed(), 10 + survivor.getSpeed()), survivor.getLocation());
 	}
 	
+	@Test
+	public void infectSurvivorInASamePointWithZombie() {
+		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
+		Zombie zombie = new Zombie(new Point(10, 10), game.getMap());
+		game.add(survivor);
+		game.add(zombie);
+		game.infectSurvivors();
+		assertTrue(game.getSurvivors().isEmpty());
+	}
+	
+	@Test
+	public void infectSSurvivorsTooCloseToZombies() {
+		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
+		Zombie zombie = new Zombie(new Point(9.1, 9.1), game.getMap());
+		game.add(survivor);
+		game.add(zombie);
+		game.infectSurvivors();
+		assertTrue(game.getSurvivors().isEmpty());
+	}
+	
+	@Test
+	public void dontInfectSurvivorsFarEnoughFromZombies() {
+		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
+		Zombie zombie = new Zombie(new Point(9, 9), game.getMap());
+		game.add(survivor);
+		game.add(zombie);
+		game.infectSurvivors();
+		assertEquals(1, game.getSurvivors().size());
+	}
+	
+	@Test
+	public void createANewZombieAfterInfection() {
+		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
+		Zombie zombie = new Zombie(new Point(10, 10), game.getMap());
+		game.add(survivor);
+		game.add(zombie);
+		game.infectSurvivors();
+		assertEquals(2, game.getZombies().size());
+	}
+	
 }

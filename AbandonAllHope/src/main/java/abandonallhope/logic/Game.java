@@ -2,7 +2,7 @@
 package abandonallhope.logic;
 
 import abandonallhope.domain.Map;
-import abandonallhope.domain.Person;
+import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ public class Game implements EventHandler {
 	public void handle(Event t) {
 		moveSurvivors();
 		moveZombies();
+		infectSurvivors();
 	}
 
 	protected void moveSurvivors() {
@@ -59,8 +60,18 @@ public class Game implements EventHandler {
 	}
 
 	protected void moveZombies() {
-		for (Person zombie : zombies) {
+		for (Zombie zombie : zombies) {
 			zombie.move();
+		}
+	}
+	
+	protected void infectSurvivors() {
+		for (Zombie zombie : zombies) {
+			Point infection = zombie.spreadInfection();
+			if (infection != null) {
+				add(new Zombie(infection, map));
+				return;
+			}
 		}
 	}
 	
