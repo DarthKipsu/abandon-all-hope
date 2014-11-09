@@ -1,7 +1,8 @@
 
-package abandonallhope.logic;
+package abandonallhope.ui;
 
 import abandonallhope.domain.Survivor;
+import abandonallhope.logic.Game;
 import java.awt.Point;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -36,7 +37,6 @@ public class SurvivorEvent implements EventHandler<MouseEvent> {
 				break;
 			} else if (survivor.isSelected()) {
 				oldSelection = survivor;
-				break;
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class SurvivorEvent implements EventHandler<MouseEvent> {
 
 	private void unselectOtherSurvivors(Survivor selected) {
 		for (Survivor survivor : survivors) {
-			if (!survivor.equals(selected)) {
+			if (!survivor.equals(selected) && survivor.isSelected()) {
 				survivor.unselect();
 			}
 		}
