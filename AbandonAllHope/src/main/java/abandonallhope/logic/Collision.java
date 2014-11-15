@@ -1,6 +1,7 @@
 
 package abandonallhope.logic;
 
+import abandonallhope.domain.Person;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
@@ -17,20 +18,25 @@ public class Collision {
 		return null;
 	}
 	
-	public static Point nearestSurvivor(Zombie zombie, List<Survivor> survivors) {
-		Point nearest = survivors.get(0).getLocation();
+	public static Point nearestPersonLocation(Person person, List<? extends Person> enemies) {
+		Point nearest = nearestPerson(person, enemies).getLocation();
+		return nearest;
+	}
+	
+	public static Person nearestPerson(Person person, List<? extends Person> enemies) {
+		Person nearest = enemies.get(0);
 		Double nearesDifference = Double.MAX_VALUE;
-		for (Survivor survivor : survivors) {
-			double difference = distanceBetween(zombie.getLocation(), survivor.getLocation());
+		for (Person enemy : enemies) {
+			double difference = distanceBetween(person.getLocation(), enemy.getLocation());
 			if (difference < nearesDifference) {
-				nearest = survivor.getLocation();
+				nearest = enemy;
 				nearesDifference = difference;
 			}
 		}
 		return nearest;
 	}
 
-	protected static double distanceBetween(Point x, Point y) {
+	public static double distanceBetween(Point x, Point y) {
 		return Math.abs(y.x - x.x) + Math.abs(y.y - x.y);
 	}
 	

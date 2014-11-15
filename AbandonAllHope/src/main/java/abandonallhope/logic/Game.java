@@ -1,17 +1,18 @@
-
 package abandonallhope.logic;
 
 import abandonallhope.domain.Map;
+import abandonallhope.domain.Person;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
+import abandonallhope.domain.items.Weapon;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
 public class Game implements EventHandler {
-	
+
 	private Map map;
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
@@ -33,13 +34,13 @@ public class Game implements EventHandler {
 	public Map getMap() {
 		return map;
 	}
-	
+
 	public void add(Survivor... survivors) {
 		for (Survivor survivor : survivors) {
 			this.survivors.add(survivor);
 		}
 	}
-	
+
 	public void add(Zombie... zombies) {
 		for (Zombie zombie : zombies) {
 			this.zombies.add(zombie);
@@ -49,8 +50,11 @@ public class Game implements EventHandler {
 	@Override
 	public void handle(Event t) {
 		moveSurvivors();
-		moveZombies();
-		infectSurvivors();
+		if (!zombies.isEmpty()) {
+			moveZombies();
+			fightZombies();
+			infectSurvivors();
+		}
 	}
 
 	protected void moveSurvivors() {
@@ -64,17 +68,42 @@ public class Game implements EventHandler {
 			zombie.move();
 		}
 	}
-	
+
+	protected void fightZombies() {
+		for (Survivor survivor : survivors) {
+			if (survivor.getWeapon() != null) {
+				Weapon weapon = survivor.getWeapon();
+				Person target = Collision.nearestPerson(survivor, zombies);
+				useWeapon(weapon, survivor, target);
+			}
+		}
+	}
+
 	protected void infectSurvivors() {
 		for (Zombie zombie : zombies) {
 			Survivor survivor = Collision.survivor(zombie, map.getSurvivors());
 			if (survivor != null) {
 				Point survivorLocation = survivor.getLocation();
-				map.getSurvivors().remove(survivor);
+				survivors.remove(survivor);
 				add(new Zombie(survivorLocation, map));
 				return;
 			}
 		}
 	}
-	
+
+	private void useWeapon(Weapon weapon, Survivor survivor, Person target) {
+		if (weaponCanBeUsed(weapon, survivor.getLocation(), target.getLocation())) {
+			weapon.use();
+			zombies.remove(target);
+		} else {
+			weapon.decreaseRoundsToUse();
+		}
+	}
+
+	private static boolean weaponCanBeUsed(Weapon weapon, Point survivor, Point target) {
+		return weapon.canBeUsed() &&
+				Collision.distanceBetween(survivor, target)
+				<= weapon.getRange();
+	}
+
 }

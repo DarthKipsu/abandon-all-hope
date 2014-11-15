@@ -4,6 +4,8 @@ package abandonallhope.logic;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
+import abandonallhope.domain.items.Axe;
+import abandonallhope.domain.items.Weapon;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -84,52 +86,79 @@ public class GameTest {
 	
 	@Test
 	public void infectSurvivorInASamePointWithZombie() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(10, 10), game.getMap());
-		game.add(survivor);
-		game.add(zombie);
+		addSurvivor(10, 10);
+		addZombie(10, 10);
 		game.infectSurvivors();
 		assertTrue(game.getSurvivors().isEmpty());
 	}
 	
 	@Test
 	public void infectSSurvivorsTooCloseToZombies() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(8.1, 8.1), game.getMap());
-		game.add(survivor);
-		game.add(zombie);
+		addSurvivor(10, 10);
+		addZombie(8.1, 8.1);
 		game.infectSurvivors();
 		assertTrue(game.getSurvivors().isEmpty());
 	}
 	
 	@Test
 	public void infectSSurvivorsTooCloseToZombies2() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(11.9, 11.9), game.getMap());
-		game.add(survivor);
-		game.add(zombie);
+		addSurvivor(10, 10);
+		addZombie(11.9, 11.9);
 		game.infectSurvivors();
 		assertTrue(game.getSurvivors().isEmpty());
 	}
 	
 	@Test
 	public void dontInfectSurvivorsFarEnoughFromZombies() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(7.9, 7.9), game.getMap());
-		game.add(survivor);
-		game.add(zombie);
+		addSurvivor(10, 10);
+		addZombie(7.9, 7.9);
 		game.infectSurvivors();
 		assertEquals(1, game.getSurvivors().size());
 	}
 	
 	@Test
 	public void createANewZombieAfterInfection() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(10, 10), game.getMap());
-		game.add(survivor);
-		game.add(zombie);
+		addSurvivor(10, 10);
+		addZombie(10, 10);
 		game.infectSurvivors();
 		assertEquals(2, game.getZombies().size());
+	}
+	
+	@Test
+	public void killZombieCloseToArmedSurvivor() {
+		addSurvivor(10, 10);
+		addZombie(8.5, 8.5);
+		game.getSurvivors().get(0).setWeapon(new Axe());
+		game.fightZombies();
+		assertTrue(game.getZombies().isEmpty());
+	}
+	
+	@Test
+	public void dontKillZombieFurtherFromArmedSurvivor() {
+		addSurvivor(10, 10);
+		addZombie(8.4, 8.4);
+		game.fightZombies();
+		assertFalse(game.getZombies().isEmpty());
+	}
+	
+	@Test
+	public void dontKillZombieCloseToArmedSurvivorIfWeaponIsNotUsable() {
+		addSurvivor(10, 10);
+		addZombie(8.5, 8.5);
+		game.getSurvivors().get(0).setWeapon(new Axe());
+		game.getSurvivors().get(0).getWeapon().use();
+		game.fightZombies();
+		assertFalse(game.getZombies().isEmpty());
+	}
+	
+	private void addSurvivor(double x, double y) {
+		Survivor survivor = new Survivor(new Point(x, y), game.getMap());
+		game.add(survivor);
+	}
+	
+	private void addZombie(double x, double y) {
+		Zombie zombie = new Zombie(new Point(x, y), game.getMap());
+		game.add(zombie);
 	}
 	
 }

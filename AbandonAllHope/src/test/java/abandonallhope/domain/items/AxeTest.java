@@ -31,16 +31,16 @@ public class AxeTest {
 	}
 
 	@Test
-	public void canBeUsedAgainAfter90Frames() {
+	public void canBeUsedAgainAfter120Frames() {
 		axe.use();
-		decreaseRounds(90);
+		decreaseRounds(120);
 		assertTrue(axe.canBeUsed());
 	}
 
 	@Test
-	public void canNotBeUsedAgainAfter89Frames() {
+	public void canNotBeUsedAgainAfter119Frames() {
 		axe.use();
-		decreaseRounds(89);
+		decreaseRounds(119);
 		assertFalse(axe.canBeUsed());
 	}
 	

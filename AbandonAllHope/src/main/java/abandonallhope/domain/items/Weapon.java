@@ -17,7 +17,9 @@ public class Weapon {
 	}
 	
 	public void use() {
-		roundsToUse = reloadTime;
+		if (canBeUsed()) {
+			roundsToUse = reloadTime;
+		}
 	}
 	
 	public boolean canBeUsed() {

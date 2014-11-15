@@ -14,7 +14,7 @@ public class Zombie extends Person {
 	@Override
 	public void move() {
 		if (!map.getSurvivors().isEmpty()) {
-			Point nearestSurvivor = Collision.nearestSurvivor(this, map.getSurvivors());
+			Point nearestSurvivor = Collision.nearestPersonLocation(this, map.getSurvivors());
 			move(nearestSurvivor.x - location.x, nearestSurvivor.y - location.y);
 		}
 	}
