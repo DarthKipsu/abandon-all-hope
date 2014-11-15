@@ -128,9 +128,11 @@ public class GameTest {
 	public void killZombieCloseToArmedSurvivor() {
 		addSurvivor(10, 10);
 		addZombie(8.5, 8.5);
-		game.getSurvivors().get(0).setWeapon(new Axe());
+		Weapon axe = new Axe();
+		game.getSurvivors().get(0).setWeapon(axe);
 		game.fightZombies();
 		assertTrue(game.getZombies().isEmpty());
+		assertFalse(axe.canBeUsed());
 	}
 	
 	@Test
