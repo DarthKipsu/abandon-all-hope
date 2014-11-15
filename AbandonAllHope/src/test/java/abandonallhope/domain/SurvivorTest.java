@@ -1,6 +1,9 @@
 
+
 package abandonallhope.domain;
 
+import abandonallhope.domain.items.Axe;
+import abandonallhope.domain.items.Weapon;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -38,6 +41,18 @@ public class SurvivorTest {
 		survivor.select();
 		survivor.unselect();
 		assertFalse(survivor.isSelected());
+	}
+	
+	@Test
+	public void doesNotHaveAWeaponInitially() {
+		assertEquals(null, survivor.getWeapon());
+	}
+	
+	@Test
+	public void canBeGivenAWeapon() {
+		Weapon weapon = new Axe();
+		survivor.setWeapon(weapon);
+		assertEquals(weapon, survivor.getWeapon());
 	}
 	
 	@Test

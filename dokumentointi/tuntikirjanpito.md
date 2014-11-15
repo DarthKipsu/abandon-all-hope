@@ -11,3 +11,4 @@ Päivämäärä | Tunnit | Aihe
 9.11.2014 | 2h | Luokkien uudelleenjärjestelyä ja siivousta, testien parantelua...
 9.11.2014 | 1,5h | Zombit voi tartuttaa survivorin
 11.11.2014 | 0,5h | Uusi luokkakaavio nykyisten luokkien pohjalta
+15.11.2014 | 1h | Weapon luokka ja ensimmäinen ase

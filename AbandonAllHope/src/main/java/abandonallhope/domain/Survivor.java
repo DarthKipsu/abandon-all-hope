@@ -1,10 +1,13 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.items.Weapon;
+
 public class Survivor extends Person {
 	
 	private boolean selected;
 	private Point destination;
+	private Weapon weapon;
 
 	public Survivor(Point startingLocation, Map map) {
 		super(startingLocation, map);
@@ -14,6 +17,14 @@ public class Survivor extends Person {
 
 	public boolean isSelected() {
 		return selected;
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 	
 	public void select() {
