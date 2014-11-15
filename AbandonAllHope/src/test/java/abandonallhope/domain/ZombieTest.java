@@ -3,6 +3,7 @@ package abandonallhope.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.geometry.Rectangle2D;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,6 +22,11 @@ public class ZombieTest {
 		zombie = new Zombie(new Point(10, 10), map);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map));
+	}
+	
+	@Test
+	public void occupies2x2Space() {
+		assertEquals(new Rectangle2D(9,9,2,2), zombie.occupiedArea());
 	}
 	
 	@Test

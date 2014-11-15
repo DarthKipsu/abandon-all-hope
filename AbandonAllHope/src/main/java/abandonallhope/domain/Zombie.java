@@ -1,6 +1,9 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.logic.Collision;
+import java.util.List;
+
 public class Zombie extends Person {
 
 	public Zombie(Point startingLocation, Map map) {
@@ -14,17 +17,6 @@ public class Zombie extends Person {
 			Point nearestSurvivor = nearestSurvivor();
 			move(nearestSurvivor.x - location.x, nearestSurvivor.y - location.y);
 		}
-	}
-	
-	public Point spreadInfection() {
-		for (Survivor survivor : map.getSurvivors()) {
-			if (distanceBetweenZombieAnd(survivor) < 2) {
-				Point survivorLocation = survivor.getLocation();
-				map.getSurvivors().remove(survivor);
-				return survivorLocation;
-			}
-		}
-		return null;
 	}
 	
 	private Point nearestSurvivor() {

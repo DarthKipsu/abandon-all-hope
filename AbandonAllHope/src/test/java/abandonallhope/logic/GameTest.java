@@ -95,7 +95,17 @@ public class GameTest {
 	@Test
 	public void infectSSurvivorsTooCloseToZombies() {
 		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(9.1, 9.1), game.getMap());
+		Zombie zombie = new Zombie(new Point(8.1, 8.1), game.getMap());
+		game.add(survivor);
+		game.add(zombie);
+		game.infectSurvivors();
+		assertTrue(game.getSurvivors().isEmpty());
+	}
+	
+	@Test
+	public void infectSSurvivorsTooCloseToZombies2() {
+		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
+		Zombie zombie = new Zombie(new Point(11.9, 11.9), game.getMap());
 		game.add(survivor);
 		game.add(zombie);
 		game.infectSurvivors();
@@ -105,7 +115,7 @@ public class GameTest {
 	@Test
 	public void dontInfectSurvivorsFarEnoughFromZombies() {
 		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
-		Zombie zombie = new Zombie(new Point(9, 9), game.getMap());
+		Zombie zombie = new Zombie(new Point(7.9, 7.9), game.getMap());
 		game.add(survivor);
 		game.add(zombie);
 		game.infectSurvivors();

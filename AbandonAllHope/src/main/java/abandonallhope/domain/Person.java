@@ -1,6 +1,8 @@
 
 package abandonallhope.domain;
 
+import javafx.geometry.Rectangle2D;
+
 public abstract class Person {
 	
 	protected Point location;
@@ -29,6 +31,10 @@ public abstract class Person {
 	}
 	
 	public abstract void move();
+	
+	public Rectangle2D occupiedArea() {
+		return new Rectangle2D(location.x - 1, location.y - 1, 2, 2);
+	}
 
 	protected double normalize(double direction) {
 		if (direction == 0) return 0;

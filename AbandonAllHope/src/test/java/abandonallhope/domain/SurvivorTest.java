@@ -6,6 +6,7 @@ import abandonallhope.domain.items.Axe;
 import abandonallhope.domain.items.Weapon;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.geometry.Rectangle2D;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -53,6 +54,11 @@ public class SurvivorTest {
 		Weapon weapon = new Axe();
 		survivor.setWeapon(weapon);
 		assertEquals(weapon, survivor.getWeapon());
+	}
+	
+	@Test
+	public void occupies2x2Space() {
+		assertEquals(new Rectangle2D(9,9,2,2), survivor.occupiedArea());
 	}
 	
 	@Test

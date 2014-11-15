@@ -67,9 +67,11 @@ public class Game implements EventHandler {
 	
 	protected void infectSurvivors() {
 		for (Zombie zombie : zombies) {
-			Point infection = zombie.spreadInfection();
-			if (infection != null) {
-				add(new Zombie(infection, map));
+			Survivor survivor = Collision.survivor(zombie, map.getSurvivors());
+			if (survivor != null) {
+				Point survivorLocation = survivor.getLocation();
+				map.getSurvivors().remove(survivor);
+				add(new Zombie(survivorLocation, map));
 				return;
 			}
 		}
