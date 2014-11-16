@@ -3,7 +3,7 @@ package abandonallhope.domain.items;
 
 public class Weapon {
 	private double range;
-	private int reloadTime;
+	protected int reloadTime;
 	protected int roundsToUse;
 
 	public Weapon(double range, int reloadTime) {

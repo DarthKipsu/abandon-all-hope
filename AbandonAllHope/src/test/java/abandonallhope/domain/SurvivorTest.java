@@ -2,8 +2,7 @@
 
 package abandonallhope.domain;
 
-import abandonallhope.domain.items.Axe;
-import abandonallhope.domain.items.Weapon;
+import abandonallhope.domain.items.*;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
@@ -54,6 +53,18 @@ public class SurvivorTest {
 		Weapon weapon = new Axe();
 		survivor.setWeapon(weapon);
 		assertEquals(weapon, survivor.getWeapon());
+	}
+	
+	@Test
+	public void doesNotHaveAFireArmInitially() {
+		assertEquals(null, survivor.getGun());
+	}
+	
+	@Test
+	public void canBeGivenAFirearm() {
+		Firearm weapon = new Pistol(new Magazine());
+		survivor.setGun(weapon);
+		assertEquals(weapon, survivor.getGun());
 	}
 	
 	@Test

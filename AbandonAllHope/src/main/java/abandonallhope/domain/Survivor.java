@@ -1,6 +1,7 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.items.Firearm;
 import abandonallhope.domain.items.Weapon;
 
 public class Survivor extends Person {
@@ -8,15 +9,12 @@ public class Survivor extends Person {
 	private boolean selected;
 	private Point destination;
 	private Weapon weapon;
+	private Firearm gun;
 
 	public Survivor(Point startingLocation, Map map) {
 		super(startingLocation, map);
 		this.speed = 0.5;
 		selected = false;
-	}
-
-	public boolean isSelected() {
-		return selected;
 	}
 
 	public Weapon getWeapon() {
@@ -25,6 +23,18 @@ public class Survivor extends Person {
 
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+	}
+
+	public Firearm getGun() {
+		return gun;
+	}
+
+	public void setGun(Firearm gun) {
+		this.gun = gun;
+	}
+
+	public boolean isSelected() {
+		return selected;
 	}
 	
 	public void select() {
