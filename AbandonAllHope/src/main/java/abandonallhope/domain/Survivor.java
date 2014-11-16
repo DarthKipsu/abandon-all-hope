@@ -3,7 +3,10 @@ package abandonallhope.domain;
 
 import abandonallhope.domain.items.Firearm;
 import abandonallhope.domain.items.Weapon;
-
+/**
+ * New survivor object
+ * @author kipsu
+ */
 public class Survivor extends Person {
 	
 	private boolean selected;
@@ -11,6 +14,12 @@ public class Survivor extends Person {
 	private Weapon weapon;
 	private Firearm gun;
 
+	/**
+	 * Constructor for the survivor class
+	 * @param startingLocation location where the survivor will be placed when
+	 * entering game
+	 * @param map Map where the survivor is added
+	 */
 	public Survivor(Point startingLocation, Map map) {
 		super(startingLocation, map);
 		this.speed = 0.5;
@@ -45,10 +54,19 @@ public class Survivor extends Person {
 		selected = false;
 	}
 	
+	/**
+	 * Move towards another point in the game
+	 * Moves until the destination is reached or a new destination set.
+	 * @param destination 
+	 */
 	public void moveTowards(Point destination) {
 		this.destination = destination;
 	}
 
+	/**
+	 * Move towards a direction if a direction is set.
+	 * You can set direction with moveTowards()
+	 */
 	@Override
 	public void move() {
 		if (destination != null) {

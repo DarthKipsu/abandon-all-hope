@@ -22,6 +22,12 @@ public abstract class Person {
 		return speed;
 	}
 	
+	/**
+	 * Move to direction x,y
+	 * The length of the movement is based on characters speed
+	 * @param x direction x
+	 * @param y direction y
+	 */
 	public void move(double x, double y) {
 		double dx = normalize(x);
 		double dy = normalize(y);
@@ -32,6 +38,10 @@ public abstract class Person {
 	
 	public abstract void move();
 	
+	/**
+	 * Get the area this character is occupying at the moment
+	 * @return occupied area
+	 */
 	public Rectangle2D occupiedArea() {
 		return new Rectangle2D(location.x - 1, location.y - 1, 2, 2);
 	}
