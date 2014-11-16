@@ -102,8 +102,8 @@ public class Game implements EventHandler {
 
 	private static boolean weaponCanBeUsed(Weapon weapon, Point survivor, Point target) {
 		return weapon.canBeUsed() &&
-				Collision.distanceBetween(survivor, target)
-				<= weapon.getRange();
+				Collision.distanceBetween(survivor, target) <=
+				weapon.getRange();
 	}
 
 }

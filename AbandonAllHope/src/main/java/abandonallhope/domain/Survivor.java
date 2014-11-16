@@ -60,8 +60,8 @@ public class Survivor extends Person {
 	}
 	
 	protected boolean hasReachedLocation() {
-		return Math.abs(location.x - destination.x) < 0.5
-			   && Math.abs(location.y - destination.y) < 0.5;
+		return Math.abs(location.x - destination.x) < 0.5 &&
+			   Math.abs(location.y - destination.y) < 0.5;
 	}
 	
 }

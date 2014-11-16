@@ -37,9 +37,13 @@ public abstract class Person {
 	}
 
 	protected double normalize(double direction) {
-		if (direction == 0) return 0;
-		else if (direction > 0) return speed;
-		else return -1 * speed;
+		if (direction == 0) {
+			return 0;
+		} else if (direction > 0) {
+			return speed;
+		} else {
+			return -1 * speed;
+		}
 	}
 
 	@Override
