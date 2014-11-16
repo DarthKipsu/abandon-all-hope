@@ -14,3 +14,4 @@ Päivämäärä | Tunnit | Aihe
 15.11.2014 | 1h | Weapon luokka ja ensimmäinen ase
 15.11.2014 | 2,5h | Survivor osaa käyttää asettaan
 16.11.2014 | 1h | Ampuma-aseisiin liittyvät luokat ja testit
+16.11.2014 | 0,5h | JavaDocs ohjeiden luku ja ensimmäisten luokkien kommentointi
