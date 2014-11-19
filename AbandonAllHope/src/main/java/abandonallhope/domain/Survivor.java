@@ -1,8 +1,8 @@
 
 package abandonallhope.domain;
 
-import abandonallhope.domain.items.Firearm;
-import abandonallhope.domain.items.Weapon;
+import abandonallhope.domain.weapons.Firearm;
+import abandonallhope.domain.weapons.Weapon;
 /**
  * New survivor object
  * @author kipsu

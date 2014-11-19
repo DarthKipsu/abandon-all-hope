@@ -5,7 +5,7 @@ import abandonallhope.domain.Person;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
-import abandonallhope.domain.items.Weapon;
+import abandonallhope.domain.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.Event;

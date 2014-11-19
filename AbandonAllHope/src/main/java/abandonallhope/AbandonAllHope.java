@@ -4,7 +4,7 @@ package abandonallhope;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import abandonallhope.domain.Point;
-import abandonallhope.domain.items.Axe;
+import abandonallhope.domain.weapons.Axe;
 import abandonallhope.logic.Game;
 import abandonallhope.ui.UserInterface;
 import java.util.List;

@@ -2,7 +2,11 @@
 
 package abandonallhope.domain;
 
-import abandonallhope.domain.items.*;
+import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.domain.weapons.Pistol;
+import abandonallhope.domain.weapons.Magazine;
+import abandonallhope.domain.weapons.Axe;
+import abandonallhope.domain.weapons.Firearm;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Rectangle2D;

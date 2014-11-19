@@ -1,5 +1,5 @@
 
-package abandonallhope.domain.items;
+package abandonallhope.domain.weapons;
 
 public class Magazine {
 	
