@@ -78,6 +78,7 @@ public class Game implements EventHandler {
 	 */
 	@Override
 	public void handle(Event t) {
+		handleBullets();
 		moveSurvivors();
 		if (!zombies.isEmpty()) {
 			moveZombies();
@@ -98,11 +99,35 @@ public class Game implements EventHandler {
 		}
 	}
 
+	protected void handleBullets() {
+		List<Bullet> bulletsToRemove = new ArrayList<>();
+		for (Bullet bullet : bullets) {
+			checkHitsAndMoveBullets(bullet, bulletsToRemove);
+		}
+		bullets.removeAll(bulletsToRemove);
+	}
+
+	private void checkHitsAndMoveBullets(Bullet bullet, List<Bullet> bulletsToRemove) {
+		Zombie zombie = (Zombie)Collision.hitTest(bullet, zombies);
+		if (zombie != null) {
+			removeZombieAndBullet(zombie, bulletsToRemove, bullet);
+		} else if (bullet.hasReachedMaxDistance()) {
+			bulletsToRemove.add(bullet);
+		} else {
+			bullet.move();
+		}
+	}
+
+	private void removeZombieAndBullet(Zombie zombie, List<Bullet> bulletsToRemove, Bullet bullet) {
+		Point targetLocation = zombie.getLocation();
+		zombies.remove(zombie);
+		bulletsToRemove.add(bullet);
+	}
+
 	protected void fightZombies() {
 		for (Survivor survivor : survivors) {
 			fightNearestZombieIfPossible(survivor);
 		}
-		handleBullets();
 	}
 
 	private void fightNearestZombieIfPossible(Survivor survivor) {
@@ -132,21 +157,9 @@ public class Game implements EventHandler {
 		}
 	}
 
-	private void handleBullets() {
-		List<Bullet> bulletsToRemove = new ArrayList<>();
-		for (Bullet bullet : bullets) {
-			if (bullet.hasReachedMaxDistance()) {
-				bulletsToRemove.add(bullet);
-			} else {
-				bullet.move();
-			}
-		}
-		bullets.removeAll(bulletsToRemove);
-	}
-
 	protected void infectSurvivors() {
 		for (Zombie zombie : zombies) {
-			Survivor survivor = Collision.survivor(zombie, map.getSurvivors());
+			Survivor survivor = (Survivor)Collision.hitTest(zombie, map.getSurvivors());
 			if (survivor != null) {
 				Point survivorLocation = survivor.getLocation();
 				survivors.remove(survivor);

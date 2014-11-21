@@ -17,14 +17,14 @@ public class Collision {
 	/**
 	 * Checks if a zombie is colliding with at least one survivor and returns
 	 * the survivor if so.
-	 * @param zombie Zombie whose collisions are checked
-	 * @param survivors List of live survivors
-	 * @return Survivor, if colliding with one, null otherwise
+	 * @param source whose collisions are checked
+	 * @param targets targets whose collisions are checked
+	 * @return target who is being collided with, other wise null
 	 */
-	public static Survivor survivor(Zombie zombie, List<Survivor> survivors) {
-		for (Survivor survivor : survivors) {
-			if (zombie.occupiedArea().intersects(survivor.occupiedArea())) {
-				return survivor;
+	public static MovingObject hitTest(MovingObject source, List<? extends MovingObject> targets) {
+		for (MovingObject target : targets) {
+			if (source.occupiedArea().intersects(target.occupiedArea())) {
+				return target;
 			}
 		}
 		return null;

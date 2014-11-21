@@ -251,12 +251,46 @@ public class GameTest {
 	}
 	
 	@Test
+	public void bulletMovesOnceInOneFrame() {
+		Survivor survivor = addSurvivor(5, 5);
+		addZombie(20, 5);
+		survivor.setGun(createGun(1));
+		game.fightZombies();
+		game.handleBullets();
+		assertEquals(new Point(6, 5), game.getBullets().get(0).getLocation());
+	}
+	
+	@Test
 	public void dontRemoveBulletsWhenTheyHaveNotYetMovedTheirMaxDistance() {
 		Survivor survivor = addSurvivor(5, 5);
 		addZombie(5, 5);
 		survivor.setGun(createGun(1));
 		fightZombiesForSeveralRounds(34);
 		assertEquals(1, game.getBullets().size());
+	}
+	
+	@Test
+	public void zombieIsRemovedWhenBulletHitsIt() {
+		addSurvivorWithPistol(10, 10, 1);
+		addZombie(11, 10);
+		game.fightZombies();
+		game.handleBullets();
+		assertEquals(0, game.getZombies().size());
+	}
+	
+	@Test
+	public void zombieIsNotRemovedWhenBulletDoesNotHitIt() {
+		addSurvivorWithPistol(10, 10, 1);
+		addZombie(12, 10);
+		game.fightZombies();
+		game.handleBullets();
+		assertEquals(1, game.getBullets().size());
+	}
+	
+	private Survivor addSurvivorWithPistol(double x, double y, int bullets) {
+		Survivor survivor = addSurvivor(x, y);
+		survivor.setGun(createGun(bullets));
+		return survivor;
 	}
 	
 	private Survivor addSurvivor(double x, double y) {
