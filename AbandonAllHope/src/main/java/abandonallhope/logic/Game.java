@@ -1,10 +1,12 @@
 package abandonallhope.logic;
 
 import abandonallhope.domain.Map;
-import abandonallhope.domain.Person;
+import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
+import abandonallhope.domain.weapons.Bullet;
+import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +18,12 @@ public class Game implements EventHandler {
 	private Map map;
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
+	private List<Bullet> bullets;
 
 	public Game(int mapSize) {
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
+		bullets = new ArrayList<>();
 		map = new Map(mapSize, mapSize, survivors);
 	}
 
@@ -29,6 +33,10 @@ public class Game implements EventHandler {
 
 	public List<Zombie> getZombies() {
 		return zombies;
+	}
+
+	public List<Bullet> getBullets() {
+		return bullets;
 	}
 
 	public Map getMap() {
@@ -71,12 +79,28 @@ public class Game implements EventHandler {
 
 	protected void fightZombies() {
 		for (Survivor survivor : survivors) {
-			if (survivor.getWeapon() != null) {
+			if (survivor.getGun() != null && survivor.getGun().canBeUsed()) {
+				Firearm gun = survivor.getGun();
+				MovingObject target = Collision.nearestPerson(survivor, zombies);
+				fireGunIfCloseEnoughToTarget(gun, survivor, target.getLocation());
+			} else if (survivor.getWeapon() != null) {
 				Weapon weapon = survivor.getWeapon();
-				Person target = Collision.nearestPerson(survivor, zombies);
+				MovingObject target = Collision.nearestPerson(survivor, zombies);
 				useWeapon(weapon, survivor, target);
 			}
+			if (survivor.getGun() != null) {
+				survivor.getGun().decreaseRoundsToUse();
+			}
 		}
+		List<Bullet> bulletsToRemove = new ArrayList<>();
+		for (Bullet bullet : bullets) {
+			if (bullet.hasReachedMaxDistance()) {
+				bulletsToRemove.add(bullet);
+			} else {
+				bullet.move();
+			}
+		}
+		bullets.removeAll(bulletsToRemove);
 	}
 
 	protected void infectSurvivors() {
@@ -90,8 +114,17 @@ public class Game implements EventHandler {
 			}
 		}
 	}
+	
+	private void fireGunIfCloseEnoughToTarget(Firearm gun, Survivor survivor, Point destination) {
+		if (Collision.distanceBetween(survivor.getLocation(), destination) <= gun.getRange()*2) {
+			System.out.println("fire gun");
+			gun.use();
+			Bullet newBullet = new Bullet(new Point(survivor.getLocation().x, survivor.getLocation().y), map, destination, (int)gun.getRange());
+			bullets.add(newBullet);
+		}
+	}
 
-	private void useWeapon(Weapon weapon, Survivor survivor, Person target) {
+	private void useWeapon(Weapon weapon, Survivor survivor, MovingObject target) {
 		if (weaponCanBeUsed(weapon, survivor.getLocation(), target.getLocation())) {
 			weapon.use();
 			zombies.remove(target);

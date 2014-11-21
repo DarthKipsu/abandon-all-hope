@@ -1,7 +1,7 @@
 
 package abandonallhope.ui;
 
-import abandonallhope.domain.Person;
+import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
@@ -51,7 +51,7 @@ public class PersonDrawer {
 		gc.strokeRect(location.x - 3.5, location.y - 3.5, 7.0, 7.0);
 	}
 
-	private void drawAZombie(Person zombie) {
+	private void drawAZombie(MovingObject zombie) {
 		Point location = zombie.getLocation();
 		gc.fillRect(location.x - 1, location.y - 1, 2.0, 2.0);
 	}

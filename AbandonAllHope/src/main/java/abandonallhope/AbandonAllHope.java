@@ -5,6 +5,8 @@ import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.weapons.Axe;
+import abandonallhope.domain.weapons.Magazine;
+import abandonallhope.domain.weapons.Pistol;
 import abandonallhope.logic.Game;
 import abandonallhope.ui.UserInterface;
 import java.util.List;
@@ -43,6 +45,11 @@ public class AbandonAllHope extends Application {
 			game.add(new Survivor(new Point(random.nextInt(500), random.nextInt(500)), game.getMap()));
 			List<Survivor> survivors = game.getSurvivors();
 			survivors.get(survivors.size() - 1).setWeapon(new Axe());
+//			if (i == 0) {
+				Magazine magazine = new Magazine();
+				magazine.add(2);
+				survivors.get(survivors.size() - 1).setGun(new Pistol(magazine));
+//			}
 		}
 	}
 	

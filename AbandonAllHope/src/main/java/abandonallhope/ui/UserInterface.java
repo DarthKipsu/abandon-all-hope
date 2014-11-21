@@ -15,6 +15,7 @@ public class UserInterface implements EventHandler {
 	private Canvas canvas;
 	private GraphicsContext gc;
 	private PersonDrawer personDrawer;
+	private BulletDrawer bulletDrawer;
 	private Game game;
 	private Duration frameDuration;
 
@@ -23,6 +24,7 @@ public class UserInterface implements EventHandler {
 		gc = canvas.getGraphicsContext2D();
 		this.game = game;
 		personDrawer = new PersonDrawer(game, gc);
+		bulletDrawer = new BulletDrawer(game, gc);
 		frameDuration = Duration.millis(1000 / 60);
 	}
 
@@ -52,5 +54,6 @@ public class UserInterface implements EventHandler {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		personDrawer.drawSurvivors();
 		personDrawer.drawZombies();
+		bulletDrawer.drawBullets();
 	}
 }

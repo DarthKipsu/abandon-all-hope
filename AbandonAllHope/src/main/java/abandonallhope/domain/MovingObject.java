@@ -3,15 +3,17 @@ package abandonallhope.domain;
 
 import javafx.geometry.Rectangle2D;
 
-public abstract class Person {
+public abstract class MovingObject {
 	
 	protected Point location;
 	protected Map map;
 	protected double speed;
+	protected double width;
 
-	public Person(Point startingLocation, Map map) {
+	public MovingObject(Point startingLocation, Map map, double width) {
 		location = startingLocation;
 		this.map = map;
+		this.width = width;
 	}
 	
 	public Point getLocation() {
@@ -24,7 +26,7 @@ public abstract class Person {
 	
 	/**
 	 * Move to direction x,y
-	 * The length of the movement is based on characters speed
+	 * The length of the movement is based on objects speed
 	 * @param x direction x
 	 * @param y direction y
 	 */
@@ -39,11 +41,11 @@ public abstract class Person {
 	public abstract void move();
 	
 	/**
-	 * Get the area this character is occupying at the moment
+	 * Get the area this object is occupying at the moment
 	 * @return occupied area
 	 */
 	public Rectangle2D occupiedArea() {
-		return new Rectangle2D(location.x - 1, location.y - 1, 2, 2);
+		return new Rectangle2D(location.x - width / 2, location.y - width / 2, width, width);
 	}
 
 	protected double normalize(double direction) {

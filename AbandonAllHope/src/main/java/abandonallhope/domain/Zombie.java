@@ -7,7 +7,7 @@ import abandonallhope.logic.Collision;
  * New zombie object
  * @author kipsu
  */
-public class Zombie extends Person {
+public class Zombie extends MovingObject {
 
 	/**
 	 * Constructor for the zombie class
@@ -16,7 +16,7 @@ public class Zombie extends Person {
 	 * @param map Map where the zombie is added
 	 */
 	public Zombie(Point startingLocation, Map map) {
-		super(startingLocation, map);
+		super(startingLocation, map, 2);
 		this.speed = 0.3;
 	}
 	

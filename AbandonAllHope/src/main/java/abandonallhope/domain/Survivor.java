@@ -7,7 +7,7 @@ import abandonallhope.domain.weapons.Weapon;
  * New survivor object
  * @author kipsu
  */
-public class Survivor extends Person {
+public class Survivor extends MovingObject {
 	
 	private boolean selected;
 	private Point destination;
@@ -21,7 +21,7 @@ public class Survivor extends Person {
 	 * @param map Map where the survivor is added
 	 */
 	public Survivor(Point startingLocation, Map map) {
-		super(startingLocation, map);
+		super(startingLocation, map, 2);
 		this.speed = 0.5;
 		selected = false;
 	}
