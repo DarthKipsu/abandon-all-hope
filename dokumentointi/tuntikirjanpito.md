@@ -16,3 +16,5 @@ Päivämäärä | Tunnit | Aihe
 16.11.2014 | 1h | Ampuma-aseisiin liittyvät luokat ja testit
 16.11.2014 | 0,5h | JavaDocs ohjeiden luku ja ensimmäisten luokkien kommentointi
 19.11.2014 | 0,5h | JavaDocs kommentointia
+20.11.2014 | 2h | Luodin aloitus
+21.11.2014 | 1,5h | Luodin liikutus valmis, testien parantelua
