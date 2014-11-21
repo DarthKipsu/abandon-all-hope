@@ -173,7 +173,7 @@ public class GameTest {
 	@Test
 	public void shootsABulletIfCloseEnoughToZombieAndHasBulletsLeft() {
 		Survivor survivor = addSurvivor(5, 5);
-		addZombie(40, 40);
+		addZombie(47, 5); // shoots when zombie 1.2 times weapon range, because zombie moves towards player
 		survivor.setWeapon(new Axe());
 		survivor.setGun(createGun(1));
 		game.fightZombies();
@@ -183,7 +183,7 @@ public class GameTest {
 	@Test
 	public void doesNotShootABulletIfNotCloseEnoughToZombieAndHasBulletsLeft() {
 		Survivor survivor = addSurvivor(5, 5);
-		addZombie(41, 41);
+		addZombie(48, 5);
 		survivor.setWeapon(new Axe());
 		survivor.setGun(createGun(1));
 		game.fightZombies();
