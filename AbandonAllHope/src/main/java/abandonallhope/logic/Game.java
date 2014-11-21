@@ -13,6 +13,10 @@ import java.util.List;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
+/**
+ * The events taking place in single gameTimeline frame (from UserInterface)
+ * @author kipsu
+ */
 public class Game implements EventHandler {
 
 	private Map map;
@@ -20,6 +24,10 @@ public class Game implements EventHandler {
 	private List<Survivor> survivors;
 	private List<Bullet> bullets;
 
+	/**
+	 * Create new game event handler
+	 * @param mapSize 
+	 */
 	public Game(int mapSize) {
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
@@ -43,18 +51,31 @@ public class Game implements EventHandler {
 		return map;
 	}
 
+	/**
+	 * Add one or more survivors to the game
+	 * @param survivors 
+	 */
 	public void add(Survivor... survivors) {
 		for (Survivor survivor : survivors) {
 			this.survivors.add(survivor);
 		}
 	}
 
+	/**
+	 * add one or more zombies to the game
+	 * @param zombies 
+	 */
 	public void add(Zombie... zombies) {
 		for (Zombie zombie : zombies) {
 			this.zombies.add(zombie);
 		}
 	}
 
+	/**
+	 * Handle game event: move survivors and zombies, fight zombies and 
+	 * infect survivors.
+	 * @param t 
+	 */
 	@Override
 	public void handle(Event t) {
 		moveSurvivors();
@@ -79,19 +100,39 @@ public class Game implements EventHandler {
 
 	protected void fightZombies() {
 		for (Survivor survivor : survivors) {
-			if (survivor.getGun() != null && survivor.getGun().canBeUsed()) {
-				Firearm gun = survivor.getGun();
-				MovingObject target = Collision.nearestPerson(survivor, zombies);
-				fireGunIfCloseEnoughToTarget(gun, survivor, target.getLocation());
-			} else if (survivor.getWeapon() != null) {
-				Weapon weapon = survivor.getWeapon();
-				MovingObject target = Collision.nearestPerson(survivor, zombies);
-				useWeapon(weapon, survivor, target);
-			}
-			if (survivor.getGun() != null) {
-				survivor.getGun().decreaseRoundsToUse();
-			}
+			fightNearestZombieIfPossible(survivor);
 		}
+		handleBullets();
+	}
+
+	private void fightNearestZombieIfPossible(Survivor survivor) {
+		if (survivor.getGun() != null && survivor.getGun().canBeUsed()) {
+			useFirearmWeapon(survivor);
+		} else if (survivor.getWeapon() != null) {
+			useBasicWeapon(survivor);
+		}
+		decreaseGunRoundsToUse(survivor);
+	}
+
+	private void useFirearmWeapon(Survivor survivor) {
+		Firearm gun = survivor.getGun();
+		MovingObject target = Collision.nearestPerson(survivor, zombies);
+		fireGunIfCloseEnoughToTarget(gun, survivor, target.getLocation());
+	}
+
+	private void useBasicWeapon(Survivor survivor) {
+		Weapon weapon = survivor.getWeapon();
+		MovingObject target = Collision.nearestPerson(survivor, zombies);
+		useWeapon(weapon, survivor, target);
+	}
+
+	private void decreaseGunRoundsToUse(Survivor survivor) {
+		if (survivor.getGun() != null) {
+			survivor.getGun().decreaseRoundsToUse();
+		}
+	}
+
+	private void handleBullets() {
 		List<Bullet> bulletsToRemove = new ArrayList<>();
 		for (Bullet bullet : bullets) {
 			if (bullet.hasReachedMaxDistance()) {

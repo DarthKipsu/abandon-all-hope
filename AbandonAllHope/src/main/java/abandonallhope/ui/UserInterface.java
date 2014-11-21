@@ -11,6 +11,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+/**
+ * UserInterface class will display the game events to the user.
+ * @author kipsu
+ */
 public class UserInterface implements EventHandler {
 	private Canvas canvas;
 	private GraphicsContext gc;
@@ -19,6 +23,10 @@ public class UserInterface implements EventHandler {
 	private Game game;
 	private Duration frameDuration;
 
+	/**
+	 * Creates a new user interface for a game
+	 * @param game game the user interface will use
+	 */
 	public UserInterface(Game game) {
 		canvas = new Canvas(500, 500);
 		gc = canvas.getGraphicsContext2D();
@@ -32,6 +40,10 @@ public class UserInterface implements EventHandler {
 		return canvas;
 	}
 	
+	/**
+	 * Create and start time lines to control the game and user interface speed 
+	 * and create events for each frame.
+	 */
 	public void runGame() {
 		Timeline gameTimeline = createTimeline(game);
 		Timeline uiTimeline = createTimeline(this);

@@ -9,16 +9,28 @@ import abandonallhope.logic.Game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Class used to draw survivors and zombies
+ * @author kipsu
+ */
 public class PersonDrawer {
 	
 	private Game game;
 	private GraphicsContext gc;
 
+	/**
+	 * Creates a new person drawer class
+	 * @param game game containing the persons who will be drawn
+	 * @param gc graphics context where the objects will be displayed
+	 */
 	public PersonDrawer(Game game, GraphicsContext gc) {
 		this.game = game;
 		this.gc = gc;
 	}
-		
+	
+	/**
+	 * Draw each survivor in game
+	 */
 	public void drawSurvivors() {
 		setGraphicsContextAttributes(Color.BLACK, Color.RED, 2);
 		for (Survivor survivor : game.getSurvivors()) {
@@ -26,6 +38,9 @@ public class PersonDrawer {
 		}
 	}
 	
+	/**
+	 * Draw each zombie in game
+	 */
 	public void drawZombies() {
 		setGraphicsContextAttributes(Color.GREEN, Color.RED, 2);
 		for (Zombie zombie : game.getZombies()) {

@@ -3,6 +3,7 @@ package abandonallhope.domain;
 
 import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
+
 /**
  * New survivor object
  * @author kipsu

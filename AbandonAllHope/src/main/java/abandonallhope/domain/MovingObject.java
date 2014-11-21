@@ -3,6 +3,11 @@ package abandonallhope.domain;
 
 import javafx.geometry.Rectangle2D;
 
+/**
+ * Moving object is a superclass for moving objects and contains methods to move
+ * objects around.
+ * @author kipsu
+ */
 public abstract class MovingObject {
 	
 	protected Point location;

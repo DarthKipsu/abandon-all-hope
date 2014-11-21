@@ -16,8 +16,16 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main class for abandon all hope td game
+ * @author kipsu
+ */
 public class AbandonAllHope extends Application {
 	
+	/**
+	 * Will launch the application
+	 * @param args none needed
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -35,7 +43,12 @@ public class AbandonAllHope extends Application {
 		primaryStage.show();
 	}
 	
-	// Temporarily here for testing...
+	/**
+	 * Will create game figures for testing purposes during production
+	 * @param zombie
+	 * @param survivor
+	 * @param game 
+	 */
 	public void addFigures(int zombie, int survivor, Game game) {
 		Random random = new Random();
 		for (int i = 0; i < zombie; i++) {

@@ -1,6 +1,10 @@
 
 package abandonallhope.domain.weapons;
 
+/**
+ * Bullet container for a firearm.
+ * @author kipsu
+ */
 public class Magazine {
 	
 	private int bullets;

@@ -18,3 +18,4 @@ Päivämäärä | Tunnit | Aihe
 19.11.2014 | 0,5h | JavaDocs kommentointia
 20.11.2014 | 2h | Luodin aloitus
 21.11.2014 | 1,5h | Luodin liikutus valmis, testien parantelua
+21.11.2014 | 0,5h | Javadocsit lopuille luokille

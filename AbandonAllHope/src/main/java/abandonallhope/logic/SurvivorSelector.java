@@ -4,6 +4,10 @@ package abandonallhope.logic;
 import abandonallhope.domain.Survivor;
 import java.util.List;
 
+/**
+ * Handles the logic behind selecting a survivor from the user interface
+ * @author kipsu
+ */
 public class SurvivorSelector {
 	private List<Survivor> survivors;
 	private Survivor newSelection;
@@ -11,10 +15,21 @@ public class SurvivorSelector {
 	private double clickX;
 	private double clickY;
 
+	/**
+	 * Create a new survivor selector class
+	 * @param survivors list of survivors
+	 */
 	public SurvivorSelector(List<Survivor> survivors) {
 		this.survivors = survivors;
 	}
 	
+	/**
+	 * Selects survivor if clicked location contains a survivor. If survivor is 
+	 * all ready selected, will move the survivor or select a new survivor
+	 * @param clickX x coordinate for the selection
+	 * @param clickY y coordinate for the selection
+	 * @return Survivor that was previously selected, or null if none was
+	 */
 	public Survivor select(double clickX, double clickY) {
 		resetVariables(clickX, clickY);
 		checkIfSurvivorsNeedToBeSelected();
