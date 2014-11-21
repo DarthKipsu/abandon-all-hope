@@ -20,5 +20,9 @@ public class Magazine {
 	public boolean notEmpty() {
 		return bullets > 0;
 	}
+
+	public int getBullets() {
+		return bullets;
+	}
 	
 }

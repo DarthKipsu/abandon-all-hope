@@ -117,7 +117,6 @@ public class Game implements EventHandler {
 	
 	private void fireGunIfCloseEnoughToTarget(Firearm gun, Survivor survivor, Point destination) {
 		if (Collision.distanceBetween(survivor.getLocation(), destination) <= gun.getRange()*2) {
-			System.out.println("fire gun");
 			gun.use();
 			Bullet newBullet = new Bullet(new Point(survivor.getLocation().x, survivor.getLocation().y), map, destination, (int)gun.getRange());
 			bullets.add(newBullet);

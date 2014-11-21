@@ -1,0 +1,819 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+border: 1px solid #dddddd;
+padding-top: 10px;
+padding-right: 5px;
+padding-left: 5px;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+</style>
+
+</head>
+<body>
+
+
+<h1>Weapon.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_1'/>
+1
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_1'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_2'/>
+2
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_2'></a>
+</td>
+<td class=''><pre><span  class=''>package abandonallhope.domain.weapons;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_3'/>
+3
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_3'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_4'/>
+4
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_4'></a>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_5'/>
+5
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_5'></a>
+</td>
+<td class=''><pre><span  class=''> * Superclass for weapons</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_6'/>
+6
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_6'></a>
+</td>
+<td class=''><pre><span  class=''> * Contains methods shared between all usable weapons</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_7'/>
+7
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_7'></a>
+</td>
+<td class=''><pre><span  class=''> * @author kipsu</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_8'/>
+8
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_8'></a>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_9'/>
+9
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_9'></a>
+</td>
+<td class=''><pre><span  class=''>public class Weapon {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_10'/>
+10
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_10'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;private double range;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_11'/>
+11
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_11'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected int reloadTime;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_12'/>
+12
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_12'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected int roundsToUse;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_13'/>
+13
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_13'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_14'/>
+14
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_14'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_15'/>
+15
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_15'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * Constructor for weapon class.</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_16'/>
+16
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_16'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param range Reach of the weapon</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_17'/>
+17
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_17'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param reloadTime Reload time of weapon</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_18'/>
+18
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_18'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_19'/>
+19
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_19'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public Weapon(double range, int reloadTime) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_20'/>
+20
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_20'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.range = range;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_21'/>
+21
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_21'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.reloadTime = reloadTime;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_22'/>
+22
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_22'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;roundsToUse = 0;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_23'/>
+23
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_23'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_24'/>
+24
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_24'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_25'/>
+25
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_25'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public double getRange() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_26'/>
+26
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_26'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return range;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_27'/>
+27
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_27'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_28'/>
+28
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_28'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_29'/>
+29
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_29'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_30'/>
+30
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_30'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * Resets the weapon rounds to use</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_31'/>
+31
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_31'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * If rounds to use are not 0, does nothing</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_32'/>
+32
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_32'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_33'/>
+33
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_33'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public void use() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_34'/>
+34
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_34'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (canBeUsed()) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_35'/>
+35
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_35'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;roundsToUse = reloadTime;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_36'/>
+36
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_36'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_37'/>
+37
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_37'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_38'/>
+38
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_38'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_39'/>
+39
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_39'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_40'/>
+40
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_40'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * Returns the value of rounds that need to be waited before weapon can be used</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_41'/>
+41
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_41'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * If 0, the weapon can be used again</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_42'/>
+42
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_42'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return rounds until the weapon can be used again</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_43'/>
+43
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_43'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_44'/>
+44
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_44'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public boolean canBeUsed() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_45'/>
+45
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_45'>2</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return roundsToUse == 0;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_46'/>
+46
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_46'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_47'/>
+47
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_47'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_48'/>
+48
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_48'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_49'/>
+49
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_49'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * If weapon has more than zero rounds to use, decrease them by one.</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_50'/>
+50
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_50'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_51'/>
+51
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_51'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public void decreaseRoundsToUse() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_52'/>
+52
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_52'>2</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (roundsToUse &#62; 0) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_53'/>
+53
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_53'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;roundsToUse--;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_54'/>
+54
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_54'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_55'/>
+55
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_55'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_56'/>
+56
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_56'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7cedfa63_57'/>
+57
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_57'></a>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7cedfa63_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_26'/> 
+
+<p class='KILLED'>replaced return of double value with -(x + 1) for abandonallhope/domain/weapons/Weapon::getRange : KILLED -> abandonallhope.domain.weapons.PistolTest.rangeIs35(abandonallhope.domain.weapons.PistolTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7cedfa63_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_34'/> 
+
+<p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.weapons.AxeTest.cannotBeUsedTwiceAtTheSameTime(abandonallhope.domain.weapons.AxeTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7cedfa63_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_45'/> 
+
+<p class='KILLED'>replaced return of integer sized value with (x == 0 ? 1 : 0) : KILLED -> abandonallhope.domain.weapons.AxeTest.canBeUsedImmediately(abandonallhope.domain.weapons.AxeTest)</p> <p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.weapons.AxeTest.canBeUsedImmediately(abandonallhope.domain.weapons.AxeTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7cedfa63_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_52'/> 
+
+<p class='KILLED'>changed conditional boundary : KILLED -> abandonallhope.domain.weapons.WeaponTest.roundsToUseCannotBeNegative(abandonallhope.domain.weapons.WeaponTest)</p> <p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.weapons.WeaponTest.roundsToUseCannotBeNegative(abandonallhope.domain.weapons.WeaponTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7cedfa63_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7cedfa63_53'/> 
+
+<p class='KILLED'>Replaced integer subtraction with addition : KILLED -> abandonallhope.domain.weapons.PistolTest.canBeUsedAgainAfter600Frames(abandonallhope.domain.weapons.PistolTest)</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>abandonallhope.domain.weapons.AxeTest.cannotBeUsedTwiceAtTheSameTime(abandonallhope.domain.weapons.AxeTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canBeUsedAgainAfter600Frames(abandonallhope.domain.weapons.PistolTest) (2 ms)</li><li>abandonallhope.logic.GameTest.bulletsDecreaseWhenFightingZombiesAndGunIsUsed(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.weapons.WeaponTest.roundsToUseCannotBeNegative(abandonallhope.domain.weapons.WeaponTest) (0 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canNotUsedImmediatelyWithoutBullets(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canNotBeUsedAgainAfter599Frames(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.GameTest.dontRemoveBulletsWhenTheyHaveNotYetMovedTheirMaxDistance(abandonallhope.logic.GameTest) (1 ms)</li><li>abandonallhope.logic.GameTest.killZombieCloseToArmedSurvivor(abandonallhope.logic.GameTest) (9 ms)</li><li>abandonallhope.logic.GameTest.doesNotUseOtherWeaponIfSurvivorHasAGun(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.weapons.AxeTest.rangeIs3(abandonallhope.domain.weapons.AxeTest) (3 ms)</li><li>abandonallhope.domain.weapons.PistolTest.cannotBeUsedTwiceAtTheSameTime(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.domain.weapons.AxeTest.canBeUsedAgainAfter120Frames(abandonallhope.domain.weapons.AxeTest) (11 ms)</li><li>abandonallhope.logic.GameTest.dontKillZombieCloseToArmedSurvivorIfWeaponIsNotUsable(abandonallhope.logic.GameTest) (3 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canBeUsedImmediatelyWithBullets(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.GameTest.usesAxeWhenCloseEnoughToZombieAndHasGunButNoBullets(abandonallhope.logic.GameTest) (9 ms)</li><li>abandonallhope.logic.GameTest.doesNotShootABulletIfCloseEnoughToZombieButHasNoBulletsLeft(abandonallhope.logic.GameTest) (3 ms)</li><li>abandonallhope.domain.weapons.AxeTest.canNotBeUsedAgainAfter119Frames(abandonallhope.domain.weapons.AxeTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.rangeIs35(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.GameTest.usesAxeWhenCloseEnoughToZombieAndWeaponIsNotYetReloaded(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.weapons.AxeTest.canBeUsedImmediately(abandonallhope.domain.weapons.AxeTest) (1 ms)</li><li>abandonallhope.logic.GameTest.gunReloadsEachTurn(abandonallhope.logic.GameTest) (3 ms)</li><li>abandonallhope.logic.GameTest.doesNotShootABulletIfNotCloseEnoughToZombieAndHasBulletsLeft(abandonallhope.logic.GameTest) (1 ms)</li><li>abandonallhope.logic.GameTest.shootsABulletIfCloseEnoughToZombieAndHasBulletsLeft(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canNotUsedAgainAfter600FramesIfNoBullets(abandonallhope.domain.weapons.PistolTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 0.30
+
+</body>
+</html>
