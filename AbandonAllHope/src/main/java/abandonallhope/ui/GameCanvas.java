@@ -7,6 +7,10 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * Contains game field presentation and object drawing.
+ * @author kipsu
+ */
 public class GameCanvas implements EventHandler{
 	
 	private Game game;
@@ -15,6 +19,10 @@ public class GameCanvas implements EventHandler{
 	private PersonDrawer personDrawer;
 	private BulletDrawer bulletDrawer;
 
+	/**
+	 * Creates a new game canvas and drawer classes to draw objects on game field.
+	 * @param game 
+	 */
 	public GameCanvas(Game game) {
 		this.game = game;
 		canvas = new Canvas(500, 500);
