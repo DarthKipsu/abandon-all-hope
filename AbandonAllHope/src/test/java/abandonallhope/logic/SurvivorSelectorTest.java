@@ -117,4 +117,11 @@ public class SurvivorSelectorTest {
 		assertEquals(survivors.get(1), survivor);
 	}
 	
+	@Test
+	public void deselectsSurvivors() {
+		survivors.get(0).select();
+		selector.unselectAll();
+		assertFalse(survivors.get(0).isSelected());
+	}
+	
 }

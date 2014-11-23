@@ -34,6 +34,18 @@ public abstract class Wall {
 		upperLeftCorner = location;
 	}
 
+	public Point getUpperLeftCorner() {
+		return upperLeftCorner;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
 	/**
 	 * Wall will sustain a certain amount of hits. Colliding with a wall will decrease
 	 * hit points, until they reach 0 when wall breaks down.

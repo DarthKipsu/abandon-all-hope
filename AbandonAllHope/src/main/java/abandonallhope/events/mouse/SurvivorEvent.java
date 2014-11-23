@@ -1,5 +1,5 @@
 
-package abandonallhope.ui;
+package abandonallhope.events.mouse;
 
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;

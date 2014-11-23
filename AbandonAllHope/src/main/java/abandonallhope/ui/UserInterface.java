@@ -52,9 +52,6 @@ public class UserInterface implements EventHandler {
 		Timeline gameTimeline = createTimeline(game);
 		Timeline uiTimeline = createTimeline(this);
 		
-		SurvivorEvent selection = new SurvivorEvent(game);
-		canvas.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, selection);
-		
 		gameTimeline.play();
 		uiTimeline.play();
 	}

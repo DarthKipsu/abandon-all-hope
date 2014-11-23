@@ -37,6 +37,18 @@ public class WoodenWallTest {
 	}
 	
 	@Test
+	public void returnsWidth() {
+		createWall(Wall.Orientation.VERTICAL);
+		assertEquals(2, wall.getWidth(), 0.1);
+	}
+	
+	@Test
+	public void returnsHeight() {
+		createWall(Wall.Orientation.VERTICAL);
+		assertEquals(10, wall.getHeight(), 0.1);
+	}
+	
+	@Test
 	public void hitPointsAtMaximumInTheBeginning() {
 		createWall(Wall.Orientation.VERTICAL);
 		assertEquals(500, wall.hitPoints);

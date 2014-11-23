@@ -39,6 +39,13 @@ public class SurvivorSelector {
 		}
 		return oldSelection;
 	}
+	
+	/**
+	 * Unselects a survivor if one is selected.
+	 */
+	public void unselectAll() {
+		unselectOtherSurvivors(null);
+	}
 
 	private void resetVariables(double clickX1, double clickY1) {
 		newSelection = null;
