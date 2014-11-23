@@ -18,7 +18,7 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	
 	private Game game;
 	private GameCanvas canvas;
-	private WallEvent.WallType type;
+	private Wall wall;
 
 	/**
 	 * Creates a new AllBuildEvent that will build the wall the player is hovering
@@ -26,21 +26,19 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	 * walls.
 	 * @param game game where the wall will be built
 	 * @param canvas canvas with event listeners to build the wall and it's shadow
-	 * @param type Wall type
+	 * @param wall Wall type
 	 */
-	public WallBuildEvent(Game game, GameCanvas canvas, WallEvent.WallType type) {
+	public WallBuildEvent(Game game, GameCanvas canvas, Wall wall) {
 		this.game = game;
 		this.canvas = canvas;
-		this.type = type;
+		this.wall = wall;
 	}
 
 	@Override
 	public void handle(MouseEvent t) {
 		canvas.removeWallHoverEventListener();
-		if (type == WallEvent.WallType.WOODEN) {
-			game.add(new WoodenWall(Wall.Orientation.HORIZONAL,
-					new Point(t.getSceneX(), t.getSceneY())));
-		}
+		wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
+		game.add(wall);
 	}
 	
 }

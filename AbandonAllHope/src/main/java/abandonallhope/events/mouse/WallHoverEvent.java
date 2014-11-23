@@ -1,7 +1,7 @@
 
 package abandonallhope.events.mouse;
 
-import abandonallhope.events.action.WallEvent;
+import abandonallhope.domain.constructions.Wall;
 import abandonallhope.ui.drawing.ConstructionHoverDrawer;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -17,12 +17,12 @@ public class WallHoverEvent implements EventHandler<MouseEvent> {
 	/**
 	 * Creates event to detect where user mouse is over the game field and pass
 	 * that information to the construction hover drawer.
-	 * @param type Type of the wall
+	 * @param wall Type of the wall
 	 * @param constrHoverDrawer drawer to draw the shadow of the wall being built.
 	 */
-	public WallHoverEvent(WallEvent.WallType type, ConstructionHoverDrawer constrHoverDrawer) {
+	public WallHoverEvent(Wall wall, ConstructionHoverDrawer constrHoverDrawer) {
 		this.constrHoverDrawer = constrHoverDrawer;
-		constrHoverDrawer.setConstructionDimensions(type);
+		constrHoverDrawer.setConstructionDimensions(wall.occupiedArea());
 	}
 
 	@Override
