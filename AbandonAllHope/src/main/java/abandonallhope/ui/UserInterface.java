@@ -17,6 +17,7 @@ import javafx.util.Duration;
 public class UserInterface implements EventHandler {
 	private BorderPane border;
 	private GameCanvas canvas;
+	private BuildPanel build;
 	private Game game;
 	private Duration frameDuration;
 
@@ -27,8 +28,10 @@ public class UserInterface implements EventHandler {
 	 */
 	public UserInterface(Game game) {
 		canvas = new GameCanvas(game);
+		build = new BuildPanel(game, canvas);
 		border = new BorderPane();
 		border.setCenter(canvas.getCanvas());
+		border.setRight(build.getVbox());
 		this.game = game;
 		frameDuration = Duration.millis(1000 / 60);
 	}
@@ -56,14 +59,14 @@ public class UserInterface implements EventHandler {
 		uiTimeline.play();
 	}
 
+	@Override
+	public void handle(Event t) {
+		canvas.handle(t);
+	}
+
 	private Timeline createTimeline(EventHandler eventHandler) {
 		Timeline gameTimeline = new Timeline(new KeyFrame(frameDuration, eventHandler));
 		gameTimeline.setCycleCount(Timeline.INDEFINITE);
 		return gameTimeline;
-	}
-
-	@Override
-	public void handle(Event t) {
-		canvas.handle(t);
 	}
 }
