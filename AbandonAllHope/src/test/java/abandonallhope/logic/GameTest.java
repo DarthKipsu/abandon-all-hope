@@ -120,7 +120,7 @@ public class GameTest {
 	@Test
 	public void infectSSurvivorsTooCloseToZombies() {
 		addSurvivor(10, 10);
-		addZombie(8.1, 8.1);
+		addZombie(7.1, 7.1);
 		game.infectSurvivors();
 		assertTrue(game.getSurvivors().isEmpty());
 	}
@@ -128,7 +128,7 @@ public class GameTest {
 	@Test
 	public void infectSSurvivorsTooCloseToZombies2() {
 		addSurvivor(10, 10);
-		addZombie(11.9, 11.9);
+		addZombie(12.9, 12.9);
 		game.infectSurvivors();
 		assertTrue(game.getSurvivors().isEmpty());
 	}
@@ -136,7 +136,7 @@ public class GameTest {
 	@Test
 	public void dontInfectSurvivorsFarEnoughFromZombies() {
 		addSurvivor(10, 10);
-		addZombie(7.9, 7.9);
+		addZombie(7, 7);
 		game.infectSurvivors();
 		assertEquals(1, game.getSurvivors().size());
 	}
@@ -304,7 +304,7 @@ public class GameTest {
 	@Test
 	public void zombieIsNotRemovedWhenBulletDoesNotHitIt() {
 		addSurvivorWithPistol(10, 10, 1);
-		addZombie(12, 10);
+		addZombie(13, 10);
 		game.fightZombies();
 		game.handleBullets();
 		assertEquals(1, game.getBullets().size());

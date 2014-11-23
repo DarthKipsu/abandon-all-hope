@@ -12,7 +12,7 @@ public class Axe extends Weapon {
 	 * Constructor for Axe weapon
 	 */
 	public Axe() {
-		super(3, 120);
+		super(4, 120);
 	}
 	
 }

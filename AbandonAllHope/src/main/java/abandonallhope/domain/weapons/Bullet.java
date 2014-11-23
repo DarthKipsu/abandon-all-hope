@@ -1,22 +1,24 @@
 
 package abandonallhope.domain.weapons;
 
+import abandonallhope.domain.DrawableObject;
 import abandonallhope.domain.Map;
 import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
+import javafx.scene.paint.Color;
 
 /**
  * Bullets are used to represent the location of a bullet moving towards a zombie
  * @author kipsu
  */
-public class Bullet extends MovingObject {
+public class Bullet extends MovingObject implements DrawableObject {
 	
 	protected double x;
 	protected double y;
 	private int distanceLeft;
 
 	public Bullet(Point startingLocation, Map map, Point destination, int distance) {
-		super(startingLocation, map, 1);
+		super(startingLocation, map, 2, Color.BLACK);
 		this.speed = 1;
 		distanceLeft = distance;
 		setXandY(destination);

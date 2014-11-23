@@ -1,5 +1,5 @@
 
-package abandonallhope.ui;
+package abandonallhope.ui.drawing;
 
 import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;

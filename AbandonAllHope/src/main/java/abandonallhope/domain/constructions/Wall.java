@@ -1,13 +1,15 @@
 package abandonallhope.domain.constructions;
 
+import abandonallhope.domain.DrawableObject;
 import abandonallhope.domain.Point;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 
 /**
  * Superclass for walls.
  * @author kipsu
  */
-public abstract class Wall {
+public abstract class Wall implements DrawableObject {
 
 	/**
 	 * Orientation of the wall.
@@ -21,8 +23,10 @@ public abstract class Wall {
 	protected double width;
 	protected double height;
 	protected int hitPoints;
+	protected Color color;
 
-	public Wall(Orientation o, double width, double height, int maxHP, Point location) {
+	public Wall(Orientation o, double width, double height, int maxHP, 
+			Point location, Color color) {
 		if (o == Orientation.HORIZONAL) {
 			this.width = width;
 			this.height = height;
@@ -32,6 +36,7 @@ public abstract class Wall {
 		}
 		hitPoints = maxHP;
 		upperLeftCorner = location;
+		this.color = color;
 	}
 
 	public Point getUpperLeftCorner() {
@@ -44,6 +49,10 @@ public abstract class Wall {
 
 	public double getHeight() {
 		return height;
+	}
+
+	public Color getColor() {
+		return color;
 	}
 
 	/**

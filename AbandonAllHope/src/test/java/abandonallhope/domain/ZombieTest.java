@@ -25,8 +25,8 @@ public class ZombieTest {
 	}
 	
 	@Test
-	public void occupies2x2Space() {
-		assertEquals(new Rectangle2D(9,9,2,2), zombie.occupiedArea());
+	public void occupies3x3Space() {
+		assertEquals(new Rectangle2D(8.5,8.5,3,3), zombie.occupiedArea());
 	}
 	
 	@Test

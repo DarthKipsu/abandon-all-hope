@@ -1,7 +1,8 @@
 
 package abandonallhope.ui;
 
-import abandonallhope.domain.constructions.Wall;
+import abandonallhope.ui.drawing.ObjectsDrawer;
+import abandonallhope.ui.drawing.ConstructionHoverDrawer;
 import abandonallhope.events.action.WallEvent;
 import abandonallhope.events.mouse.SurvivorEvent;
 import abandonallhope.events.mouse.WallBuildEvent;
@@ -23,10 +24,8 @@ public class GameCanvas implements EventHandler{
 	private Canvas canvas;
 	private GraphicsContext gc;
 	
-	private PersonDrawer personDrawer;
-	private BulletDrawer bulletDrawer;
+	private ObjectsDrawer objectsDrawer;
 	private ConstructionHoverDrawer constrHoverDrawer;
-	private WallDrawer wallDrawer;
 	
 	private SurvivorEvent selectionEvent;
 	private WallHoverEvent wallHoverEvent;
@@ -40,10 +39,8 @@ public class GameCanvas implements EventHandler{
 		this.game = game;
 		canvas = new Canvas(500, 500);
 		gc = canvas.getGraphicsContext2D();
-		personDrawer = new PersonDrawer(game, gc);
-		bulletDrawer = new BulletDrawer(game, gc);
+		objectsDrawer = new ObjectsDrawer(game, gc);
 		constrHoverDrawer = new ConstructionHoverDrawer(game, gc);
-		wallDrawer = new WallDrawer(game, gc);
 		selectionEvent = new SurvivorEvent(game);
 		addSurvivorSelectorEventListener();
 	}
@@ -94,10 +91,10 @@ public class GameCanvas implements EventHandler{
 	@Override
 	public void handle(Event t) {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		wallDrawer.drawWalls();
-		personDrawer.drawSurvivors();
-		personDrawer.drawZombies();
-		bulletDrawer.drawBullets();
+		objectsDrawer.drawObjects(game.getWalls());
+		objectsDrawer.drawSurvivors();
+		objectsDrawer.drawObjects(game.getZombies());
+		objectsDrawer.drawObjects(game.getBullets());
 		if (wallHoverEvent != null) {
 			constrHoverDrawer.drawConstructionShadows();
 		}

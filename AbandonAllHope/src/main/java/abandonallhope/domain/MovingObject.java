@@ -2,6 +2,7 @@
 package abandonallhope.domain;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 
 /**
  * Moving object is a superclass for moving objects and contains methods to move
@@ -14,11 +15,13 @@ public abstract class MovingObject {
 	protected Map map;
 	protected double speed;
 	protected double width;
+	protected Color color;
 
-	public MovingObject(Point startingLocation, Map map, double width) {
+	public MovingObject(Point startingLocation, Map map, double width, Color color) {
 		location = startingLocation;
 		this.map = map;
 		this.width = width;
+		this.color = color;
 	}
 	
 	public Point getLocation() {
@@ -27,6 +30,10 @@ public abstract class MovingObject {
 
 	public double getSpeed() {
 		return speed;
+	}
+
+	public Color getColor() {
+		return color;
 	}
 	
 	/**

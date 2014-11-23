@@ -3,12 +3,13 @@ package abandonallhope.domain;
 
 import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
+import javafx.scene.paint.Color;
 
 /**
  * New survivor object
  * @author kipsu
  */
-public class Survivor extends MovingObject {
+public class Survivor extends MovingObject implements DrawableObject {
 	
 	private boolean selected;
 	private Point destination;
@@ -22,7 +23,7 @@ public class Survivor extends MovingObject {
 	 * @param map Map where the survivor is added
 	 */
 	public Survivor(Point startingLocation, Map map) {
-		super(startingLocation, map, 2);
+		super(startingLocation, map, 3, Color.BLACK);
 		this.speed = 0.5;
 		selected = false;
 	}

@@ -2,12 +2,13 @@
 package abandonallhope.domain;
 
 import abandonallhope.logic.Collision;
+import javafx.scene.paint.Color;
 
 /**
  * New zombie object
  * @author kipsu
  */
-public class Zombie extends MovingObject {
+public class Zombie extends MovingObject implements DrawableObject {
 
 	/**
 	 * Constructor for the zombie class
@@ -16,7 +17,7 @@ public class Zombie extends MovingObject {
 	 * @param map Map where the zombie is added
 	 */
 	public Zombie(Point startingLocation, Map map) {
-		super(startingLocation, map, 2);
+		super(startingLocation, map,3, Color.GREEN);
 		this.speed = 0.3;
 	}
 	

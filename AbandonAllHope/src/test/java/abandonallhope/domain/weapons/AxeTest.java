@@ -17,7 +17,7 @@ public class AxeTest {
 
 	@Test
 	public void rangeIs3() {
-		assertEquals(3.0, axe.getRange(), 0.1);
+		assertEquals(4.0, axe.getRange(), 0.1);
 	}
 
 	@Test

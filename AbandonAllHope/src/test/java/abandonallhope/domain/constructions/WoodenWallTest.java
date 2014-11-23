@@ -3,6 +3,7 @@ package abandonallhope.domain.constructions;
 
 import abandonallhope.domain.Point;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,6 +47,18 @@ public class WoodenWallTest {
 	public void returnsHeight() {
 		createWall(Wall.Orientation.VERTICAL);
 		assertEquals(10, wall.getHeight(), 0.1);
+	}
+	
+	@Test
+	public void returnsCorrectColor() {
+		createWall(Wall.Orientation.VERTICAL);
+		assertEquals(Color.BROWN, wall.getColor());
+	}
+	
+	@Test
+	public void returnsCorrectCoordinates() {
+		createWall(Wall.Orientation.VERTICAL);
+		assertEquals(new Point(10, 10), wall.getUpperLeftCorner());
 	}
 	
 	@Test

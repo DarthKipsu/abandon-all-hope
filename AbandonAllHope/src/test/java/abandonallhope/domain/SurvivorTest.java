@@ -10,6 +10,7 @@ import abandonallhope.domain.weapons.Firearm;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -48,6 +49,11 @@ public class SurvivorTest {
 	}
 	
 	@Test
+	public void colorIsBlack() {
+		assertEquals(Color.BLACK, survivor.getColor());
+	}
+	
+	@Test
 	public void doesNotHaveAWeaponInitially() {
 		assertEquals(null, survivor.getWeapon());
 	}
@@ -72,8 +78,8 @@ public class SurvivorTest {
 	}
 	
 	@Test
-	public void occupies2x2Space() {
-		assertEquals(new Rectangle2D(9,9,2,2), survivor.occupiedArea());
+	public void occupies3x3Space() {
+		assertEquals(new Rectangle2D(8.5,8.5,3,3), survivor.occupiedArea());
 	}
 	
 	@Test
