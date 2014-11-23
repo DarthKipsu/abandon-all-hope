@@ -37,7 +37,7 @@ public class AbandonAllHope extends Application {
 		UserInterface ui = new UserInterface(game);
 		primaryStage.setTitle(":: Abandon All Hope ::");
 		Group root = new Group();
-		root.getChildren().add(ui.getCanvas());
+		root.getChildren().add(ui.getBorder());
 		ui.runGame();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();

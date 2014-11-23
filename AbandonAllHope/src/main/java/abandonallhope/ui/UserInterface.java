@@ -6,9 +6,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 /**
@@ -16,28 +15,30 @@ import javafx.util.Duration;
  * @author kipsu
  */
 public class UserInterface implements EventHandler {
-	private Canvas canvas;
-	private GraphicsContext gc;
-	private PersonDrawer personDrawer;
-	private BulletDrawer bulletDrawer;
+	private BorderPane border;
+	private GameCanvas canvas;
 	private Game game;
 	private Duration frameDuration;
 
 	/**
-	 * Creates a new user interface for a game
+	 * Creates a new user interface for a game, that handles game time line and
+	 * contains all parts the user interface consist of.
 	 * @param game game the user interface will use
 	 */
 	public UserInterface(Game game) {
-		canvas = new Canvas(500, 500);
-		gc = canvas.getGraphicsContext2D();
+		canvas = new GameCanvas(game);
+		border = new BorderPane();
+		border.setCenter(canvas.getCanvas());
 		this.game = game;
-		personDrawer = new PersonDrawer(game, gc);
-		bulletDrawer = new BulletDrawer(game, gc);
 		frameDuration = Duration.millis(1000 / 60);
 	}
 
-	public Canvas getCanvas() {
-		return canvas;
+	/**
+	 * Get the border pane element containing objects visible to user.
+	 * @return 
+	 */
+	public BorderPane getBorder() {
+		return border;
 	}
 	
 	/**
@@ -49,7 +50,7 @@ public class UserInterface implements EventHandler {
 		Timeline uiTimeline = createTimeline(this);
 		
 		SurvivorEvent selection = new SurvivorEvent(game);
-		canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, selection);
+		canvas.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, selection);
 		
 		gameTimeline.play();
 		uiTimeline.play();
@@ -63,9 +64,6 @@ public class UserInterface implements EventHandler {
 
 	@Override
 	public void handle(Event t) {
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		personDrawer.drawSurvivors();
-		personDrawer.drawZombies();
-		bulletDrawer.drawBullets();
+		canvas.handle(t);
 	}
 }
