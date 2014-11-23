@@ -1,5 +1,6 @@
 package abandonallhope.ui;
 
+import abandonallhope.domain.Point;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WoodenWall;
 import abandonallhope.events.action.WallEvent;
@@ -10,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 /**
  * Right ui panel containing objects about building and weapons.
@@ -46,8 +46,9 @@ public class BuildPanel {
 		
 		Button woodenWall = new Button("Wooden");
 		woodenWall.setPrefSize(100, 20);
-		woodenWall.setOnAction(new WallEvent(canvas, game, WallEvent.WallType.WOODEN));
-		
+		woodenWall.setOnAction(new WallEvent(canvas, game,
+				WallEvent.WallType.WOODEN));
+
 		vbox.getChildren().addAll(title, woodenWall);
 	}
 }

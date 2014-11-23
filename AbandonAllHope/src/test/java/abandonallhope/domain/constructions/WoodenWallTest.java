@@ -56,9 +56,30 @@ public class WoodenWallTest {
 	}
 	
 	@Test
-	public void returnsCorrectCoordinates() {
+	public void returnsCorrectLocation() {
 		createWall(Wall.Orientation.VERTICAL);
-		assertEquals(new Point(10, 10), wall.getUpperLeftCorner());
+		assertEquals(new Point(10, 10), wall.getLocation());
+	}
+	
+	@Test
+	public void changesLocationCorrectly() {
+		createWall(Wall.Orientation.VERTICAL);
+		wall.setLocation(new Point(5, 5));
+		assertEquals(new Point(5, 5), wall.getLocation());
+	}
+	
+	@Test
+	public void canChangeOrientation() {
+		createWall(Wall.Orientation.HORIZONAL);
+		wall.changeOrientation();
+		assertEquals(new Rectangle2D(10, 10, 2, 10), wall.occupiedArea());
+	}
+	
+	@Test
+	public void canChangeOrientation2() {
+		createWall(Wall.Orientation.VERTICAL);
+		wall.changeOrientation();
+		assertEquals(new Rectangle2D(10, 10, 10, 2), wall.occupiedArea());
 	}
 	
 	@Test

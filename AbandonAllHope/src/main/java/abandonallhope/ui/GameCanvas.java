@@ -1,9 +1,9 @@
 
 package abandonallhope.ui;
 
+import abandonallhope.domain.constructions.Wall;
 import abandonallhope.ui.drawing.ObjectsDrawer;
 import abandonallhope.ui.drawing.ConstructionHoverDrawer;
-import abandonallhope.events.action.WallEvent;
 import abandonallhope.events.mouse.SurvivorEvent;
 import abandonallhope.events.mouse.WallBuildEvent;
 import abandonallhope.events.mouse.WallHoverEvent;
@@ -71,9 +71,9 @@ public class GameCanvas implements EventHandler{
 	 * Adds event listeners to display a shadow of a wall before building it and
 	 * listener that will handle the wall building once the building location is clicked.
 	 */
-	public void addWallHoverEventListener(WallEvent.WallType type) {
-		wallHoverEvent = new WallHoverEvent(type, constrHoverDrawer);
-		wallBuildEvent = new WallBuildEvent(game, this, type);
+	public void addWallHoverEventListener(Wall wall) {
+		wallHoverEvent = new WallHoverEvent(wall, constrHoverDrawer);
+		wallBuildEvent = new WallBuildEvent(game, this, wall);
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
 		canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, wallBuildEvent);
 	}

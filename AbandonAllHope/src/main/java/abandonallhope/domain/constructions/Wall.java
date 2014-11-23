@@ -19,7 +19,7 @@ public abstract class Wall implements DrawableObject {
 		VERTICAL
 	};
 
-	protected Point upperLeftCorner;
+	protected Point location;
 	protected double width;
 	protected double height;
 	protected int hitPoints;
@@ -35,12 +35,12 @@ public abstract class Wall implements DrawableObject {
 			this.height = width;
 		}
 		hitPoints = maxHP;
-		upperLeftCorner = location;
+		this.location = location;
 		this.color = color;
 	}
 
-	public Point getUpperLeftCorner() {
-		return upperLeftCorner;
+	public Point getLocation() {
+		return location;
 	}
 
 	public double getWidth() {
@@ -53,6 +53,19 @@ public abstract class Wall implements DrawableObject {
 
 	public Color getColor() {
 		return color;
+	}
+
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+	
+	/**
+	 * Saves the orientation of the wall by exchanging width and height.
+	 */
+	public void changeOrientation() {
+		double savedHeight = height;
+		height = width;
+		width = savedHeight;
 	}
 
 	/**
@@ -70,6 +83,6 @@ public abstract class Wall implements DrawableObject {
 	 * @return occupied area
 	 */
 	public Rectangle2D occupiedArea() {
-		return new Rectangle2D(upperLeftCorner.x, upperLeftCorner.y, width, height);
+		return new Rectangle2D(location.x, location.y, width, height);
 	}
 }

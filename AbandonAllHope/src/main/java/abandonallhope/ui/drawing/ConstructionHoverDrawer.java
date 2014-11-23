@@ -1,8 +1,8 @@
 
 package abandonallhope.ui.drawing;
 
-import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -33,11 +33,9 @@ public class ConstructionHoverDrawer {
 		upperLeftY = 0;
 	}
 
-	public void setConstructionDimensions(WallEvent.WallType type) {
-		if (type == WallEvent.WallType.WOODEN) {
-			width = 10;
-			height = 2;
-		}
+	public void setConstructionDimensions(Rectangle2D wallDimension) {
+			width = (int)wallDimension.getWidth();
+			height = (int)wallDimension.getHeight();
 	}
 	
 	/**

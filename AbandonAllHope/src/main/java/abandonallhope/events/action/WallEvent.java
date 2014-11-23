@@ -1,6 +1,9 @@
 
 package abandonallhope.events.action;
 
+import abandonallhope.domain.Point;
+import abandonallhope.domain.constructions.Wall;
+import abandonallhope.domain.constructions.WoodenWall;
 import abandonallhope.logic.Game;
 import abandonallhope.logic.SurvivorSelector;
 import abandonallhope.ui.GameCanvas;
@@ -19,7 +22,8 @@ public class WallEvent implements EventHandler<ActionEvent> {
 
 	private GameCanvas canvas;
 	private Game game;
-	private WallType type;
+	private WallType wallType;
+	private Wall wall;
 
 	/**
 	 * Creates a new wall event.
@@ -27,17 +31,25 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	 * game field.
 	 * @param game Game object containing information about objects in game.
 	 */
-	public WallEvent(GameCanvas canvas, Game game, WallType type) {
+	public WallEvent(GameCanvas canvas, Game game, WallType wallType) {
 		this.canvas = canvas;
 		this.game = game;
-		this.type = type;
+		this.wallType = wallType;
 	}
 	
 	@Override
 	public void handle(ActionEvent t) {
 		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		createNewWall();
 		canvas.removeSurvivorSelectorEventListener();
-		canvas.addWallHoverEventListener(type);
+		canvas.addWallHoverEventListener(wall);
+	}
+
+	private void createNewWall() {
+		if (wallType == WallType.WOODEN) {
+			this.wall = new WoodenWall(Wall.Orientation.VERTICAL,
+					new Point(0, 500));
+		}
 	}
 	
 }
