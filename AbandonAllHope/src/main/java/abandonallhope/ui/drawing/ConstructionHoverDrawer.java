@@ -1,7 +1,9 @@
 
 package abandonallhope.ui.drawing;
 
+import abandonallhope.domain.DrawableObject;
 import abandonallhope.logic.Game;
+import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -11,10 +13,8 @@ import javafx.scene.paint.Color;
  * build mode.
  * @author kipsu
  */
-public class ConstructionHoverDrawer {
+public class ConstructionHoverDrawer extends Drawer {
 	
-	private Game game;
-	private GraphicsContext gc;
 	private int upperLeftX;
 	private int upperLeftY;
 	private int width;
@@ -27,8 +27,7 @@ public class ConstructionHoverDrawer {
 	 * @param gc graphics context to draw the object with
 	 */
 	public ConstructionHoverDrawer(Game game, GraphicsContext gc) {
-		this.game = game;
-		this.gc = gc;
+		super(game, gc);
 		upperLeftX = 0;
 		upperLeftY = 0;
 	}
@@ -52,12 +51,22 @@ public class ConstructionHoverDrawer {
 	 * Draws the construction shadows of the object player is hovering over game field.
 	 */
 	public void drawConstructionShadows() {
-		setGraphicsContextAttributes(Color.GRAY, Color.LIGHTGREEN, 1);
+		setGraphicsContextAttributes(Color.LIGHTGREEN, 1);
 		gc.strokeRect(upperLeftX, upperLeftY, width, height);
 	}
+	
+	/**
+	 * Draws unbuilt objects in the list.
+	 * @param objects List of objects to draw.
+	 */
+	public void drawUnbuilt(List<? extends DrawableObject> objects) {
+		for (DrawableObject obj : objects) {
+			setGCcolor(obj.getColor());
+			draw(obj);
+		}
+	}
 
-	private void setGraphicsContextAttributes(Color fill, Color stroke, int lineWidth) {
-		gc.setFill(fill);
+	private void setGraphicsContextAttributes(Color stroke, int lineWidth) {
 		gc.setStroke(stroke);
 		gc.setLineWidth(lineWidth);
 	}

@@ -8,6 +8,8 @@ import abandonallhope.events.mouse.SurvivorEvent;
 import abandonallhope.events.mouse.WallBuildEvent;
 import abandonallhope.events.mouse.WallHoverEvent;
 import abandonallhope.logic.Game;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -23,6 +25,7 @@ public class GameCanvas implements EventHandler{
 	private Game game;
 	private Canvas canvas;
 	private GraphicsContext gc;
+	private List<Wall> unbuiltWalls;
 	
 	private ObjectsDrawer objectsDrawer;
 	private ConstructionHoverDrawer constrHoverDrawer;
@@ -42,6 +45,7 @@ public class GameCanvas implements EventHandler{
 		objectsDrawer = new ObjectsDrawer(game, gc);
 		constrHoverDrawer = new ConstructionHoverDrawer(game, gc);
 		selectionEvent = new SurvivorEvent(game);
+		unbuiltWalls = new ArrayList<>();
 		addSurvivorSelectorEventListener();
 	}
 
@@ -51,6 +55,12 @@ public class GameCanvas implements EventHandler{
 
 	public GraphicsContext getGc() {
 		return gc;
+	}
+	
+	public void add(Wall... walls) {
+		for (Wall wall : walls) {
+			unbuiltWalls.add(wall);
+		}
 	}
 
 	/**
@@ -97,6 +107,7 @@ public class GameCanvas implements EventHandler{
 		objectsDrawer.drawObjects(game.getBullets());
 		if (wallHoverEvent != null) {
 			constrHoverDrawer.drawConstructionShadows();
+			constrHoverDrawer.drawUnbuilt(unbuiltWalls);
 		}
 	}
 	
