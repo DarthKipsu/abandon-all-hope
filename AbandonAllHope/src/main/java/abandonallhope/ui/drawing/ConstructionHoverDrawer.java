@@ -1,4 +1,3 @@
-
 package abandonallhope.ui.drawing;
 
 import abandonallhope.domain.DrawableObject;
@@ -9,20 +8,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- * class to draw construction hover shadows while hovering over game field during
- * build mode.
+ * class to draw construction hover shadows while hovering over game field
+ * during build mode.
+ *
  * @author kipsu
  */
 public class ConstructionHoverDrawer extends Drawer {
-	
+
 	private int upperLeftX;
 	private int upperLeftY;
+	private int wallWidth;
+	private int wallHeight;
 	private int width;
 	private int height;
 
 	/**
 	 * Creates a new construction hover drawing object, used to draw shadows of
 	 * constructions in build mode.
+	 *
 	 * @param game game object containing game content
 	 * @param gc graphics context to draw the object with
 	 */
@@ -32,37 +35,67 @@ public class ConstructionHoverDrawer extends Drawer {
 		upperLeftY = 0;
 	}
 
-	public void setConstructionDimensions(Rectangle2D wallDimension) {
-			width = (int)wallDimension.getWidth();
-			height = (int)wallDimension.getHeight();
+	/**
+	 * gives the drawer dimensions used to build the hover units
+	 * @param buildingDimension
+	 */
+	public void setConstructionDimensions(Rectangle2D buildingDimension) {
+		width = (int) buildingDimension.getWidth();
+		height = (int) buildingDimension.getHeight();
+		wallWidth = width;
+		wallHeight = height;
 	}
-	
+
 	/**
 	 * Updates the coordinates where the shadow wall is drawn to.
+	 *
 	 * @param x
-	 * @param y 
+	 * @param y
 	 */
 	public void updateUpperLeftCornerCoordinates(int x, int y) {
 		upperLeftX = x;
 		upperLeftY = y;
 	}
-	
+
 	/**
-	 * Draws the construction shadows of the object player is hovering over game field.
+	 * Updates the dimensions used to calculate how long wall units will be drawn
+	 * @param width width of the new wall, 0 if built vertically
+	 * @param height height of the new wall, 0 if built horizonally
+	 */
+	public void updateBuildingDimensions(int width, int height) {
+		if (width != 0) {
+			this.height = wallHeight;
+			this.width = (width / wallWidth) * wallWidth;
+		} else {
+			this.width = wallHeight;
+			this.height = (height / wallWidth) * wallWidth;
+		}
+	}
+
+	/**
+	 * Draws the construction shadows of the object player is hovering over game
+	 * field.
 	 */
 	public void drawConstructionShadows() {
 		setGraphicsContextAttributes(Color.LIGHTGREEN, 1);
-		gc.strokeRect(upperLeftX, upperLeftY, width, height);
+		if (width < 0) {
+			gc.strokeRect(upperLeftX + width, upperLeftY, Math.abs(width), height);
+		} else if (height < 0) {
+			gc.strokeRect(upperLeftX, upperLeftY + height, width, Math.abs(height));
+		} else {
+			gc.strokeRect(upperLeftX, upperLeftY, width, height);
+		}
 	}
-	
+
 	/**
 	 * Draws unbuilt objects in the list.
+	 *
 	 * @param objects List of objects to draw.
 	 */
 	public void drawUnbuilt(List<? extends DrawableObject> objects) {
 		for (DrawableObject obj : objects) {
-			setGCcolor(obj.getColor());
-			draw(obj);
+			setGraphicsContextAttributes(Color.LIGHTGREEN, 1);
+//			draw(obj);
 		}
 	}
 

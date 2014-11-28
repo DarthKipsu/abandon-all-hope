@@ -37,12 +37,13 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	@Override
 	public void handle(MouseEvent t) {
 		if (buildingIsFinal) {
-			canvas.removeWallHoverEventListener();
-			wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
+			canvas.removeWallBuildingEventListeners();
 			game.add(wall);
 		} else {
 			buildingIsFinal = true;
+			wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
 			canvas.add(wall);
+			canvas.changeToBuildHoverEventListener(wall);
 		}
 	}
 	

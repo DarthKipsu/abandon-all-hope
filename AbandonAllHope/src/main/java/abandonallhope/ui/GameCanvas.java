@@ -6,6 +6,7 @@ import abandonallhope.ui.drawing.ObjectsDrawer;
 import abandonallhope.ui.drawing.ConstructionHoverDrawer;
 import abandonallhope.events.mouse.SurvivorEvent;
 import abandonallhope.events.mouse.WallBuildEvent;
+import abandonallhope.events.mouse.WallBuildHoverEvent;
 import abandonallhope.events.mouse.WallHoverEvent;
 import abandonallhope.logic.Game;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class GameCanvas implements EventHandler{
 	private SurvivorEvent selectionEvent;
 	private WallHoverEvent wallHoverEvent;
 	private WallBuildEvent wallBuildEvent;
+	private WallBuildHoverEvent wallBuildHoverEvent;
 
 	/**
 	 * Creates a new game canvas and drawer classes to draw objects on game field.
@@ -91,9 +93,15 @@ public class GameCanvas implements EventHandler{
 	/**
 	 * Removes wall hover event from game canvas.
 	 */
-	public void removeWallHoverEventListener() {
+	public void changeToBuildHoverEventListener(Wall wall) {
+		wallBuildHoverEvent = new WallBuildHoverEvent(wall, constrHoverDrawer);
 		canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
+		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
+	}
+	
+	public void removeWallBuildingEventListeners() {
 		canvas.removeEventHandler(MouseEvent.MOUSE_CLICKED, wallBuildEvent);
+		canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
 		wallHoverEvent = null;
 		addSurvivorSelectorEventListener();
 	}
