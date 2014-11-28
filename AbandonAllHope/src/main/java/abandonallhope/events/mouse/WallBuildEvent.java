@@ -48,9 +48,15 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 			if (Math.abs(width) > Math.abs(height)) {
 				o = Wall.Orientation.HORIZONAL;
 				n = Math.abs(width) / wall.getWidth();
+				if (t.getSceneX() < startX) {
+					startX -= n * wall.getWidth();
+				}
 			} else {
 				o = Wall.Orientation.VERTICAL;
-				n = Math.abs(height) / wall.getHeight();
+				n = Math.abs(height) / wall.getWidth();
+				if (t.getSceneY() < startY) {
+					startY -= n * wall.getWidth();
+				}
 			}
 			for (int i = 0; i < n; i++) {
 				Point start = new Point(startX, startY);
@@ -63,7 +69,6 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 				}
 			}
 			canvas.removeWallBuildingEventListeners();
-			game.add(wall);
 		} else {
 			buildingIsFinal = true;
 			wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
