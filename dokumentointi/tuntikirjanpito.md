@@ -20,3 +20,4 @@ Päivämäärä | Tunnit | Aihe
 21.11.2014 | 1,5h | Luodin liikutus valmis, testien parantelua
 21.11.2014 | 0,5h | Javadocsit lopuille luokille
 23.11.2014 | 4,5h | Ensimmäinen seinä, seinän asetus kentälle, keskeneräinen
+27.11.2014 | 1h | Sekvenssikaaviot

@@ -3,8 +3,6 @@ package abandonallhope.events.mouse;
 
 import abandonallhope.domain.Point;
 import abandonallhope.domain.constructions.Wall;
-import abandonallhope.domain.constructions.WoodenWall;
-import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;
 import abandonallhope.ui.GameCanvas;
 import javafx.event.EventHandler;
@@ -19,6 +17,7 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	private Game game;
 	private GameCanvas canvas;
 	private Wall wall;
+	private boolean buildingIsFinal;
 
 	/**
 	 * Creates a new AllBuildEvent that will build the wall the player is hovering
@@ -32,13 +31,19 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 		this.game = game;
 		this.canvas = canvas;
 		this.wall = wall;
+		buildingIsFinal = false;
 	}
 
 	@Override
 	public void handle(MouseEvent t) {
-		canvas.removeWallHoverEventListener();
-		wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
-		game.add(wall);
+		if (buildingIsFinal) {
+			canvas.removeWallHoverEventListener();
+			wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
+			game.add(wall);
+		} else {
+			buildingIsFinal = true;
+			canvas.add(wall);
+		}
 	}
 	
 }
