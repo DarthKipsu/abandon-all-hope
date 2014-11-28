@@ -18,6 +18,10 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	private GameCanvas canvas;
 	private Wall wall;
 	private boolean buildingIsFinal;
+	
+	private double startX;
+	private double startY;
+	private int seinienMaara;
 
 	/**
 	 * Creates a new AllBuildEvent that will build the wall the player is
@@ -39,41 +43,74 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	@Override
 	public void handle(MouseEvent t) {
 		if (buildingIsFinal) {
-			double startX = wall.getLocation().x;
-			double startY = wall.getLocation().y;
-			int width = (int) (t.getSceneX() - startX);
-			int height = (int) (t.getSceneY() - startY);
-			Wall.Orientation o;
-			int n;
-			if (Math.abs(width) > Math.abs(height)) {
-				o = Wall.Orientation.HORIZONAL;
-				n = Math.abs(width) / wall.getWidth();
-				if (t.getSceneX() < startX) {
-					startX -= n * wall.getWidth();
-				}
-			} else {
-				o = Wall.Orientation.VERTICAL;
-				n = Math.abs(height) / wall.getWidth();
-				if (t.getSceneY() < startY) {
-					startY -= n * wall.getWidth();
-				}
-			}
-			for (int i = 0; i < n; i++) {
-				Point start = new Point(startX, startY);
-				Wall newWall = new Wall(wall.getType(), o, start);
-				game.add(newWall);
-				if (o == Wall.Orientation.HORIZONAL) {
-					startX += wall.getType().getWidth(o);
-				} else {
-					startY += wall.getType().getHeight(o);
-				}
-			}
-			canvas.removeWallBuildingEventListeners();
+			buildWallsAndRemoveEventHandlers(t);
 		} else {
-			buildingIsFinal = true;
-			wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
-			canvas.changeToBuildHoverEventListener(wall);
+			setStartLocationAndChangeEventHandlers(t);
 		}
+	}
+
+	private void buildWallsAndRemoveEventHandlers(MouseEvent t) {
+		startX = wall.getLocation().x;
+		startY = wall.getLocation().y;
+		Wall.Orientation orientation = setOrientation(t);
+		addWallsToGame(orientation);
+		canvas.removeWallBuildingEventListeners();
+	}
+
+	private void addWallsToGame(Wall.Orientation orientation) {
+		for (int i = 0; i < seinienMaara; i++) {
+			Wall newWall = new Wall(wall.getType(), orientation, new Point(startX, startY));
+			game.add(newWall);
+			addWallWidthToCoordinates(orientation);
+		}
+	}
+
+	private void addWallWidthToCoordinates(Wall.Orientation orientation) {
+		if (orientation == Wall.Orientation.HORIZONAL) {
+			startX += wall.getType().getWidth(orientation);
+		} else {
+			startY += wall.getType().getHeight(orientation);
+		}
+	}
+
+	private Wall.Orientation setOrientation(MouseEvent t) {
+		int buildingWidth = (int) (t.getSceneX() - startX);
+		int buildingHeight = (int) (t.getSceneY() - startY);
+		if (wallOrientationIsHorizonal(buildingWidth, buildingHeight)) {
+			setHorizonalWallDimensions(buildingWidth, t);
+			return Wall.Orientation.HORIZONAL;
+		} else {
+			setVerticalWallDimensions(buildingHeight, t);
+			return Wall.Orientation.VERTICAL;
+		}
+	}
+
+	private static boolean wallOrientationIsHorizonal(int buildingWidth, int buildingHeight) {
+		return Math.abs(buildingWidth) > Math.abs(buildingHeight);
+	}
+
+	private void setHorizonalWallDimensions(int buildingWidth, MouseEvent t) {
+		seinienMaara = Math.abs(buildingWidth) / wall.getWidth();
+		if (t.getSceneX() < startX) {
+			startX -= decreaseWallStartingPointWithWidth();
+		}
+	}
+
+	private void setVerticalWallDimensions(int buildingHeight, MouseEvent t) {
+		seinienMaara = Math.abs(buildingHeight) / wall.getWidth();
+		if (t.getSceneY() < startY) {
+			startY -= decreaseWallStartingPointWithWidth();
+		}
+	}
+
+	private double decreaseWallStartingPointWithWidth() {
+		return seinienMaara * wall.getWidth();
+	}
+
+	private void setStartLocationAndChangeEventHandlers(MouseEvent t) {
+		buildingIsFinal = true;
+		wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
+		canvas.changeToBuildHoverEventListener(wall);
 	}
 
 }
