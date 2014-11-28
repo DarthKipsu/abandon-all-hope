@@ -1,8 +1,6 @@
 package abandonallhope.ui;
 
-import abandonallhope.domain.Point;
-import abandonallhope.domain.constructions.Wall;
-import abandonallhope.domain.constructions.WoodenWall;
+import abandonallhope.domain.constructions.WallType;
 import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;
 import javafx.geometry.Insets;
@@ -47,7 +45,7 @@ public class BuildPanel {
 		Button woodenWall = new Button("Wooden");
 		woodenWall.setPrefSize(100, 20);
 		woodenWall.setOnAction(new WallEvent(canvas, game,
-				WallEvent.WallType.WOODEN));
+				WallType.WOODEN));
 
 		vbox.getChildren().addAll(title, woodenWall);
 	}

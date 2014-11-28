@@ -5,7 +5,7 @@ import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import abandonallhope.domain.constructions.Wall;
-import abandonallhope.domain.constructions.WoodenWall;
+import abandonallhope.domain.constructions.WallType;
 import abandonallhope.domain.weapons.Axe;
 import abandonallhope.domain.weapons.Magazine;
 import abandonallhope.domain.weapons.Pistol;
@@ -68,16 +68,16 @@ public class GameTest {
 	@Test
 	public void addsCorrectAmountOfWallsOneByOne() {
 		for (int i = 0; i < 50; i+=10) {
-			game.add(new WoodenWall(Wall.Orientation.HORIZONAL, new Point(i,i)));
+			game.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(i,i)));
 		}
 		assertEquals(5, game.getWalls().size());
 	}
 	
 	@Test
 	public void addsCorrectAmountOfWallsAtOnce() {
-		game.add(new WoodenWall(Wall.Orientation.HORIZONAL, new Point(5,10)),
-				new WoodenWall(Wall.Orientation.HORIZONAL, new Point(10,15)),
-				new WoodenWall(Wall.Orientation.HORIZONAL, new Point(15,20)));
+		game.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(5,10)),
+				new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(10,15)),
+				new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(15,20)));
 		assertEquals(3, game.getWalls().size());
 	}
 

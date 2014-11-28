@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
  * Superclass for walls.
  * @author kipsu
  */
-public abstract class Wall implements DrawableObject {
+public class Wall implements DrawableObject {
 
 	/**
 	 * Orientation of the wall.
@@ -25,18 +25,12 @@ public abstract class Wall implements DrawableObject {
 	protected int hitPoints;
 	protected Color color;
 
-	public Wall(Orientation o, double width, double height, int maxHP, 
-			Point location, Color color) {
-		if (o == Orientation.HORIZONAL) {
-			this.width = width;
-			this.height = height;
-		} else {
-			this.width = height;
-			this.height = width;
-		}
-		hitPoints = maxHP;
+	public Wall(WallType wallType, Orientation o, Point location) {
+		this.width = wallType.getWidth(o);
+		this.height = wallType.getHeight(o);
+		hitPoints = wallType.getMaxHP();
+		this.color = wallType.getColor();
 		this.location = location;
-		this.color = color;
 	}
 
 	public Point getLocation() {
@@ -51,10 +45,15 @@ public abstract class Wall implements DrawableObject {
 		return height;
 	}
 
+	@Override
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Set wall location
+	 * @param location 
+	 */
 	public void setLocation(Point location) {
 		this.location = location;
 	}
@@ -82,6 +81,7 @@ public abstract class Wall implements DrawableObject {
 	 * Get the area this object is occupying at the moment
 	 * @return occupied area
 	 */
+	@Override
 	public Rectangle2D occupiedArea() {
 		return new Rectangle2D(location.x, location.y, width, height);
 	}
