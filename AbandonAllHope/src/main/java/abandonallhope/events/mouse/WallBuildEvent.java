@@ -1,4 +1,3 @@
-
 package abandonallhope.events.mouse;
 
 import abandonallhope.domain.Point;
@@ -10,21 +9,24 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Event handler to build walls when user clicks their build location.
+ *
  * @author kipsu
  */
 public class WallBuildEvent implements EventHandler<MouseEvent> {
-	
+
 	private Game game;
 	private GameCanvas canvas;
 	private Wall wall;
 	private boolean buildingIsFinal;
 
 	/**
-	 * Creates a new AllBuildEvent that will build the wall the player is hovering
-	 * over game field on click. Will also remove event listeners related to building
-	 * walls.
+	 * Creates a new AllBuildEvent that will build the wall the player is
+	 * hovering over game field on click. Will also remove event listeners
+	 * related to building walls.
+	 *
 	 * @param game game where the wall will be built
-	 * @param canvas canvas with event listeners to build the wall and it's shadow
+	 * @param canvas canvas with event listeners to build the wall and it's
+	 * shadow
 	 * @param wall Wall type
 	 */
 	public WallBuildEvent(Game game, GameCanvas canvas, Wall wall) {
@@ -37,6 +39,29 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	@Override
 	public void handle(MouseEvent t) {
 		if (buildingIsFinal) {
+			double startX = wall.getLocation().x;
+			double startY = wall.getLocation().y;
+			int width = (int) (t.getSceneX() - startX);
+			int height = (int) (t.getSceneY() - startY);
+			Wall.Orientation o;
+			int n;
+			if (Math.abs(width) > Math.abs(height)) {
+				o = Wall.Orientation.HORIZONAL;
+				n = Math.abs(width) / wall.getWidth();
+			} else {
+				o = Wall.Orientation.VERTICAL;
+				n = Math.abs(height) / wall.getHeight();
+			}
+			for (int i = 0; i < n; i++) {
+				Point start = new Point(startX, startY);
+				Wall newWall = new Wall(wall.getType(), o, start);
+				game.add(newWall);
+				if (o == Wall.Orientation.HORIZONAL) {
+					startX += wall.getType().getWidth(o);
+				} else {
+					startY += wall.getType().getHeight(o);
+				}
+			}
 			canvas.removeWallBuildingEventListeners();
 			game.add(wall);
 		} else {
@@ -45,5 +70,5 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 			canvas.changeToBuildHoverEventListener(wall);
 		}
 	}
-	
+
 }
