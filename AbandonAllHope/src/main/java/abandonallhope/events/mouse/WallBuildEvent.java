@@ -42,7 +42,6 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 		} else {
 			buildingIsFinal = true;
 			wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
-			canvas.add(wall);
 			canvas.changeToBuildHoverEventListener(wall);
 		}
 	}

@@ -26,7 +26,6 @@ public class GameCanvas implements EventHandler{
 	private Game game;
 	private Canvas canvas;
 	private GraphicsContext gc;
-	private List<Wall> unbuiltWalls;
 	
 	private ObjectsDrawer objectsDrawer;
 	private ConstructionHoverDrawer constrHoverDrawer;
@@ -47,7 +46,6 @@ public class GameCanvas implements EventHandler{
 		objectsDrawer = new ObjectsDrawer(game, gc);
 		constrHoverDrawer = new ConstructionHoverDrawer(game, gc);
 		selectionEvent = new SurvivorEvent(game);
-		unbuiltWalls = new ArrayList<>();
 		addSurvivorSelectorEventListener();
 	}
 
@@ -57,12 +55,6 @@ public class GameCanvas implements EventHandler{
 
 	public GraphicsContext getGc() {
 		return gc;
-	}
-	
-	public void add(Wall... walls) {
-		for (Wall wall : walls) {
-			unbuiltWalls.add(wall);
-		}
 	}
 
 	/**
@@ -82,6 +74,7 @@ public class GameCanvas implements EventHandler{
 	/**
 	 * Adds event listeners to display a shadow of a wall before building it and
 	 * listener that will handle the wall building once the building location is clicked.
+	 * @param wall wall element containing information about the wall type
 	 */
 	public void addWallHoverEventListener(Wall wall) {
 		wallHoverEvent = new WallHoverEvent(wall, constrHoverDrawer);
@@ -92,6 +85,7 @@ public class GameCanvas implements EventHandler{
 
 	/**
 	 * Removes wall hover event from game canvas.
+	 * @param wall wall element containing information about the wall type
 	 */
 	public void changeToBuildHoverEventListener(Wall wall) {
 		wallBuildHoverEvent = new WallBuildHoverEvent(wall, constrHoverDrawer);
@@ -99,6 +93,10 @@ public class GameCanvas implements EventHandler{
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
 	}
 	
+	/**
+	 * Remove all event listeners for building a wall and add survivor selector
+	 * event listener.
+	 */
 	public void removeWallBuildingEventListeners() {
 		canvas.removeEventHandler(MouseEvent.MOUSE_CLICKED, wallBuildEvent);
 		canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
@@ -115,7 +113,6 @@ public class GameCanvas implements EventHandler{
 		objectsDrawer.drawObjects(game.getBullets());
 		if (wallHoverEvent != null) {
 			constrHoverDrawer.drawConstructionShadows();
-			constrHoverDrawer.drawUnbuilt(unbuiltWalls);
 		}
 	}
 	
