@@ -73,13 +73,17 @@ public class Map {
 	public boolean hasObstacle(double x, double y) {
 		for (Wall wall : walls) {
 			if (wall.occupiedArea().contains(x, y)) {
-				if (wall.breakDown()) {
-					walls.remove(wall);
-				}
+				removeWallIfItBreaks(wall);
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private void removeWallIfItBreaks(Wall wall) {
+		if (wall.breakDown()) {
+			walls.remove(wall);
+		}
 	}
 
 	@Override

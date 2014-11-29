@@ -80,7 +80,14 @@ public class Wall implements DrawableObject {
 	 */
 	public boolean breakDown() {
 		hitPoints--;
+		changeWallColorToRedIfHitPointsTooLow();
 		return hitPoints < 0;
+	}
+
+	private void changeWallColorToRedIfHitPointsTooLow() {
+		if (hitPoints < 200) {
+			color = Color.RED;
+		}
 	}
 	
 	/**
