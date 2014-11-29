@@ -21,3 +21,6 @@ Päivämäärä | Tunnit | Aihe
 21.11.2014 | 0,5h | Javadocsit lopuille luokille
 23.11.2014 | 4,5h | Ensimmäinen seinä, seinän asetus kentälle, keskeneräinen
 27.11.2014 | 1h | Sekvenssikaaviot
+28.11.2014 | 3h | Useanseinän rakennus kentälle samalla kertaa
+29.11.2014 | 1h | Tyypit ei kulje seinien läpi,seinät menee rikki
+29.11.2014 | 1,5h | Ansat ja niiden asetus kartalle, eivät vielä tee mitään
