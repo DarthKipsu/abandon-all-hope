@@ -38,6 +38,7 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent t) {
 		new SurvivorSelector(game.getSurvivors()).unselectAll();
 		createNewWall();
+		canvas.removeTrapBuildingEventListeners();
 		canvas.removeSurvivorSelectorEventListener();
 		canvas.addWallHoverEventListener(wall);
 	}

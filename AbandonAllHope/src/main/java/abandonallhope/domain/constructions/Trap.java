@@ -43,6 +43,10 @@ public class Trap implements DrawableObject {
 		return location;
 	}
 
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+
 	/**
 	 * Returns true if capacity is not full
 	 * @return false if capacity is full

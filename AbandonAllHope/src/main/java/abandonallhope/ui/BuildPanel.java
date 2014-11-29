@@ -1,6 +1,8 @@
 package abandonallhope.ui;
 
+import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.WallType;
+import abandonallhope.events.action.TrapEvent;
 import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;
 import javafx.geometry.Insets;
@@ -39,14 +41,30 @@ public class BuildPanel {
 	}
 
 	private void createVBoxContent() {
-		Label title = new Label("Build a wall:");
-		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		addTitle("Build a wall:");
+		addWallButton("Wooden", WallType.WOODEN);
 		
-		Button woodenWall = new Button("Wooden");
-		woodenWall.setPrefSize(100, 20);
-		woodenWall.setOnAction(new WallEvent(canvas, game,
-				WallType.WOODEN));
+		addTitle("Build a trap:");
+		addTrapButton("Bear Iron", TrapType.BEARIRON);
+	}
 
-		vbox.getChildren().addAll(title, woodenWall);
+	private void addTitle(String text) {
+		Label title = new Label(text);
+		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		vbox.getChildren().add(title);
+	}
+
+	private void addWallButton(String name, WallType wallType) {
+		Button wall = new Button(name);
+		wall.setPrefSize(100, 20);
+		wall.setOnAction(new WallEvent(canvas, game, wallType));
+		vbox.getChildren().add(wall);
+	}
+
+	private void addTrapButton(String name, TrapType trapType) {
+		Button trap = new Button(name);
+		trap.setPrefSize(100, 20);
+		trap.setOnAction(new TrapEvent(canvas, game, trapType));
+		vbox.getChildren().add(trap);
 	}
 }

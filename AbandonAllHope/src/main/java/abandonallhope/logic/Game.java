@@ -5,6 +5,7 @@ import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
+import abandonallhope.domain.constructions.Trap;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.weapons.Bullet;
 import abandonallhope.domain.weapons.Firearm;
@@ -25,6 +26,7 @@ public class Game implements EventHandler {
 	private List<Survivor> survivors;
 	private List<Bullet> bullets;
 	private List<Wall> walls;
+	private List<Trap> traps;
 
 	/**
 	 * Create new game event handler
@@ -35,6 +37,7 @@ public class Game implements EventHandler {
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
+		traps = new ArrayList<>();
 		map = new Map(mapSize, mapSize, survivors, walls);
 	}
 
@@ -52,6 +55,10 @@ public class Game implements EventHandler {
 
 	public List<Wall> getWalls() {
 		return walls;
+	}
+
+	public List<Trap> getTraps() {
+		return traps;
 	}
 
 	public Map getMap() {
@@ -85,6 +92,16 @@ public class Game implements EventHandler {
 	public void add(Wall... walls) {
 		for (Wall wall : walls) {
 			this.walls.add(wall);
+		}
+	}
+	
+	/**
+	 * Add one or more traps to the game.
+	 * @param traps 
+	 */
+	public void add(Trap... traps) {
+		for (Trap trap : traps) {
+			this.traps.add(trap);
 		}
 	}
 
