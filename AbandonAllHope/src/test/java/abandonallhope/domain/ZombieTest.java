@@ -1,6 +1,8 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Wall;
+import abandonallhope.domain.constructions.WallType;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
@@ -14,11 +16,13 @@ public class ZombieTest {
 	private double speed;
 	private Map map;
 	private List<Survivor> survivors;
+	private List<Wall> walls;
 	
 	@Before
 	public void setUp() {
 		survivors = new ArrayList<>();
-		map = new Map(30, survivors, new ArrayList());
+		walls = new ArrayList<>();
+		map = new Map(30, survivors, walls);
 		zombie = new Zombie(new Point(10, 10), map);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map));
@@ -127,6 +131,21 @@ public class ZombieTest {
 		moveNtimes(1, 1, 75);
 		assertEquals(30, zombie.getLocation().x, 0.2);
 		assertEquals(30, zombie.getLocation().y, 0.2);
+	}
+	
+	@Test
+	public void zombieDoesNotPassAWall() {
+		walls.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(5, 10.2)));
+		zombie.move();
+		assertFalse(new Point(10 + speed, 10 + speed).equals(zombie.location));
+	}
+	
+	@Test
+	public void zombieTakesRandomStepIfFacedWithWall() {
+		walls.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(5, 10.2)));
+		zombie.move();
+		assertTrue(new Point(10 - speed, 10.0).equals(zombie.getLocation()) ||
+				   new Point(10.0, 10 - speed).equals(zombie.getLocation()));
 	}
 	
 	private void moveNtimes(int x, int y, int n) {

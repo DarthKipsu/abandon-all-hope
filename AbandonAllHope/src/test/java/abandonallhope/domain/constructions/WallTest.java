@@ -15,32 +15,32 @@ public class WallTest {
 	public void createsCorrectDimensionsForHorizonalWall() {
 		createWall(WallType.WOODEN, Wall.Orientation.HORIZONAL);
 		assertEquals(10, wall.width, 0.1);
-		assertEquals(2, wall.height, 0.1);
+		assertEquals(3, wall.height, 0.1);
 	}
 	
 	@Test
 	public void returnsCorrectOccupiedAreaForHorizonalWall() {
 		createWall(WallType.WOODEN, Wall.Orientation.HORIZONAL);
-		assertEquals(new Rectangle2D(10, 10, 10, 2), wall.occupiedArea());
+		assertEquals(new Rectangle2D(10, 10, 10, 3), wall.occupiedArea());
 	}
 	
 	@Test
 	public void createsCorrectDimensionsForVerticalWall() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
-		assertEquals(2, wall.width, 0.1);
+		assertEquals(3, wall.width, 0.1);
 		assertEquals(10, wall.height, 0.1);
 	}
 	
 	@Test
 	public void returnsCorrectOccupiedAreaForVerticalWall() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
-		assertEquals(new Rectangle2D(10, 10, 2, 10), wall.occupiedArea());
+		assertEquals(new Rectangle2D(10, 10, 3, 10), wall.occupiedArea());
 	}
 	
 	@Test
 	public void returnsWidth() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
-		assertEquals(2, wall.getWidth(), 0.1);
+		assertEquals(3, wall.getWidth(), 0.1);
 	}
 	
 	@Test
@@ -72,14 +72,14 @@ public class WallTest {
 	public void canChangeOrientation() {
 		createWall(WallType.WOODEN, Wall.Orientation.HORIZONAL);
 		wall.changeOrientation();
-		assertEquals(new Rectangle2D(10, 10, 2, 10), wall.occupiedArea());
+		assertEquals(new Rectangle2D(10, 10, 3, 10), wall.occupiedArea());
 	}
 	
 	@Test
 	public void canChangeOrientation2() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
 		wall.changeOrientation();
-		assertEquals(new Rectangle2D(10, 10, 10, 2), wall.occupiedArea());
+		assertEquals(new Rectangle2D(10, 10, 10, 3), wall.occupiedArea());
 	}
 	
 	@Test
