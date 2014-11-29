@@ -9,13 +9,12 @@ import abandonallhope.events.mouse.WallBuildEvent;
 import abandonallhope.events.mouse.WallBuildHoverEvent;
 import abandonallhope.events.mouse.WallHoverEvent;
 import abandonallhope.logic.Game;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 /**
  * Contains game field presentation and object drawing.
@@ -106,7 +105,8 @@ public class GameCanvas implements EventHandler{
 
 	@Override
 	public void handle(Event t) {
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.setFill(Color.KHAKI);
+		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		objectsDrawer.drawObjects(game.getWalls());
 		objectsDrawer.drawSurvivors();
 		objectsDrawer.drawObjects(game.getZombies());
