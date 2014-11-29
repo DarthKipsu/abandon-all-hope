@@ -6,7 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
 /**
- * Superclass for walls.
+ * Walls are used to hold zombies from closing the survivors.
  * @author kipsu
  */
 public class Wall implements DrawableObject {
@@ -26,6 +26,12 @@ public class Wall implements DrawableObject {
 	protected int hitPoints;
 	protected Color color;
 
+	/**
+	 * Create a new wall object.
+	 * @param wallType Type of the wall
+	 * @param o Orientation of the wall
+	 * @param location Wall location
+	 */
 	public Wall(WallType wallType, Orientation o, Point location) {
 		this.type = wallType;
 		this.width = wallType.getWidth(o);
