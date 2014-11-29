@@ -2,6 +2,8 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Wall;
+import abandonallhope.domain.constructions.WallType;
 import abandonallhope.domain.weapons.Weapon;
 import abandonallhope.domain.weapons.Pistol;
 import abandonallhope.domain.weapons.Magazine;
@@ -21,11 +23,13 @@ public class SurvivorTest {
 	private double speed;
 	private Map map;
 	private List<Survivor> survivors;
+	private List<Wall> walls;
 	
 	@Before
 	public void setUp() {
 		survivors = new ArrayList<>();
-		map = new Map(30, survivors);
+		walls = new ArrayList<Wall>();
+		map = new Map(30, survivors, walls);
 		survivor = new Survivor(new Point(10, 10), map);
 		speed = survivor.getSpeed();
 	}
@@ -190,6 +194,23 @@ public class SurvivorTest {
 	public void doesNotMoveWithoutCoordinates() {
 		survivor.move();
 		assertEquals(new Point(10, 10), survivor.getLocation());
+	}
+	
+	@Test
+	public void doesNotMoveThroughWalls() {
+		walls.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(5, 10.2)));
+		survivor.moveTowards(new Point(10, 15));
+		survivor.move();
+		assertEquals(new Point(10, 10), survivor.getLocation());
+		assertEquals(null, survivor.destination);
+	}
+	
+	@Test
+	public void stopsIfComesAcrossAWall() {
+		walls.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(5, 10.2)));
+		survivor.moveTowards(new Point(10, 15));
+		survivor.move();
+		assertEquals(null, survivor.destination);
 	}
 	
 	private void moveNtimes(int x, int y, int n) {

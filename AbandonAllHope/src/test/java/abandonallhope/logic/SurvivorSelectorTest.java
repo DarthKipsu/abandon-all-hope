@@ -19,7 +19,7 @@ public class SurvivorSelectorTest {
 	public void setUp() {
 		survivors = new ArrayList<Survivor>();
 		selector = new SurvivorSelector(survivors);
-		Map map = new Map(30, survivors);
+		Map map = new Map(30, survivors, new ArrayList());
 		survivors.add(new Survivor(new Point(10, 10), map));
 		survivors.add(new Survivor(new Point(20, 20), map));
 	}

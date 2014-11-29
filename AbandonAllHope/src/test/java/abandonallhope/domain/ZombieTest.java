@@ -18,7 +18,7 @@ public class ZombieTest {
 	@Before
 	public void setUp() {
 		survivors = new ArrayList<>();
-		map = new Map(30, survivors);
+		map = new Map(30, survivors, new ArrayList());
 		zombie = new Zombie(new Point(10, 10), map);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map));

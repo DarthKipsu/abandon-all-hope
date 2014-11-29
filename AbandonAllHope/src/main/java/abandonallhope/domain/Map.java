@@ -1,6 +1,7 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Wall;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ public class Map {
 	private double width;
 	private double height;
 	private List<Survivor> survivors;
+	private List<Wall> walls;
 
 	/**
 	 * Creates a new game map
@@ -19,10 +21,11 @@ public class Map {
 	 * @param height map height
 	 * @Param survivors list of survivors
 	*/
-	public Map(int width, int height, List<Survivor> survivors) {
+	public Map(int width, int height, List<Survivor> survivors, List<Wall>walls) {
 		this.width = width;
 		this.height = height;
 		this.survivors = survivors;
+		this.walls = walls;
 	}
 
 	/**
@@ -30,8 +33,8 @@ public class Map {
 	 * @param size map side length
 	 * @Param survivors list of survivors
 	*/
-	public Map(int size, List<Survivor> survivors) {
-		this(size, size, survivors);
+	public Map(int size, List<Survivor> survivors, List<Wall>walls) {
+		this(size, size, survivors, walls);
 	}
 
 	public List<Survivor> getSurvivors() {
@@ -57,6 +60,23 @@ public class Map {
 	public boolean isValidMove(Point point, double dx, double dy) {
 		return point.x + dx >= 0 && point.x + dx <= width && 
 				point.y + dy >= 0 && point.y + dy <= height;
+	}
+	
+	/**
+	 * Returns true if given point with displacements added contains a wall
+	 * or a trap in game map.
+	 * @param point point that needs to be validated
+	 * @param dx displacement to x direction
+	 * @param dy displacement to y direction
+	 * @return true if location contains a wall
+	 */
+	public boolean hasObstacle(double x, double y) {
+		for (Wall wall : walls) {
+			if (wall.occupiedArea().contains(x, y)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

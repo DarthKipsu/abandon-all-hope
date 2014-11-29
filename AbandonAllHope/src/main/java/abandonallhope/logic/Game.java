@@ -35,7 +35,7 @@ public class Game implements EventHandler {
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
-		map = new Map(mapSize, mapSize, survivors);
+		map = new Map(mapSize, mapSize, survivors, walls);
 	}
 
 	public List<Survivor> getSurvivors() {

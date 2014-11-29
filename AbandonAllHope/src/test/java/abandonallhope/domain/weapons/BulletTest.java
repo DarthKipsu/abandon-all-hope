@@ -78,7 +78,7 @@ public class BulletTest {
 	public void createBullet(int startX, int startY, int destX, int destY, int distance) {
 		bullet = new Bullet(
 				new Point(startX, startY), 
-				new Map(500, new ArrayList()), 
+				new Map(500, new ArrayList(), new ArrayList()), 
 				new Point(destX, destY), 
 				distance
 		);

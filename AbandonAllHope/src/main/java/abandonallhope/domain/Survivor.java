@@ -1,4 +1,3 @@
-
 package abandonallhope.domain;
 
 import abandonallhope.domain.weapons.Firearm;
@@ -7,17 +6,19 @@ import javafx.scene.paint.Color;
 
 /**
  * New survivor object
+ *
  * @author kipsu
  */
 public class Survivor extends MovingObject implements DrawableObject {
-	
+
 	private boolean selected;
-	private Point destination;
+	protected Point destination;
 	private Weapon weapon;
 	private Firearm gun;
 
 	/**
 	 * Constructor for the survivor class
+	 *
 	 * @param startingLocation location where the survivor will be placed when
 	 * entering game
 	 * @param map Map where the survivor is added
@@ -47,41 +48,56 @@ public class Survivor extends MovingObject implements DrawableObject {
 	public boolean isSelected() {
 		return selected;
 	}
-	
+
 	public void select() {
 		selected = true;
 	}
-	
+
 	public void unselect() {
 		selected = false;
 	}
-	
+
 	/**
-	 * Move towards another point in the game
-	 * Moves until the destination is reached or a new destination set.
-	 * @param destination 
+	 * Move towards another point in the game Moves until the destination is
+	 * reached or a new destination set.
+	 *
+	 * @param destination
 	 */
 	public void moveTowards(Point destination) {
 		this.destination = destination;
 	}
 
 	/**
-	 * Move towards a direction if a direction is set.
-	 * You can set direction with moveTowards()
+	 * Move towards a direction if a direction is set and no obstacles are
+	 * ahead. You can set direction with moveTowards()
 	 */
 	@Override
 	public void move() {
 		if (destination != null) {
-			move(destination.x - location.x, destination.y - location.y);
-			if (hasReachedLocation()) {
-				destination = null;
+			double dx = normalize(destination.x - location.x);
+			double dy = normalize(destination.y - location.y);
+			if (map.hasObstacle(location.x + dx, location.y + dy)) {
+				stop();
+			} else {
+				moveOnce(dx, dy);
 			}
 		}
 	}
-	
-	protected boolean hasReachedLocation() {
-		return Math.abs(location.x - destination.x) < 0.5 &&
-			   Math.abs(location.y - destination.y) < 0.5;
+
+	private void stop() {
+		destination = null;
 	}
-	
+
+	private void moveOnce(double dx, double dy) {
+		move(dx, dy);
+		if (hasReachedLocation()) {
+			stop();
+		}
+	}
+
+	protected boolean hasReachedLocation() {
+		return Math.abs(location.x - destination.x) < 0.5
+				&& Math.abs(location.y - destination.y) < 0.5;
+	}
+
 }
