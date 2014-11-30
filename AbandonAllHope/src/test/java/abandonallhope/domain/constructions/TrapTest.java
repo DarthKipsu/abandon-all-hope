@@ -22,7 +22,7 @@ public class TrapTest {
 	@Before
 	public void setUp() {
 		List<Survivor> survivors = new ArrayList<>();
-		survivors.add(new Survivor(new Point(20,20), map));
+		survivors.add(new Survivor(new Point(20,20), map, "name", 1));
 		traps = new ArrayList<>();
 		map = new Map(30, survivors, new ArrayList<Wall>(), traps);
 		new Zombie(new Point(9.8, 9.8), map);

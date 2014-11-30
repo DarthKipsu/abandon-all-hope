@@ -15,5 +15,10 @@ public class Pistol extends Firearm {
 	public Pistol(Magazine bullets) {
 		super(35, 600, bullets);
 	}
+
+	@Override
+	public String toString() {
+		return "pistol";
+	}
 	
 }

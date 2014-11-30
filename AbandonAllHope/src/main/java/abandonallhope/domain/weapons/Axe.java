@@ -14,5 +14,10 @@ public class Axe extends Weapon {
 	public Axe() {
 		super(4, 120);
 	}
+
+	@Override
+	public String toString() {
+		return "Axe";
+	}
 	
 }

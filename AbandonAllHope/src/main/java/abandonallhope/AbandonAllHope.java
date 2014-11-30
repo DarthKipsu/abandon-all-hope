@@ -33,7 +33,7 @@ public class AbandonAllHope extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Game game = new Game(500);
-		addFigures(5, 2, game);
+		addFigures(10, 2, game);
 		UserInterface ui = new UserInterface(game);
 		primaryStage.setTitle(":: Abandon All Hope ::");
 		Group root = new Group();
@@ -51,18 +51,19 @@ public class AbandonAllHope extends Application {
 	 */
 	public void addFigures(int zombie, int survivor, Game game) {
 		Random random = new Random();
+		String[] names = new String[]{"Uolevi", "Maija"};
 		for (int i = 0; i < zombie; i++) {
 			game.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500)), game.getMap()));
 		}
 		for (int i = 0; i < survivor; i++) {
-			game.add(new Survivor(new Point(random.nextInt(500), random.nextInt(500)), game.getMap()));
+			game.add(new Survivor(new Point(random.nextInt(500), random.nextInt(500)), game.getMap(), names[i], i+1));
 			List<Survivor> survivors = game.getSurvivors();
 			survivors.get(survivors.size() - 1).setWeapon(new Axe());
-//			if (i == 0) {
+			if (i == 0) {
 				Magazine magazine = new Magazine();
 				magazine.add(2);
 				survivors.get(survivors.size() - 1).setGun(new Pistol(magazine));
-//			}
+			}
 		}
 	}
 	

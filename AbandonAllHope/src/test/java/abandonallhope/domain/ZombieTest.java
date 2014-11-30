@@ -29,7 +29,7 @@ public class ZombieTest {
 		map = new Map(30, survivors, walls, traps);
 		zombie = new Zombie(new Point(10, 10), map);
 		speed = zombie.getSpeed();
-		survivors.add(new Survivor(new Point(20,20), map));
+		survivors.add(new Survivor(new Point(20,20), map, "name", 1));
 	}
 	
 	@Test
@@ -45,22 +45,22 @@ public class ZombieTest {
 	
 	@Test
 	public void movesTowardsNearestSurvivor2() {
-		survivors.add(new Survivor(new Point(8, 8), map));
+		survivors.add(new Survivor(new Point(8, 8), map, "name", 1));
 		zombie.move();
 		assertEquals(new Point(10 - speed, 10 - speed), zombie.getLocation());
 	}
 	
 	@Test
 	public void movesTowardsNearestSurvivor3() {
-		survivors.add(new Survivor(new Point(12, 8), map));
-		survivors.add(new Survivor(new Point(2, 8), map));
+		survivors.add(new Survivor(new Point(12, 8), map, "name", 1));
+		survivors.add(new Survivor(new Point(2, 8), map, "name", 1));
 		zombie.move();
 		assertEquals(new Point(10 + speed, 10 - speed), zombie.getLocation());
 	}
 	
 	@Test
 	public void doesNotMoveIfOnTopOfSurvivor() {
-		survivors.add(new Survivor(new Point(10, 10), map));
+		survivors.add(new Survivor(new Point(10, 10), map, "name", 1));
 		zombie.move();
 		assertEquals(new Point(10, 10), zombie.getLocation());
 	}

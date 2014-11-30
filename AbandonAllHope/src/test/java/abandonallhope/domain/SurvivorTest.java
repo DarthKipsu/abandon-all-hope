@@ -33,7 +33,7 @@ public class SurvivorTest {
 		walls = new ArrayList<Wall>();
 		traps = new ArrayList<>();
 		map = new Map(30, survivors, walls, traps);
-		survivor = new Survivor(new Point(10, 10), map);
+		survivor = new Survivor(new Point(10, 10), map, "Uolevi", 1);
 		speed = survivor.getSpeed();
 	}
 	

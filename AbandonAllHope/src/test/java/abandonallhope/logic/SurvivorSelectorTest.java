@@ -20,8 +20,8 @@ public class SurvivorSelectorTest {
 		survivors = new ArrayList<Survivor>();
 		selector = new SurvivorSelector(survivors);
 		Map map = new Map(30, survivors, new ArrayList(), new ArrayList());
-		survivors.add(new Survivor(new Point(10, 10), map));
-		survivors.add(new Survivor(new Point(20, 20), map));
+		survivors.add(new Survivor(new Point(10, 10), map, "name", 1));
+		survivors.add(new Survivor(new Point(20, 20), map, "name", 1));
 	}
 	
 	@Test

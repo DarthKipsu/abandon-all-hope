@@ -15,6 +15,8 @@ public class Survivor extends MovingObject implements DrawableObject {
 	protected Point destination;
 	private Weapon weapon;
 	private Firearm gun;
+	private String name;
+	private int id;
 
 	/**
 	 * Constructor for the survivor class
@@ -23,8 +25,10 @@ public class Survivor extends MovingObject implements DrawableObject {
 	 * entering game
 	 * @param map Map where the survivor is added
 	 */
-	public Survivor(Point startingLocation, Map map) {
+	public Survivor(Point startingLocation, Map map, String name, int id) {
 		super(startingLocation, map, 3, Color.BLACK);
+		this.name = name;
+		this.id = id;
 		this.speed = 0.5;
 		selected = false;
 	}
@@ -39,6 +43,14 @@ public class Survivor extends MovingObject implements DrawableObject {
 
 	public Firearm getGun() {
 		return gun;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public void setGun(Firearm gun) {

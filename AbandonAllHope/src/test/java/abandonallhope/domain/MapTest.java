@@ -16,8 +16,8 @@ public class MapTest {
 	public void setUp() {
 		survivors = new ArrayList<>();
 		map = new Map(500, 500, survivors, new ArrayList(), new ArrayList());
-		survivors.add(new Survivor(new Point(50, 20), map));
-		survivors.add(new Survivor(new Point(20, 50), map));
+		survivors.add(new Survivor(new Point(50, 20), map, "name", 1));
+		survivors.add(new Survivor(new Point(20, 50), map, "name", 2));
 	}
 	
 	@Test

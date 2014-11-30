@@ -28,16 +28,16 @@ public class GameTest {
 	@Test
 	public void addsCorrectAmountOfSurvivorsOneByOne() {
 		for (int i = 0; i < 5; i++) {
-			game.add(new Survivor(new Point(10,10), game.getMap()));
+			game.add(new Survivor(new Point(10,10), game.getMap(), "name", 1));
 		}
 		assertEquals(5, game.getSurvivors().size());
 	}
 	
 	@Test
 	public void addsCorrectAmountOfSurvivorsAtOnce() {
-		game.add(new Survivor(new Point(10,10), game.getMap()),
-				new Survivor(new Point(10,10), game.getMap()),
-				new Survivor(new Point(10,10), game.getMap()));
+		game.add(new Survivor(new Point(10,10), game.getMap(), "name", 1),
+				new Survivor(new Point(10,10), game.getMap(), "name", 1),
+				new Survivor(new Point(10,10), game.getMap(), "name", 1));
 		assertEquals(3, game.getSurvivors().size());
 	}
 
@@ -117,7 +117,7 @@ public class GameTest {
 	@Test
 	public void movesZombies() {
 		Zombie zombie = new Zombie(new Point(20, 20), game.getMap());
-		game.add(new Survivor(new Point(10, 10), game.getMap()));
+		game.add(new Survivor(new Point(10, 10), game.getMap(), "name", 1));
 		game.add(zombie);
 		game.moveZombies();
 		assertEquals(new Point(20 - zombie.getSpeed(), 20 - zombie.getSpeed()), zombie.getLocation());
@@ -125,7 +125,7 @@ public class GameTest {
 	
 	@Test
 	public void movesSurvivors() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap());
+		Survivor survivor = new Survivor(new Point(10, 10), game.getMap(), "name", 1);
 		survivor.moveTowards(new Point(20, 20));
 		game.add(survivor);
 		game.moveSurvivors();
@@ -352,7 +352,7 @@ public class GameTest {
 	}
 	
 	private Survivor addSurvivor(double x, double y) {
-		Survivor survivor = new Survivor(new Point(x, y), game.getMap());
+		Survivor survivor = new Survivor(new Point(x, y), game.getMap(), "name", 1);
 		game.add(survivor);
 		return survivor;
 	}

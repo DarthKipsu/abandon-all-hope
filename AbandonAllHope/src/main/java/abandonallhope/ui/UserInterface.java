@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
@@ -17,9 +16,9 @@ import javafx.util.Duration;
 public class UserInterface implements EventHandler {
 	private BorderPane border;
 	private GameCanvas canvas;
-	private BuildPanel build;
 	private Game game;
 	private Duration frameDuration;
+	private ResourcePanel resources;
 
 	/**
 	 * Creates a new user interface for a game, that handles game time line and
@@ -28,11 +27,8 @@ public class UserInterface implements EventHandler {
 	 */
 	public UserInterface(Game game) {
 		canvas = new GameCanvas(game);
-		build = new BuildPanel(game, canvas);
-		border = new BorderPane();
-		border.setCenter(canvas.getCanvas());
-		border.setRight(build.getVbox());
 		this.game = game;
+		createBorder();
 		frameDuration = Duration.millis(1000 / 60);
 	}
 
@@ -58,7 +54,17 @@ public class UserInterface implements EventHandler {
 
 	@Override
 	public void handle(Event t) {
+		resources.updateSurvivors();
 		canvas.handle(t);
+	}
+
+	private void createBorder() {
+		BuildPanel build = new BuildPanel(game, canvas);
+		resources = new ResourcePanel(game);
+		border = new BorderPane();
+		border.setCenter(canvas.getCanvas());
+		border.setRight(build.getVbox());
+		border.setLeft(resources.getVbox());
 	}
 
 	private Timeline createTimeline(EventHandler eventHandler) {
