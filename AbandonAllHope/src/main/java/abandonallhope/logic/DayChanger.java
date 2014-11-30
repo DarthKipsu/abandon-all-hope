@@ -23,17 +23,28 @@ public class DayChanger {
 	private static Game game;
 	private static Map map;
 
+	/**
+	 * Give game object to game changer so new survivors and zombies can be
+	 * added.
+	 * @param game game where the units will be placed.
+	 */
 	public static void setGame(Game game) {
 		DayChanger.game = game;
 		map = game.getMap();
 	}
 	
+	/**
+	 * Add survivors and zombies for the games first level.
+	 */
 	public static void setupDayOne() {
 		addDayOneSurvivors();
 		addZombies(cities[1]);
 		addBullets();
 	}
 	
+	/**
+	 * Add zombies for the next day.
+	 */
 	public static void nextDay() {
 		addZombies(cities[r.nextInt(3)]);
 	}

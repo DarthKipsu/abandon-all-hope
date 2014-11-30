@@ -150,30 +150,35 @@ public class Game implements EventHandler {
 	@Override
 	public void handle(Event t) {
 		if (sleep > 0) {
-			if (sleep == 1) {
-				DayChanger.nextDay();
-				messages.addMessage("Begin day " + day + ": " + zombies.size() + " new zombies.");
-			}
-			sleep--;
-		} else if (checkGameOverCondition()) {
-			gameTimeline.stop();
+			sleepUntilTheNextDay();
+		} else if (survivors.isEmpty()) {
+			gameOver();
 		} else if (zombiesCleared()) {
-			zombies.clear();
-			day++;
-			messages.addMessage("All zombies cleared. You managed to survive another day!");
-			messages.addMessage("Prepare for day " + day);
-			sleep = 180;
+			endTheCurrentDay();
 		} else {
 			playATurn();
 		}
 	}
 
-	private boolean checkGameOverCondition() {
-		if (survivors.isEmpty()) {
-			messages.addMessage("All survivors are lost! Game over!");
-			return true;
+	private void sleepUntilTheNextDay() {
+		if (sleep == 1) {
+			DayChanger.nextDay();
+			messages.addMessage("Begin day " + day + ": " + zombies.size() + " new zombies.");
 		}
-		return false;
+		sleep--;
+	}
+
+	private void gameOver() {
+		gameTimeline.stop();
+		messages.addMessage("All survivors are lost! Game over!");
+	}
+
+	private void endTheCurrentDay() {
+		zombies.clear();
+		day++;
+		messages.addMessage("All zombies cleared. You managed to survive another day!");
+		messages.addMessage("Prepare for day " + day);
+		sleep = 180;
 	}
 
 	private boolean zombiesCleared() {
