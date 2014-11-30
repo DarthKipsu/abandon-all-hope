@@ -16,9 +16,10 @@ import java.util.Random;
 public class DayChanger {
 	
 	private static final Random r = new Random(42);
-	private static Point fairburn = new Point(100, 0);
-	private static Point atlanta = new Point(0, 200);
-	private static Point mableton = new Point(100, 500);
+	private static final Point[] cities = new Point[]{
+		new Point(100, 0),
+		new Point(0, 200),
+		new Point(100, 500)};
 	private static Game game;
 	private static Map map;
 
@@ -29,8 +30,12 @@ public class DayChanger {
 	
 	public static void setupDayOne() {
 		addDayOneSurvivors();
-		addZombies(atlanta);
+		addZombies(cities[1]);
 		addBullets();
+	}
+	
+	public static void nextDay() {
+		addZombies(cities[r.nextInt(3)]);
 	}
 	
 	private static void addDayOneSurvivors() {

@@ -14,6 +14,8 @@ import abandonallhope.domain.weapons.Weapon;
 import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -147,6 +149,14 @@ public class Game implements EventHandler {
 	public void handle(Event t) {
 		if (checkGameOverCondition()) {
 			gameTimeline.stop();
+		} else if (zombiesCleared()) {
+			gameTimeline.pause();
+			zombies.clear();
+			day++;
+			messages.addMessage("All zombies cleared. You managed to survive another day!");
+			messages.addMessage("Prepare for day " + day);
+			DayChanger.nextDay();
+			gameTimeline.play();
 		} else {
 			playATurn();
 		}
@@ -158,6 +168,15 @@ public class Game implements EventHandler {
 			return true;
 		}
 		return false;
+	}
+	
+	private boolean zombiesCleared() {
+		for (Zombie zombie : zombies) {
+			if (!zombie.isTrapped()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private void playATurn() {
