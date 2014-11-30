@@ -46,6 +46,7 @@ public class BuildPanel {
 		
 		addTitle("Build a trap:");
 		addTrapButton("Bear Iron", TrapType.BEARIRON);
+		addTrapButton("Pit", TrapType.PIT);
 	}
 
 	private void addTitle(String text) {
