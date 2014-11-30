@@ -1,6 +1,8 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Trap;
+import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import java.util.ArrayList;
@@ -17,12 +19,14 @@ public class ZombieTest {
 	private Map map;
 	private List<Survivor> survivors;
 	private List<Wall> walls;
+	private List<Trap> traps;
 	
 	@Before
 	public void setUp() {
 		survivors = new ArrayList<>();
 		walls = new ArrayList<>();
-		map = new Map(30, survivors, walls);
+		traps = new ArrayList<>();
+		map = new Map(30, survivors, walls, traps);
 		zombie = new Zombie(new Point(10, 10), map);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map));
@@ -49,7 +53,7 @@ public class ZombieTest {
 	@Test
 	public void movesTowardsNearestSurvivor3() {
 		survivors.add(new Survivor(new Point(12, 8), map));
-		survivors.add(new Survivor(new Point(6, 8), map));
+		survivors.add(new Survivor(new Point(2, 8), map));
 		zombie.move();
 		assertEquals(new Point(10 + speed, 10 - speed), zombie.getLocation());
 	}
@@ -146,6 +150,30 @@ public class ZombieTest {
 		zombie.move();
 		assertTrue(new Point(10 - speed, 10.0).equals(zombie.getLocation()) ||
 				   new Point(10.0, 10 - speed).equals(zombie.getLocation()));
+	}
+	
+	@Test
+	public void zombieGetsTrappedIfOnTopOfAnEmptyTrap() {
+		traps.add(new Trap(new Point(10.2, 10.2), TrapType.BEARIRON));
+		zombie.move();
+		assertTrue(zombie.isTrapped());
+	}
+	
+	@Test
+	public void zombieDoesNotGetTrappedIfTrapIsBehindHim() {
+		traps.add(new Trap(new Point(9.9, 9.9), TrapType.BEARIRON));
+		zombie.move();
+		assertTrue(zombie.isTrapped());
+	}
+	
+	@Test
+	public void twoZombiesDoNotGetTrappedOnBearIron() {
+		traps.add(new Trap(new Point(10.2, 10.2), TrapType.BEARIRON));
+		Zombie zombie2 = new Zombie(new Point(10, 10), map);
+		zombie.move();
+		zombie2.move();
+		assertTrue(zombie.isTrapped());
+		assertFalse(zombie2.isTrapped());
 	}
 	
 	private void moveNtimes(int x, int y, int n) {

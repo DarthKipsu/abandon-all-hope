@@ -4,6 +4,8 @@ package abandonallhope.logic;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
+import abandonallhope.domain.constructions.Trap;
+import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import abandonallhope.domain.weapons.Axe;
@@ -84,6 +86,27 @@ public class GameTest {
 	@Test
 	public void NoWallsAtTheBeginningOfTheGame() {
 		assertEquals(0, game.getWalls().size());
+	}
+	
+	@Test
+	public void addsCorrectAmountOfTrapsOneByOne() {
+		for (int i = 0; i < 50; i+=10) {
+			game.add(new Trap(new Point(10 + i, 10 + i), TrapType.BEARIRON));
+		}
+		assertEquals(5, game.getTraps().size());
+	}
+	
+	@Test
+	public void addsCorrectAmountOfTrapsAtOnce() {
+		game.add(new Trap(new Point(10, 10), TrapType.BEARIRON),
+				new Trap(new Point(20, 20), TrapType.BEARIRON),
+				new Trap(new Point(0, 0), TrapType.BEARIRON));
+		assertEquals(3, game.getTraps().size());
+	}
+
+	@Test
+	public void NoTrapsAtTheBeginningOfTheGame() {
+		assertEquals(0, game.getTraps().size());
 	}
 
 	@Test
@@ -221,6 +244,18 @@ public class GameTest {
 		survivor.setGun(createGun(0));
 		game.fightZombies();
 		assertEquals(0, game.getBullets().size());
+	}
+	
+	@Test
+	public void doesNotWasteBulletsOnTrappedZombies() {
+		Survivor survivor = addSurvivor(10, 5);
+		Zombie zombie = new Zombie(new Point(5, 5), game.getMap());
+		game.add(zombie);
+		game.add(new Trap(new Point(5, 5), TrapType.BEARIRON));
+		zombie.move();
+		survivor.setGun(createGun(1));
+		game.fightZombies();
+		assertTrue(survivor.getGun().canBeUsed());
 	}
 	
 	@Test

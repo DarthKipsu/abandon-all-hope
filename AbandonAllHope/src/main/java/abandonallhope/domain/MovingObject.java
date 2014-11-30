@@ -16,12 +16,14 @@ public abstract class MovingObject {
 	protected double speed;
 	protected double width;
 	protected Color color;
+	protected boolean trapped;
 
 	public MovingObject(Point startingLocation, Map map, double width, Color color) {
 		location = startingLocation;
 		this.map = map;
 		this.width = width;
 		this.color = color;
+		this.trapped = false;
 	}
 	
 	public Point getLocation() {
@@ -34,6 +36,10 @@ public abstract class MovingObject {
 
 	public Color getColor() {
 		return color;
+	}
+
+	public boolean isTrapped() {
+		return trapped;
 	}
 	
 	/**

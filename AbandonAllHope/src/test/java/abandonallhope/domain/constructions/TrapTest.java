@@ -1,15 +1,32 @@
 
 package abandonallhope.domain.constructions;
 
+import abandonallhope.domain.Map;
 import abandonallhope.domain.Point;
+import abandonallhope.domain.Survivor;
+import abandonallhope.domain.Zombie;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TrapTest {
 	
 	private Trap trap;
+	private Map map;
+	private List<Trap> traps;
+	
+	@Before
+	public void setUp() {
+		List<Survivor> survivors = new ArrayList<>();
+		survivors.add(new Survivor(new Point(20,20), map));
+		traps = new ArrayList<>();
+		map = new Map(30, survivors, new ArrayList<Wall>(), traps);
+		new Zombie(new Point(9.8, 9.8), map);
+	}
 	
 	@Test
 	public void returnsCorrectColor() {
@@ -40,6 +57,13 @@ public class TrapTest {
 		createTrap(TrapType.BEARIRON);
 		trap.addZombie();
 		assertFalse(trap.hasCapacityLeft());
+	}
+	
+	@Test
+	public void locationCanBeChanged() {
+		createTrap(TrapType.BEARIRON);
+		trap.setLocation(new Point(20, 20));
+		assertEquals(new Point(20, 20), trap.getLocation());
 	}
 	
 	private void createTrap(TrapType type) {

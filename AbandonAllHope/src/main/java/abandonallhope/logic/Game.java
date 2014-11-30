@@ -38,7 +38,7 @@ public class Game implements EventHandler {
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
-		map = new Map(mapSize, mapSize, survivors, walls);
+		map = new Map(mapSize, survivors, walls, traps);
 	}
 
 	public List<Survivor> getSurvivors() {
@@ -176,12 +176,14 @@ public class Game implements EventHandler {
 	private void useFirearmWeapon(Survivor survivor) {
 		Firearm gun = survivor.getGun();
 		MovingObject target = Collision.nearestPerson(survivor, zombies);
+		if (target == null) return;
 		fireGunIfCloseEnoughToTarget(gun, survivor, target.getLocation());
 	}
 
 	private void useBasicWeapon(Survivor survivor) {
 		Weapon weapon = survivor.getWeapon();
 		MovingObject target = Collision.nearestPerson(survivor, zombies);
+		if (target == null) return;
 		useWeapon(weapon, survivor, target);
 	}
 

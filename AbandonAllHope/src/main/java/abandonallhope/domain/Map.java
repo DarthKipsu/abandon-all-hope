@@ -1,6 +1,7 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Trap;
 import abandonallhope.domain.constructions.Wall;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Map {
 	private double height;
 	private List<Survivor> survivors;
 	private List<Wall> walls;
+	private List<Trap> traps;
 
 	/**
 	 * Creates a new game map
@@ -21,11 +23,12 @@ public class Map {
 	 * @param height map height
 	 * @Param survivors list of survivors
 	*/
-	public Map(int width, int height, List<Survivor> survivors, List<Wall>walls) {
+	public Map(int width, int height, List<Survivor> survivors, List<Wall>walls, List<Trap> traps) {
 		this.width = width;
 		this.height = height;
 		this.survivors = survivors;
 		this.walls = walls;
+		this.traps = traps;
 	}
 
 	/**
@@ -33,8 +36,8 @@ public class Map {
 	 * @param size map side length
 	 * @Param survivors list of survivors
 	*/
-	public Map(int size, List<Survivor> survivors, List<Wall>walls) {
-		this(size, size, survivors, walls);
+	public Map(int size, List<Survivor> survivors, List<Wall>walls, List<Trap> traps) {
+		this(size, size, survivors, walls, traps);
 	}
 
 	public List<Survivor> getSurvivors() {
@@ -64,7 +67,7 @@ public class Map {
 	
 	/**
 	 * Returns true if given point with displacements added contains a wall
-	 * or a trap in game map.
+	 * in game map.
 	 * @param point point that needs to be validated
 	 * @param dx displacement to x direction
 	 * @param dy displacement to y direction
@@ -74,6 +77,22 @@ public class Map {
 		for (Wall wall : walls) {
 			if (wall.occupiedArea().contains(x, y)) {
 				removeWallIfItBreaks(wall);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if a zombie location contains a trap that has capacity left.
+	 * @param point Location of a zombie
+	 * @return true if zombie is trapped
+	 */
+	public boolean isTrapped(Point point) {
+		for (Trap trap : traps) {
+			if (trap.occupiedArea().contains(point.x, point.y) &&
+					trap.hasCapacityLeft()) {
+				trap.addZombie();
 				return true;
 			}
 		}

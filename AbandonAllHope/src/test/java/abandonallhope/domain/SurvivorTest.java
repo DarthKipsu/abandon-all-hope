@@ -2,6 +2,7 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Trap;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import abandonallhope.domain.weapons.Weapon;
@@ -24,12 +25,14 @@ public class SurvivorTest {
 	private Map map;
 	private List<Survivor> survivors;
 	private List<Wall> walls;
+	private List<Trap> traps;
 	
 	@Before
 	public void setUp() {
 		survivors = new ArrayList<>();
 		walls = new ArrayList<Wall>();
-		map = new Map(30, survivors, walls);
+		traps = new ArrayList<>();
+		map = new Map(30, survivors, walls, traps);
 		survivor = new Survivor(new Point(10, 10), map);
 		speed = survivor.getSpeed();
 	}

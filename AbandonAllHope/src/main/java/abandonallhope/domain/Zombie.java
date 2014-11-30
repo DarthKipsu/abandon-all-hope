@@ -24,6 +24,7 @@ public class Zombie extends MovingObject implements DrawableObject {
 		super(startingLocation, map, 3, Color.GREEN);
 		this.speed = 0.3;
 		zombieBrain = new Random();
+		trapped = false;
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class Zombie extends MovingObject implements DrawableObject {
 	 */
 	@Override
 	public void move() {
-		if (!map.getSurvivors().isEmpty()) {
+		if (!map.getSurvivors().isEmpty() && !trapped) {
 			Point nearestSurvivor = Collision.nearestPersonLocation(this, map.getSurvivors());
 			double dx = normalize(nearestSurvivor.x - location.x);
 			double dy = normalize(nearestSurvivor.y - location.y);
@@ -39,6 +40,10 @@ public class Zombie extends MovingObject implements DrawableObject {
 				tryToGoAroundTheObstacle(dx, dy);
 			} else {
 				move(dx, dy);
+				if (map.isTrapped(location)) {
+					color = Color.DARKRED;
+					trapped = true;
+				}
 			}
 		}
 	}

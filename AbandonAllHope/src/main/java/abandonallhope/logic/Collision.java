@@ -3,8 +3,6 @@ package abandonallhope.logic;
 
 import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
-import abandonallhope.domain.Survivor;
-import abandonallhope.domain.Zombie;
 import java.util.List;
 
 /**
@@ -51,13 +49,23 @@ public class Collision {
 		MovingObject nearest = enemies.get(0);
 		Double nearesDifference = Double.MAX_VALUE;
 		for (MovingObject enemy : enemies) {
+			if (enemyIsTrapped(enemy)) {
+				continue;
+			}
 			double difference = distanceBetween(person.getLocation(), enemy.getLocation());
-			if (difference < nearesDifference) {
+			if (nearest.isTrapped() || difference < nearesDifference) {
 				nearest = enemy;
 				nearesDifference = difference;
 			}
 		}
-		return nearest;
+		return nearest.isTrapped() ? null : nearest;
+	}
+
+	private static boolean enemyIsTrapped(MovingObject enemy) {
+		if (enemy.isTrapped()) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
