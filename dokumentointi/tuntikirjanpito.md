@@ -24,3 +24,4 @@ Päivämäärä | Tunnit | Aihe
 28.11.2014 | 3h | Useanseinän rakennus kentälle samalla kertaa
 29.11.2014 | 1h | Tyypit ei kulje seinien läpi,seinät menee rikki
 29.11.2014 | 1,5h | Ansat ja niiden asetus kartalle, eivät vielä tee mitään
+30.11.2014 | 8h | Ansat toimimaan, käyttöliittymän parantelua, zombit tiputtaa juttujayms.
