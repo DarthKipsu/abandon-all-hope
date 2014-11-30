@@ -25,8 +25,8 @@ public class WallBuildHoverEvent implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent t) {
-		int width = (int) (t.getSceneX() - start.x);
-		int height = (int) (t.getSceneY() - start.y);
+		int width = (int) (t.getX() - start.x);
+		int height = (int) (t.getY() - start.y);
 		if (Math.abs(width) > Math.abs(height)) {
 			height = 0;
 		} else {

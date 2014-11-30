@@ -33,7 +33,7 @@ public class TrapBuildEvent implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent t) {
-		trap.setLocation(new Point(t.getSceneX(), t.getSceneY()));
+		trap.setLocation(new Point(t.getX(), t.getY()));
 		game.add(trap);
 		canvas.removeTrapBuildingEventListeners();
 	}

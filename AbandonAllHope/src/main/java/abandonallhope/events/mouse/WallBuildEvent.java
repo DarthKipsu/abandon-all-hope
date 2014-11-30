@@ -74,8 +74,8 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	}
 
 	private Wall.Orientation setOrientation(MouseEvent t) {
-		int buildingWidth = (int) (t.getSceneX() - startX);
-		int buildingHeight = (int) (t.getSceneY() - startY);
+		int buildingWidth = (int) (t.getX() - startX);
+		int buildingHeight = (int) (t.getY() - startY);
 		if (wallOrientationIsHorizonal(buildingWidth, buildingHeight)) {
 			setHorizonalWallDimensions(buildingWidth, t);
 			return Wall.Orientation.HORIZONAL;
@@ -91,14 +91,14 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 
 	private void setHorizonalWallDimensions(int buildingWidth, MouseEvent t) {
 		seinienMaara = Math.abs(buildingWidth) / wall.getWidth();
-		if (t.getSceneX() < startX) {
+		if (t.getX() < startX) {
 			startX -= decreaseWallStartingPointWithWidth();
 		}
 	}
 
 	private void setVerticalWallDimensions(int buildingHeight, MouseEvent t) {
 		seinienMaara = Math.abs(buildingHeight) / wall.getWidth();
-		if (t.getSceneY() < startY) {
+		if (t.getY() < startY) {
 			startY -= decreaseWallStartingPointWithWidth();
 		}
 	}
@@ -109,7 +109,7 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 
 	private void setStartLocationAndChangeEventHandlers(MouseEvent t) {
 		buildingIsFinal = true;
-		wall.setLocation(new Point(t.getSceneX(), t.getSceneY()));
+		wall.setLocation(new Point(t.getX(), t.getY()));
 		canvas.changeToBuildHoverEventListener(wall);
 	}
 

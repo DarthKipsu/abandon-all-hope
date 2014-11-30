@@ -29,17 +29,25 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 	}
 
 	@Override
-	public void handle(KeyEvent t) {
-		if (t.getCode() == KeyCode.ESCAPE) {
-			new SurvivorSelector(game.getSurvivors()).unselectAll();
-			canvas.removeWallBuildingEventListeners();
-			canvas.removeTrapBuildingEventListeners();
-		} else if (t.getCode().isDigitKey()) {
-			new SurvivorSelector(game.getSurvivors()).unselectAll();
-			for (Survivor survivor : game.getSurvivors()) {
-				if (survivor.getId() == Integer.parseInt(t.getText())) {
-					survivor.select();
-				}
+	public void handle(KeyEvent keyPressed) {
+		if (keyPressed.getCode() == KeyCode.ESCAPE) {
+			deselectEverything();
+		} else if (keyPressed.getCode().isDigitKey()) {
+			selectSurvivorWithKeyID(keyPressed);
+		}
+	}
+
+	private void deselectEverything() {
+		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		canvas.removeWallBuildingEventListeners();
+		canvas.removeTrapBuildingEventListeners();
+	}
+
+	private void selectSurvivorWithKeyID(KeyEvent keyPressed) throws NumberFormatException {
+		deselectEverything();
+		for (Survivor survivor : game.getSurvivors()) {
+			if (survivor.getId() == Integer.parseInt(keyPressed.getText())) {
+				survivor.select();
 			}
 		}
 	}

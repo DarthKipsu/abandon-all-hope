@@ -21,7 +21,7 @@ public class TrapHoverEvent implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent t) {
-		constrHoverDrawer.updateUpperLeftCornerCoordinates((int)t.getSceneX(), (int)t.getSceneY());
+		constrHoverDrawer.updateUpperLeftCornerCoordinates((int)t.getX(), (int)t.getY());
 	}
 	
 }
