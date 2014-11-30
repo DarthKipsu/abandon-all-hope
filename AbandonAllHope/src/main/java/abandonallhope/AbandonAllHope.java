@@ -34,7 +34,6 @@ public class AbandonAllHope extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Game game = new Game(500);
-//		addFigures(10, 2, game);
 		UserInterface ui = new UserInterface(game);
 		primaryStage.setTitle(":: Abandon All Hope ::");
 		Group root = new Group();
@@ -42,30 +41,6 @@ public class AbandonAllHope extends Application {
 		ui.runGame();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
-	}
-	
-	/**
-	 * Will create game figures for testing purposes during production. Will be
-	 * removed once game days are implemented.
-	 * @param zombie
-	 * @param survivor
-	 * @param game 
-	 */
-	public void addFigures(int zombie, int survivor, Game game) {
-		Random random = new Random();
-		String[] names = new String[]{"Uolevi", "Maija"};
-		game.getInventory().addPistolBullets(zombie/2);
-		for (int i = 0; i < zombie; i++) {
-			game.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500)), game.getMap()));
-		}
-		for (int i = 0; i < survivor; i++) {
-			game.add(new Survivor(new Point(random.nextInt(500), random.nextInt(500)), game.getMap(), names[i], i+1));
-			List<Survivor> survivors = game.getSurvivors();
-			survivors.get(survivors.size() - 1).setWeapon(new Axe());
-			if (i == 0) {
-				survivors.get(survivors.size() - 1).setGun(new Pistol(game.getInventory()));
-			}
-		}
 	}
 	
 }

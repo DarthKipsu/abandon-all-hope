@@ -32,7 +32,8 @@ public class Game implements EventHandler {
 	private MessagePanel messages;
 	private Timeline gameTimeline;
 	private int day;
-	
+	private int sleep;
+
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
 	private List<Bullet> bullets;
@@ -53,6 +54,7 @@ public class Game implements EventHandler {
 		traps = new ArrayList<>();
 		map = new Map(mapSize, survivors, walls, traps);
 		day = 1;
+		sleep = 0;
 	}
 
 	public List<Survivor> getSurvivors() {
@@ -147,16 +149,20 @@ public class Game implements EventHandler {
 	 */
 	@Override
 	public void handle(Event t) {
-		if (checkGameOverCondition()) {
+		if (sleep > 0) {
+			if (sleep == 1) {
+				DayChanger.nextDay();
+				messages.addMessage("Begin day " + day + ": " + zombies.size() + " new zombies.");
+			}
+			sleep--;
+		} else if (checkGameOverCondition()) {
 			gameTimeline.stop();
 		} else if (zombiesCleared()) {
-			gameTimeline.pause();
 			zombies.clear();
 			day++;
 			messages.addMessage("All zombies cleared. You managed to survive another day!");
 			messages.addMessage("Prepare for day " + day);
-			DayChanger.nextDay();
-			gameTimeline.play();
+			sleep = 180;
 		} else {
 			playATurn();
 		}
@@ -169,7 +175,7 @@ public class Game implements EventHandler {
 		}
 		return false;
 	}
-	
+
 	private boolean zombiesCleared() {
 		for (Zombie zombie : zombies) {
 			if (!zombie.isTrapped()) {

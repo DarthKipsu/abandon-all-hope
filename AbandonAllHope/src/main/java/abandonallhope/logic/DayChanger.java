@@ -62,7 +62,7 @@ public class DayChanger {
 	}
 	
 	private static void addZombies(Point point) {
-		for (int i = 0; i < game.getDay() * r.nextInt(6); i++) {
+		for (int i = 0; i < game.getDay() * (r.nextInt(5) + 1); i++) {
 			Point randomLocation = createRandomLocation();
 			Point locationNearPoint = createLocationNearPoint(point);
 			Zombie zombie = new Zombie(
