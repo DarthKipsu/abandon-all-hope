@@ -2,6 +2,7 @@ package abandonallhope.ui;
 
 import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.WallType;
+import abandonallhope.events.action.DeselectEvent;
 import abandonallhope.events.action.TrapEvent;
 import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;
@@ -41,12 +42,21 @@ public class BuildPanel {
 	}
 
 	private void createVBoxContent() {
+		addDeselectionButton();
+		
 		addTitle("Build a wall:");
 		addWallButton("Wooden", WallType.WOODEN);
 		
 		addTitle("Build a trap:");
 		addTrapButton("Bear Iron", TrapType.BEARIRON);
 		addTrapButton("Pit", TrapType.PIT);
+	}
+	
+	private void addDeselectionButton() {
+		Button deselect = new Button("Uselect all");
+		deselect.setPrefSize(100, 20);
+		deselect.setOnAction(new DeselectEvent(canvas, game));
+		vbox.getChildren().add(deselect);
 	}
 
 	private void addTitle(String text) {
