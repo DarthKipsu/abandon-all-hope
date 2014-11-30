@@ -11,11 +11,10 @@ import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.weapons.Bullet;
 import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -29,6 +28,7 @@ public class Game implements EventHandler {
 
 	private Map map;
 	private Inventory inventory;
+	private LootDistributor lootDistributor;
 	private MessagePanel messages;
 	private Timeline gameTimeline;
 	private int day;
@@ -47,6 +47,7 @@ public class Game implements EventHandler {
 	 */
 	public Game(int mapSize) {
 		inventory = new Inventory();
+		lootDistributor = new LootDistributor(inventory);
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -174,9 +175,12 @@ public class Game implements EventHandler {
 	}
 
 	private void endTheCurrentDay() {
+		for (Zombie zombie : zombies) {
+			lootDistributor.getLoot();
+		}
 		zombies.clear();
 		day++;
-		messages.addMessage("All zombies cleared. You managed to survive another day!");
+		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
 		messages.addMessage("Prepare for day " + day);
 		sleep = 180;
 	}
@@ -233,7 +237,7 @@ public class Game implements EventHandler {
 
 	private void removeZombieAndBullet(Zombie zombie, List<Bullet> bulletsToRemove, Bullet bullet) {
 		Point targetLocation = zombie.getLocation();
-		zombies.remove(zombie);
+		killAZombie(zombie);
 		bulletsToRemove.add(bullet);
 	}
 
@@ -292,7 +296,8 @@ public class Game implements EventHandler {
 	private void fireGunIfCloseEnoughToTarget(Firearm gun, Survivor survivor, Point destination) {
 		if (Collision.distanceBetween(survivor.getLocation(), destination) <= gun.getRange() * 1.2) {
 			gun.use();
-			Bullet newBullet = new Bullet(new Point(survivor.getLocation().x, survivor.getLocation().y), map, destination, (int) gun.getRange());
+			Bullet newBullet = new Bullet(new Point(survivor.getLocation().x, survivor.getLocation().y),
+					map, destination, (int) gun.getRange());
 			bullets.add(newBullet);
 		}
 	}
@@ -300,10 +305,15 @@ public class Game implements EventHandler {
 	private void useWeapon(Weapon weapon, Survivor survivor, MovingObject target) {
 		if (weaponCanBeUsed(weapon, survivor.getLocation(), target.getLocation())) {
 			weapon.use();
-			zombies.remove(target);
+			killAZombie(target);
 		} else {
 			weapon.decreaseRoundsToUse();
 		}
+	}
+
+	private void killAZombie(MovingObject target) {
+		zombies.remove(target);
+		messages.addMessage("Zombie dropped " + lootDistributor.getLoot());
 	}
 
 	private static boolean weaponCanBeUsed(Weapon weapon, Point survivor, Point target) {
