@@ -51,6 +51,7 @@ public class UserInterface implements EventHandler {
 		Timeline gameTimeline = createTimeline(game);
 		Timeline uiTimeline = createTimeline(this);
 		
+		game.setGameTimeline(gameTimeline);
 		gameTimeline.play();
 		uiTimeline.play();
 	}
