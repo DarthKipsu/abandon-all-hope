@@ -2,6 +2,7 @@
 package abandonallhope.ui;
 
 import abandonallhope.events.key.KeySelectEvent;
+import abandonallhope.logic.DayChanger;
 import abandonallhope.logic.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -54,6 +55,9 @@ public class UserInterface implements EventHandler {
 		game.setGameTimeline(gameTimeline);
 		gameTimeline.play();
 		uiTimeline.play();
+		
+		DayChanger.setGame(game);
+		DayChanger.setupDayOne();
 	}
 
 	@Override

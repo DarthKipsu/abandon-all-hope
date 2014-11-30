@@ -29,6 +29,7 @@ public class Game implements EventHandler {
 	private Inventory inventory;
 	private MessagePanel messages;
 	private Timeline gameTimeline;
+	private int day;
 	
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
@@ -49,6 +50,7 @@ public class Game implements EventHandler {
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
 		map = new Map(mapSize, survivors, walls, traps);
+		day = 1;
 	}
 
 	public List<Survivor> getSurvivors() {
@@ -77,6 +79,10 @@ public class Game implements EventHandler {
 
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	public int getDay() {
+		return day;
 	}
 
 	/**

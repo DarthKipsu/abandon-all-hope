@@ -34,7 +34,7 @@ public class AbandonAllHope extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Game game = new Game(500);
-		addFigures(10, 2, game);
+//		addFigures(10, 2, game);
 		UserInterface ui = new UserInterface(game);
 		primaryStage.setTitle(":: Abandon All Hope ::");
 		Group root = new Group();
