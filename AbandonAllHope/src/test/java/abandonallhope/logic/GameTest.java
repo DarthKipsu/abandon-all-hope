@@ -9,9 +9,9 @@ import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import abandonallhope.domain.weapons.Axe;
-import abandonallhope.domain.weapons.Magazine;
 import abandonallhope.domain.weapons.Pistol;
 import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.ui.MessagePanel;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,6 +23,7 @@ public class GameTest {
 	@Before
 	public void setUp() {
 		game = new Game(30);
+		game.setMessages(new MessagePanel(game));
 	}
 	
 	@Test

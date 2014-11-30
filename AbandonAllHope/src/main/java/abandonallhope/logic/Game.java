@@ -11,6 +11,7 @@ import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.weapons.Bullet;
 import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.Event;
@@ -24,6 +25,7 @@ public class Game implements EventHandler {
 
 	private Map map;
 	private Inventory inventory;
+	private MessagePanel messages;
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
 	private List<Bullet> bullets;
@@ -110,6 +112,10 @@ public class Game implements EventHandler {
 		for (Trap trap : traps) {
 			this.traps.add(trap);
 		}
+	}
+
+	public void setMessages(MessagePanel messages) {
+		this.messages = messages;
 	}
 
 	/**
@@ -205,6 +211,7 @@ public class Game implements EventHandler {
 			Survivor survivor = (Survivor)Collision.hitTest(zombie, map.getSurvivors());
 			if (survivor != null) {
 				Point survivorLocation = survivor.getLocation();
+				messages.addMessage(survivor.getName() + " was bit and turned into a zombie!");
 				survivors.remove(survivor);
 				add(new Zombie(survivorLocation, map));
 				return;

@@ -63,12 +63,14 @@ public class UserInterface implements EventHandler {
 	}
 
 	private void createBorder() {
+		MessagePanel messages = new MessagePanel(game);
 		BuildPanel build = new BuildPanel(game, canvas);
 		resources = new ResourcePanel(game);
 		border = new BorderPane();
 		border.setCenter(canvas.getCanvas());
 		border.setRight(build.getVbox());
 		border.setLeft(resources.getVbox());
+		border.setBottom(messages.getVbox());
 	}
 
 	private Timeline createTimeline(EventHandler eventHandler) {

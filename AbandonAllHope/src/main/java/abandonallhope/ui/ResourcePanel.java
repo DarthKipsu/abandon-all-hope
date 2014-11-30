@@ -33,6 +33,7 @@ public class ResourcePanel {
 		vbox.setSpacing(8);
 		vbox.setPrefWidth(200);
 		survivors = new VBox();
+		survivors.setPrefHeight(350);
 		bullets = new VBox();
 		createVBoxContents();
 	}
