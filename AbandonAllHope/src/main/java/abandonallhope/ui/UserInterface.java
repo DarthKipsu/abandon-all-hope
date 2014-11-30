@@ -1,11 +1,13 @@
 
 package abandonallhope.ui;
 
+import abandonallhope.events.key.KeySelectEvent;
 import abandonallhope.logic.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
@@ -30,6 +32,7 @@ public class UserInterface implements EventHandler {
 		this.game = game;
 		createBorder();
 		frameDuration = Duration.millis(1000 / 60);
+		border.addEventHandler(KeyEvent.KEY_PRESSED, new KeySelectEvent(canvas, game));
 	}
 
 	/**
