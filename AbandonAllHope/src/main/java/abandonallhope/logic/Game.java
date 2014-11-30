@@ -1,20 +1,16 @@
 package abandonallhope.logic;
 
-import abandonallhope.domain.Inventory;
-import abandonallhope.domain.Map;
-import abandonallhope.domain.MovingObject;
-import abandonallhope.domain.Point;
-import abandonallhope.domain.Survivor;
-import abandonallhope.domain.Zombie;
-import abandonallhope.domain.constructions.Trap;
-import abandonallhope.domain.constructions.Wall;
-import abandonallhope.domain.weapons.Bullet;
-import abandonallhope.domain.weapons.Firearm;
-import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.domain.*;
+import abandonallhope.domain.constructions.*;
+import abandonallhope.domain.weapons.*;
+import abandonallhope.events.action.NewSurvivorEvent;
+import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -39,6 +35,7 @@ public class Game implements EventHandler {
 	private List<Bullet> bullets;
 	private List<Wall> walls;
 	private List<Trap> traps;
+	private Set<NewSurvivorEventHandler> newSurvivorEventHandlers;
 
 	/**
 	 * Create new game event handler
@@ -53,6 +50,7 @@ public class Game implements EventHandler {
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
+		newSurvivorEventHandlers = new HashSet<>();
 		map = new Map(mapSize, survivors, walls, traps);
 		day = 1;
 		sleep = 0;
@@ -98,6 +96,7 @@ public class Game implements EventHandler {
 	public void add(Survivor... survivors) {
 		for (Survivor survivor : survivors) {
 			this.survivors.add(survivor);
+			triggerNewSurvivorEvent(survivor);
 		}
 	}
 
@@ -175,9 +174,9 @@ public class Game implements EventHandler {
 	}
 
 	private void endTheCurrentDay() {
-//		for (Zombie zombie : zombies) {
-//			lootDistributor.getLoot();
-//		}
+		for (Zombie zombie : zombies) {
+			lootDistributor.getLoot();
+		}
 		zombies.clear();
 		day++;
 		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
@@ -320,6 +319,17 @@ public class Game implements EventHandler {
 		return weapon.canBeUsed()
 				&& Collision.distanceBetween(survivor, target)
 				<= weapon.getRange();
+	}
+	
+	public void addNewSurvivorEventHandler(NewSurvivorEventHandler nseh) {
+		newSurvivorEventHandlers.add(nseh);
+	}
+	
+	private void triggerNewSurvivorEvent(Survivor survivor) {
+		NewSurvivorEvent newSurvivorEvent = new NewSurvivorEvent(survivor);
+		for (NewSurvivorEventHandler nseh : newSurvivorEventHandlers) {
+			nseh.handle(newSurvivorEvent);
+		}
 	}
 
 }

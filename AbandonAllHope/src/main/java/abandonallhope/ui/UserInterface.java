@@ -66,7 +66,7 @@ public class UserInterface implements EventHandler {
 
 	@Override
 	public void handle(Event t) {
-		resources.updateSurvivors();
+//		resources.updateSurvivors();
 		resources.updateBullets();
 		canvas.handle(t);
 	}
