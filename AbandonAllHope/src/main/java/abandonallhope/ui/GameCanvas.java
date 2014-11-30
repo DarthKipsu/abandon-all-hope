@@ -15,6 +15,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -28,6 +29,7 @@ public class GameCanvas implements EventHandler {
 	private Game game;
 	private Canvas canvas;
 	private GraphicsContext gc;
+	private Image background;
 
 	private ObjectsDrawer objectsDrawer;
 	private ConstructionHoverDrawer constrHoverDrawer;
@@ -49,6 +51,7 @@ public class GameCanvas implements EventHandler {
 		this.game = game;
 		canvas = new Canvas(500, 500);
 		gc = canvas.getGraphicsContext2D();
+		background = new Image("/tausta.jpg");
 		objectsDrawer = new ObjectsDrawer(game, gc);
 		constrHoverDrawer = new ConstructionHoverDrawer(game, gc);
 		survivorSelectionEvent = new SurvivorEvent(game);
@@ -160,8 +163,7 @@ public class GameCanvas implements EventHandler {
 	}
 
 	private void resetCanvasBase() {
-		gc.setFill(Color.KHAKI);
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.drawImage(background, 0, 0);
 	}
 
 }

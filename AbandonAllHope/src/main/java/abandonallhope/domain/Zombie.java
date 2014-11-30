@@ -21,7 +21,7 @@ public class Zombie extends MovingObject implements DrawableObject {
 	 * @param map Map where the zombie is added
 	 */
 	public Zombie(Point startingLocation, Map map) {
-		super(startingLocation, map, 3, Color.GREEN);
+		super(startingLocation, map, 3, Color.LIME);
 		this.speed = 0.3;
 		zombieBrain = new Random();
 		trapped = false;
