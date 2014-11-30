@@ -291,11 +291,10 @@ public class GameTest {
 	public void bulletsDecreaseWhenFightingZombiesAndGunIsUsed() {
 		Survivor survivor = addSurvivor(5, 5);
 		addZombie(5, 5);
-		Magazine magazine = new Magazine();
-		magazine.add(1);
-		survivor.setGun(new Pistol(magazine));
+		game.getInventory().addPistolBullets(1);
+		survivor.setGun(new Pistol(game.getInventory()));
 		game.fightZombies();
-		assertEquals(0, magazine.getBullets());
+		assertEquals(0, game.getInventory().getPistolBullets().getBullets());
 	}
 	
 	@Test
@@ -363,9 +362,8 @@ public class GameTest {
 	}
 	
 	private Pistol createGun(int bullets) {
-		Magazine magazine = new Magazine();
-		magazine.add(bullets);
-		return new Pistol(magazine);
+		game.getInventory().addPistolBullets(bullets);
+		return new Pistol(game.getInventory());
 	}
 	
 	private void fightZombiesForSeveralRounds(int rounds) {

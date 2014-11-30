@@ -40,6 +40,9 @@ public class ResourcePanel {
 		return vbox;
 	}
 	
+	/**
+	 * Update left panel survivor info
+	 */
 	public void updateSurvivors() {
 		survivors.getChildren().clear();
 		for (Survivor survivor : game.getSurvivors()) {

@@ -1,5 +1,6 @@
 package abandonallhope.logic;
 
+import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Map;
 import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
@@ -22,6 +23,7 @@ import javafx.event.EventHandler;
 public class Game implements EventHandler {
 
 	private Map map;
+	private Inventory inventory;
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
 	private List<Bullet> bullets;
@@ -33,6 +35,7 @@ public class Game implements EventHandler {
 	 * @param mapSize 
 	 */
 	public Game(int mapSize) {
+		inventory = new Inventory();
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -63,6 +66,10 @@ public class Game implements EventHandler {
 
 	public Map getMap() {
 		return map;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
 	}
 
 	/**

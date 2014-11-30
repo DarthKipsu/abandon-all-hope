@@ -79,7 +79,7 @@ public class SurvivorTest {
 	
 	@Test
 	public void canBeGivenAFirearm() {
-		Firearm weapon = new Pistol(new Magazine());
+		Firearm weapon = new Pistol(new Inventory());
 		survivor.setGun(weapon);
 		assertEquals(weapon, survivor.getGun());
 	}

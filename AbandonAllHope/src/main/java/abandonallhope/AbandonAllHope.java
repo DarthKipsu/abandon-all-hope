@@ -1,6 +1,7 @@
 
 package abandonallhope;
 
+import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
 import abandonallhope.domain.Point;
@@ -44,7 +45,8 @@ public class AbandonAllHope extends Application {
 	}
 	
 	/**
-	 * Will create game figures for testing purposes during production
+	 * Will create game figures for testing purposes during production. Will be
+	 * removed once game days are implemented.
 	 * @param zombie
 	 * @param survivor
 	 * @param game 
@@ -52,6 +54,7 @@ public class AbandonAllHope extends Application {
 	public void addFigures(int zombie, int survivor, Game game) {
 		Random random = new Random();
 		String[] names = new String[]{"Uolevi", "Maija"};
+		game.getInventory().addPistolBullets(zombie/2);
 		for (int i = 0; i < zombie; i++) {
 			game.add(new Zombie(new Point(random.nextInt(500), random.nextInt(500)), game.getMap()));
 		}
@@ -60,9 +63,7 @@ public class AbandonAllHope extends Application {
 			List<Survivor> survivors = game.getSurvivors();
 			survivors.get(survivors.size() - 1).setWeapon(new Axe());
 			if (i == 0) {
-				Magazine magazine = new Magazine();
-				magazine.add(2);
-				survivors.get(survivors.size() - 1).setGun(new Pistol(magazine));
+				survivors.get(survivors.size() - 1).setGun(new Pistol(game.getInventory()));
 			}
 		}
 	}

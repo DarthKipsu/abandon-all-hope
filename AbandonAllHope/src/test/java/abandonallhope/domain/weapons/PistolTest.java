@@ -1,6 +1,7 @@
 
 package abandonallhope.domain.weapons;
 
+import abandonallhope.domain.Inventory;
 import abandonallhope.domain.weapons.Pistol;
 import abandonallhope.domain.weapons.Magazine;
 import abandonallhope.domain.weapons.Firearm;
@@ -17,8 +18,9 @@ public class PistolTest {
 	
 	@Before
 	public void setUp() {
-		bullets = new Magazine();
-		pistol = new Pistol(bullets);
+		Inventory inventory = new Inventory();
+		bullets = inventory.getPistolBullets();
+		pistol = new Pistol(inventory);
 	}
 
 	@Test
