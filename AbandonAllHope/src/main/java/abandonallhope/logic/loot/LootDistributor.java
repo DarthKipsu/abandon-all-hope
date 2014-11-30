@@ -22,7 +22,9 @@ public class LootDistributor {
 		this.inventory = inventory;
 		random = new Random();
 		loot = new Loot[]{
-			new BulletLoot()
+			new BulletLoot(),
+			new WeaponLoot(),
+			new FirearmLoot()
 		};
 	}
 	

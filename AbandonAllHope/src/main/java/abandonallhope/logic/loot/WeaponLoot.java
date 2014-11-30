@@ -2,21 +2,21 @@
 package abandonallhope.logic.loot;
 
 import abandonallhope.domain.Inventory;
+import abandonallhope.domain.weapons.Axe;
 import java.util.Random;
 
 /**
- * Used to add bullets to inventory.
+ * Used to add melee weapons to inventory.
  * @author kipsu
  */
-public class BulletLoot implements Loot {
+public class WeaponLoot implements Loot {
 	
 	private Random random = new Random();
 
 	@Override
 	public String giveOut(Inventory inventory) {
-		int amount = random.nextInt(22)/10 + 1;
-		inventory.addPistolBullets(amount);
-		return amount + " pistol bullets.";
+		inventory.addWeapons(new Axe());
+		return "axe.";
 	}
 	
 }

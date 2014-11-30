@@ -175,9 +175,9 @@ public class Game implements EventHandler {
 	}
 
 	private void endTheCurrentDay() {
-		for (Zombie zombie : zombies) {
-			lootDistributor.getLoot();
-		}
+//		for (Zombie zombie : zombies) {
+//			lootDistributor.getLoot();
+//		}
 		zombies.clear();
 		day++;
 		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
