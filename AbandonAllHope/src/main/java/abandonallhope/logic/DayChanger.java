@@ -83,7 +83,7 @@ public class DayChanger {
 		}
 	}
 	
-	private static Point createRandomLocation() {
+	protected static Point createRandomLocation() {
 		double side = r.nextDouble();
 		if (side < 0) {
 			return new Point(r.nextInt(500), r.nextDouble() < 0 ? 0 : 499);
@@ -92,7 +92,7 @@ public class DayChanger {
 		}
 	}
 	
-	private static Point createLocationNearPoint(Point point) {
+	protected static Point createLocationNearPoint(Point point) {
 		if (point.x == 0) {
 			return new Point(0, point.y + r.nextInt(100));
 		} else {
