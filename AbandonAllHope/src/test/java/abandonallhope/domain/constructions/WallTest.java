@@ -56,6 +56,30 @@ public class WallTest {
 	}
 	
 	@Test
+	public void returnsCorrectColorWhenNotYetAoutToBreak() {
+		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
+		for (int i = 0; i < 300; i++) {
+			wall.breakDown();
+		}
+		assertEquals(Color.BROWN, wall.getColor());
+	}
+	
+	@Test
+	public void getWallType() {
+		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
+		assertEquals(WallType.WOODEN, wall.getType());
+	}
+	
+	@Test
+	public void returnsCorrectColorIfAboutToBreak() {
+		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
+		for (int i = 0; i < 301; i++) {
+			wall.breakDown();
+		}
+		assertEquals(Color.RED, wall.getColor());
+	}
+	
+	@Test
 	public void returnsCorrectLocation() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
 		assertEquals(new Point(10, 10), wall.getLocation());

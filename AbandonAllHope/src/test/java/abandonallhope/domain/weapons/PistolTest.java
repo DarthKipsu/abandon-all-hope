@@ -75,6 +75,11 @@ public class PistolTest {
 		assertFalse(pistol.canBeUsed());
 	}
 	
+	@Test
+	public void returnsACorrectName() {
+		assertEquals("pistol", pistol.toString());
+	}
+	
 	private void decreaseRounds(int frames) {
 		for (int i = 0; i < frames; i++) {
 			pistol.decreaseRoundsToUse();

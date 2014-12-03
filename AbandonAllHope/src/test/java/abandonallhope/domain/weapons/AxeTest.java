@@ -45,6 +45,11 @@ public class AxeTest {
 		assertFalse(axe.canBeUsed());
 	}
 	
+	@Test
+	public void returnsACorrectName() {
+		assertEquals("axe", axe.toString());
+	}
+	
 	private void decreaseRounds(int frames) {
 		for (int i = 0; i < frames; i++) {
 			axe.decreaseRoundsToUse();
