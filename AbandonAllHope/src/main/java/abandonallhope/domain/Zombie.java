@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 public class Zombie extends MovingObject implements DrawableObject {
 
 	private Random zombieBrain;
+	private double dx;
+	private double dy;
 
 	/**
 	 * Constructor for the zombie class
@@ -28,31 +30,44 @@ public class Zombie extends MovingObject implements DrawableObject {
 	}
 
 	/**
-	 * Move towards the nearest survivor, if any survivors are left alive
+	 * Move towards the nearest survivor, if any survivors are left alive. Mark
+	 * zombie as trapped if it walks to a trap.
 	 */
 	@Override
 	public void move() {
-		if (!map.getSurvivors().isEmpty() && !trapped) {
-			Point nearestSurvivor = Collision.nearestPersonLocation(this, map.getSurvivors());
-			double dx = normalize(nearestSurvivor.x - location.x);
-			double dy = normalize(nearestSurvivor.y - location.y);
+		if (canMove()) {
+			setDirection();
 			if (map.hasObstacle(location.x + dx, location.y + dy)) {
 				tryToGoAroundTheObstacle(dx, dy);
 			} else {
-				move(dx, dy);
-				if (map.isTrapped(location)) {
-					color = Color.DARKRED;
-					trapped = true;
-				}
+				super.move(dx, dy);
 			}
+			checkIfTrapped();
 		}
+	}
+
+	private boolean canMove() {
+		return !map.getSurvivors().isEmpty() && !trapped;
+	}
+
+	private void setDirection() {
+		Point nearestSurvivor = Collision.nearestPersonLocation(this, map.getSurvivors());
+		dx = normalize(nearestSurvivor.x - location.x);
+		dy = normalize(nearestSurvivor.y - location.y);
 	}
 
 	private void tryToGoAroundTheObstacle(double dx, double dy) {
 		if (zombieBrain.nextDouble() < 0.5) {
-			move(-dx, 0);
+			super.move(-dx, 0);
 		} else {
-			move(0, -dy);
+			super.move(0, -dy);
+		}
+	}
+
+	private void checkIfTrapped() {
+		if (map.isTrapped(location)) {
+			color = Color.DARKRED;
+			trapped = true;
 		}
 	}
 

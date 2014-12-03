@@ -7,7 +7,6 @@ import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import abandonallhope.domain.weapons.Weapon;
 import abandonallhope.domain.weapons.Pistol;
-import abandonallhope.domain.weapons.Magazine;
 import abandonallhope.domain.weapons.Axe;
 import abandonallhope.domain.weapons.Firearm;
 import java.util.ArrayList;
@@ -58,6 +57,16 @@ public class SurvivorTest {
 	@Test
 	public void colorIsBlack() {
 		assertEquals(Color.BLACK, survivor.getColor());
+	}
+	
+	@Test
+	public void returnsName() {
+		assertEquals("Uolevi", survivor.getName());
+	}
+	
+	@Test
+	public void returnsId() {
+		assertEquals(1, survivor.getId());
 	}
 	
 	@Test
