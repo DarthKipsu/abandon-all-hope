@@ -423,6 +423,7 @@ public class GameTest {
 	@Test
 	public void gameOverStopsTimeline() {
 		Timeline timeline = new Timeline();
+		timeline.play();
 		game.setGameTimeline(timeline);
 		game.gameOver();
 		assertEquals(Status.STOPPED, timeline.statusProperty().getValue());
