@@ -1,0 +1,817 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+border: 1px solid #dddddd;
+padding-top: 10px;
+padding-right: 5px;
+padding-left: 5px;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+</style>
+
+</head>
+<body>
+
+
+<h1>Inventory.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_1'/>
+1
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_1'></a>
+</td>
+<td class=''><pre><span  class=''>package abandonallhope.domain;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_2'/>
+2
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_2'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_3'/>
+3
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_3'></a>
+</td>
+<td class=''><pre><span  class=''>import abandonallhope.domain.weapons.Firearm;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_4'/>
+4
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_4'></a>
+</td>
+<td class=''><pre><span  class=''>import abandonallhope.domain.weapons.Magazine;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_5'/>
+5
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_5'></a>
+</td>
+<td class=''><pre><span  class=''>import abandonallhope.domain.weapons.Weapon;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_6'/>
+6
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_6'></a>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_7'/>
+7
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_7'></a>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_8'/>
+8
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_8'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_9'/>
+9
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_9'></a>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_10'/>
+10
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_10'></a>
+</td>
+<td class=''><pre><span  class=''> * Contains inventory for the player resources.</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_11'/>
+11
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_11'></a>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_12'/>
+12
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_12'></a>
+</td>
+<td class=''><pre><span  class=''> * @author kipsu</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_13'/>
+13
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_13'></a>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_14'/>
+14
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_14'></a>
+</td>
+<td class=''><pre><span  class=''>public class Inventory {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_15'/>
+15
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_15'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_16'/>
+16
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_16'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;private Magazine pistolBullets;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_17'/>
+17
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_17'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;private List&#60;Weapon&#62; weapons;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_18'/>
+18
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_18'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;private List&#60;Firearm&#62; guns;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_19'/>
+19
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_19'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_20'/>
+20
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_20'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_21'/>
+21
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_21'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * Create empty inventory.</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_22'/>
+22
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_22'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_23'/>
+23
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_23'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public Inventory() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_24'/>
+24
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_24'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;pistolBullets = new Magazine();</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_25'/>
+25
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_25'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;weapons = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_26'/>
+26
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_26'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;guns = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_27'/>
+27
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_27'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_28'/>
+28
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_28'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_29'/>
+29
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_29'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public Magazine getPistolBullets() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_30'/>
+30
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_30'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return pistolBullets;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_31'/>
+31
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_31'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_32'/>
+32
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_32'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_33'/>
+33
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_33'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public List&#60;Weapon&#62; getWeapons() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_34'/>
+34
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_34'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return weapons;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_35'/>
+35
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_35'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_36'/>
+36
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_36'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_37'/>
+37
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_37'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public List&#60;Firearm&#62; getGuns() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_38'/>
+38
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_38'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return guns;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_39'/>
+39
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_39'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_40'/>
+40
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_40'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_41'/>
+41
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_41'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public void addPistolBullets(int amount) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_42'/>
+42
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_42'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;pistolBullets.add(amount);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_43'/>
+43
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_43'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_44'/>
+44
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_44'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_45'/>
+45
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_45'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public void addWeapons(Weapon... weapons) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_46'/>
+46
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_46'>3</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;for (Weapon weapon : weapons) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_47'/>
+47
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_47'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;this.weapons.add(weapon);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_48'/>
+48
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_48'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_49'/>
+49
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_49'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_50'/>
+50
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_50'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_51'/>
+51
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_51'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public void addFireamrs(Firearm... firearms) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_52'/>
+52
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_52'>3</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;for (Firearm firearm : firearms) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_53'/>
+53
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_53'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;this.guns.add(firearm);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_54'/>
+54
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_54'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_55'/>
+55
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_55'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3506d826_56'/>
+56
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_56'></a>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3506d826_30'>30</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_30'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/Inventory::getPistolBullets to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.domain.InventoryTest.testPistolBullets(abandonallhope.domain.InventoryTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3506d826_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_34'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/Inventory::getWeapons to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.domain.InventoryTest.testWeaponsAdding(abandonallhope.domain.InventoryTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3506d826_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_38'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/Inventory::getGuns to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.domain.InventoryTest.testFirearmsAdding2(abandonallhope.domain.InventoryTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3506d826_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_42'/> 
+
+<p class='KILLED'>removed call to abandonallhope/domain/weapons/Magazine::add : KILLED -> abandonallhope.domain.InventoryTest.testPistolBullets(abandonallhope.domain.InventoryTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3506d826_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_46'/> 
+
+<p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.InventoryTest.testWeaponsAdding(abandonallhope.domain.InventoryTest)</p> <p class='KILLED'>Changed increment from 1 to -1 : KILLED -> abandonallhope.domain.InventoryTest.testWeaponsAdding(abandonallhope.domain.InventoryTest)</p> <p class='KILLED'>changed conditional boundary : KILLED -> abandonallhope.domain.InventoryTest.testWeaponsAdding(abandonallhope.domain.InventoryTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3506d826_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3506d826_52'/> 
+
+<p class='KILLED'>Changed increment from 1 to -1 : KILLED -> abandonallhope.domain.InventoryTest.testFirearmsAdding2(abandonallhope.domain.InventoryTest)</p> <p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.InventoryTest.testFirearmsAdding2(abandonallhope.domain.InventoryTest)</p> <p class='KILLED'>changed conditional boundary : KILLED -> abandonallhope.domain.InventoryTest.testFirearmsAdding2(abandonallhope.domain.InventoryTest)</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>abandonallhope.logic.GameTest.zombieIsNotRemovedWhenBulletDoesNotHitIt(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.weapons.PistolTest.returnsACorrectName(abandonallhope.domain.weapons.PistolTest) (0 ms)</li><li>abandonallhope.logic.DayChangerTest.dayOneStartsWith5Survivors(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canNotUsedImmediatelyWithoutBullets(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.loot.FirearmLootTest.addsTheGunToTheInventory(abandonallhope.logic.loot.FirearmLootTest) (0 ms)</li><li>abandonallhope.logic.GameTest.dontRemoveBulletsWhenTheyHaveNotYetMovedTheirMaxDistance(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.InventoryTest.testPistolBullets(abandonallhope.domain.InventoryTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.testSomeMethod(abandonallhope.domain.weapons.PistolTest) (0 ms)</li><li>abandonallhope.logic.GameTest.killZombieCloseToArmedSurvivor(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.loot.WeaponLootTest.addsTheGunToTheInventory(abandonallhope.logic.loot.WeaponLootTest) (0 ms)</li><li>abandonallhope.logic.GameTest.noLootIsDistributedAtTheEndOfTheDayIfNoZombiesAreTrapped(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.loot.BulletLootTest.placesBulletsIntoThePlayerInventory(abandonallhope.logic.loot.BulletLootTest) (0 ms)</li><li>abandonallhope.logic.DayChangerTest.first3DayOneSurvivorsHaveAnAxe(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.logic.GameTest.zombieIsRemovedWhenBulletHitsIt(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.GameTest.turnFightsZombies(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.GameTest.doesNotShootABulletIfCloseEnoughToZombieButHasNoBulletsLeft(abandonallhope.logic.GameTest) (19 ms)</li><li>abandonallhope.domain.InventoryTest.testWeaponsAdding2(abandonallhope.domain.InventoryTest) (1 ms)</li><li>abandonallhope.logic.loot.WeaponLootTest.returnsTheNameOfTheWeaponAdded(abandonallhope.logic.loot.WeaponLootTest) (1 ms)</li><li>abandonallhope.logic.GameTest.shootsABulletIfCloseEnoughToZombieAndHasBulletsLeft(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.GameTest.lootIsDitributedFromAllTheZombiesIfMoreZombieasAreTrapped(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.InventoryTest.testFirearmsAdding(abandonallhope.domain.InventoryTest) (8 ms)</li><li>abandonallhope.domain.InventoryTest.testFirearmsAdding2(abandonallhope.domain.InventoryTest) (2 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canBeUsedImmediatelyWithBullets(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.GameTest.displayMessageWhenZombieIsRemovedFromGame(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.GameTest.someLootIsDistributedAtTheEndOfTheDayIfZombiesAreTrapped(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.GameTest.usesAxeWhenCloseEnoughToZombieAndWeaponIsNotYetReloaded(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.GameTest.gunReloadsEachTurn(abandonallhope.logic.GameTest) (3 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canBeUsedAgainAfter600Frames(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.DayChangerTest.dayOneStartsWith1To5Zombies(abandonallhope.logic.DayChangerTest) (15 ms)</li><li>abandonallhope.logic.DayChangerTest.dayOneSurvivorsHaveCorrectIds(abandonallhope.logic.DayChangerTest) (0 ms)</li><li>abandonallhope.logic.loot.BulletLootTest.doesNotDropMoreThan3Bullets(abandonallhope.logic.loot.BulletLootTest) (1 ms)</li><li>abandonallhope.logic.GameTest.doesNotUseOtherWeaponIfSurvivorHasAGun(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.domain.weapons.PistolTest.cannotBeUsedTwiceAtTheSameTime(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.GameTest.bulletMovesOnceInOneFrame(abandonallhope.logic.GameTest) (3 ms)</li><li>abandonallhope.logic.GameTest.allZombiesFromPreviousDayAreDeleted(abandonallhope.logic.GameTest) (4 ms)</li><li>abandonallhope.domain.weapons.PistolTest.rangeIs35(abandonallhope.domain.weapons.PistolTest) (0 ms)</li><li>abandonallhope.logic.GameTest.doesNotShootABulletIfNotCloseEnoughToZombieAndHasBulletsLeft(abandonallhope.logic.GameTest) (3 ms)</li><li>abandonallhope.logic.DayChangerTest.dayOneSurvivorsAreLocatedInsideTheCamp(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.logic.GameTest.bulletsDecreaseWhenFightingZombiesAndGunIsUsed(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.loot.FirearmLootTest.returnsTheNameOfTheGunAdded(abandonallhope.logic.loot.FirearmLootTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canNotBeUsedAgainAfter599Frames(abandonallhope.domain.weapons.PistolTest) (1 ms)</li><li>abandonallhope.logic.DayChangerTest.survivorsStartUpWith5Bullets(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.logic.GameTest.doesNotWasteBulletsOnTrappedZombies(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.loot.LootDistributorTest.doesntReturnEmptyLoot(abandonallhope.logic.loot.LootDistributorTest) (0 ms)</li><li>abandonallhope.logic.GameTest.usesAxeWhenCloseEnoughToZombieAndHasGunButNoBullets(abandonallhope.logic.GameTest) (2 ms)</li><li>abandonallhope.logic.DayChangerTest.zombieLocationIsOnTheBorderOfTheMap(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.logic.loot.BulletLootTest.dropsAtLeastOneBullet(abandonallhope.logic.loot.BulletLootTest) (1 ms)</li><li>abandonallhope.domain.InventoryTest.testWeaponsAdding(abandonallhope.domain.InventoryTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.canBeGivenAFirearm(abandonallhope.domain.SurvivorTest) (3 ms)</li><li>abandonallhope.logic.DayChangerTest.dayOneSurvivors0and3haveAPistol(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.domain.weapons.PistolTest.canNotUsedAgainAfter600FramesIfNoBullets(abandonallhope.domain.weapons.PistolTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 0.30
+
+</body>
+</html>

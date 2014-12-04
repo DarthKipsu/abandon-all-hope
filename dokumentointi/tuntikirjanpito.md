@@ -25,3 +25,5 @@ Päivämäärä | Tunnit | Aihe
 29.11.2014 | 1h | Tyypit ei kulje seinien läpi,seinät menee rikki
 29.11.2014 | 1,5h | Ansat ja niiden asetus kartalle, eivät vielä tee mitään
 30.11.2014 | 8h | Ansat toimimaan, käyttöliittymän parantelua, zombit tiputtaa juttujayms.
+3.12.2014 | 1h | Testien parantelua ja resurssi eventit omaan luokkaansa
+4.12.2014 | 1h | Testien parantelua
