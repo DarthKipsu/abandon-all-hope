@@ -1,7 +1,9 @@
 package abandonallhope.ui;
 
 import abandonallhope.domain.Survivor;
+import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
+import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.logic.Game;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import javafx.scene.text.Text;
  *
  * @author kipsu
  */
-public class ResourcePanel implements NewSurvivorEventHandler {
+public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEventHandler {
 
 	private VBox vbox;
 	private VBox survivors;
@@ -37,7 +39,8 @@ public class ResourcePanel implements NewSurvivorEventHandler {
 	 */
 	public ResourcePanel(Game game) {
 		this.game = game;
-		game.addNewSurvivorEventHandler(this);
+		game.addNewResourceEventHandler(this, "newSurvivor");
+		game.addNewResourceEventHandler(this, "deleteSurvivor");
 		vbox = new VBox();
 		vbox.setPadding(new Insets(10));
 		vbox.setSpacing(8);
@@ -94,10 +97,16 @@ public class ResourcePanel implements NewSurvivorEventHandler {
 	public void handle(NewSurvivorEvent e) {
 		Text name = new Text(e.getSurvivor().getId() + ". " + e.getSurvivor().getName());
 		name.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+		name.setId(e.getSurvivor().getName());
 		survivorNames.add(name);
 		survivors.getChildren().add(name);
 		addMeleeWeaponComboBox(e);
 		addFirearmComboBox(e);
+	}
+
+	@Override
+	public void handle(DeleteSurvivorEvent e) {
+		System.out.println("remove: " + e.getSurvivor().getName());
 	}
 
 	private void addMeleeWeaponComboBox(NewSurvivorEvent e) {

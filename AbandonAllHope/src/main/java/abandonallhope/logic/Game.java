@@ -3,14 +3,11 @@ package abandonallhope.logic;
 import abandonallhope.domain.*;
 import abandonallhope.domain.constructions.*;
 import abandonallhope.domain.weapons.*;
-import abandonallhope.events.action.NewSurvivorEvent;
-import abandonallhope.events.handlers.NewSurvivorEventHandler;
+import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -27,6 +24,7 @@ public class Game implements EventHandler {
 	private LootDistributor lootDistributor;
 	private MessagePanel messages;
 	private Timeline gameTimeline;
+	private ResourceEvents resourceEvents;
 	private int day;
 	private int sleep;
 
@@ -35,7 +33,6 @@ public class Game implements EventHandler {
 	private List<Bullet> bullets;
 	private List<Wall> walls;
 	private List<Trap> traps;
-	private Set<NewSurvivorEventHandler> newSurvivorEventHandlers;
 
 	/**
 	 * Create new game event handler
@@ -45,12 +42,12 @@ public class Game implements EventHandler {
 	public Game(int mapSize) {
 		inventory = new Inventory();
 		lootDistributor = new LootDistributor(inventory);
+		resourceEvents = new ResourceEvents();
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
-		newSurvivorEventHandlers = new HashSet<>();
 		map = new Map(mapSize, survivors, walls, traps);
 		day = 1;
 		sleep = 0;
@@ -96,7 +93,7 @@ public class Game implements EventHandler {
 	public void add(Survivor... survivors) {
 		for (Survivor survivor : survivors) {
 			this.survivors.add(survivor);
-			triggerNewSurvivorEvent(survivor);
+			resourceEvents.triggerNewSurvivorEvent(survivor);
 		}
 	}
 
@@ -139,6 +136,15 @@ public class Game implements EventHandler {
 
 	public void setGameTimeline(Timeline gameTimeline) {
 		this.gameTimeline = gameTimeline;
+	}
+	
+	/**
+	 * Adds a new resource event handler in game.
+	 * @param event event handler to be added.
+	 * @param type type of the event: newSurvivor, deleteSurvivor
+	 */
+	public void addNewResourceEventHandler(ResourceEventHandler event, String type) {
+		resourceEvents.addNewResourceEventHandler(event, type);
 	}
 
 	/**
@@ -285,6 +291,7 @@ public class Game implements EventHandler {
 			if (survivor != null) {
 				Point survivorLocation = survivor.getLocation();
 				messages.addMessage(survivor.getName() + " was bit and turned into a zombie!");
+				resourceEvents.triggerDeleteSurvivorEvent(survivor);
 				survivors.remove(survivor);
 				add(new Zombie(survivorLocation, map));
 				return;
@@ -319,17 +326,6 @@ public class Game implements EventHandler {
 		return weapon.canBeUsed()
 				&& Collision.distanceBetween(survivor, target)
 				<= weapon.getRange();
-	}
-	
-	public void addNewSurvivorEventHandler(NewSurvivorEventHandler nseh) {
-		newSurvivorEventHandlers.add(nseh);
-	}
-	
-	private void triggerNewSurvivorEvent(Survivor survivor) {
-		NewSurvivorEvent newSurvivorEvent = new NewSurvivorEvent(survivor);
-		for (NewSurvivorEventHandler nseh : newSurvivorEventHandlers) {
-			nseh.handle(newSurvivorEvent);
-		}
 	}
 
 }
