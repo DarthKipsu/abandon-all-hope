@@ -1,17 +1,18 @@
 
 package abandonallhope.logic;
 
-import abandonallhope.domain.Point;
-import abandonallhope.domain.Survivor;
-import abandonallhope.domain.Zombie;
-import abandonallhope.domain.constructions.Trap;
-import abandonallhope.domain.constructions.TrapType;
-import abandonallhope.domain.constructions.Wall;
-import abandonallhope.domain.constructions.WallType;
-import abandonallhope.domain.weapons.Axe;
-import abandonallhope.domain.weapons.Pistol;
-import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.domain.*;
+import abandonallhope.domain.constructions.*;
+import abandonallhope.domain.weapons.*;
+import abandonallhope.events.action.DeleteSurvivorEvent;
+import abandonallhope.events.action.NewSurvivorEvent;
+import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
+import abandonallhope.events.handlers.NewSurvivorEventHandler;
+import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.ui.MessagePanel;
+import javafx.animation.Animation.Status;
+import javafx.animation.Timeline;
+import javafx.scene.text.Text;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -345,6 +346,217 @@ public class GameTest {
 		assertEquals(1, game.getBullets().size());
 	}
 	
+	@Test
+	public void newSurvivorEventTriggersWhenNewSurvivorIsAdded() {
+		NewSurvivorEventHandlerMock res = (NewSurvivorEventHandlerMock) newSurvivorEvent();
+		game.addNewResourceEventHandler(res, "newSurvivor");
+		addSurvivor(10, 10);
+		assertEquals(1, res.handleEvents);
+	}
+	
+	@Test
+	public void deleteSurvivorEventTriggersWhenSurvivorIsRemovedFromGame() {
+		DeleteSurvivorEventHandlerMock res = (DeleteSurvivorEventHandlerMock) deleteSurvivorEvent();
+		game.addNewResourceEventHandler(res, "deleteSurvivor");
+		addZombie(10, 10);
+		addSurvivor(10, 10);
+		game.infectSurvivors();
+		assertEquals(1, res.handleEvents);
+	}
+	
+	@Test
+	public void displayMessageWhenSurvivorIsRemovedFromGame() {
+		addZombie(10, 10);
+		addSurvivor(10, 10);
+		game.infectSurvivors();
+		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		assertEquals("name was bit and turned into a zombie!", text.getText());
+	}
+	
+	@Test
+	public void displayMessageWhenZombieIsRemovedFromGame() {
+		Zombie zombie = addZombie(10, 10);
+		game.killAZombie(zombie);
+		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		assertEquals("Zombie dropped ", text.getText().subSequence(0, 15));
+	}
+	
+	@Test
+	public void canSetGameTimeLine() {
+		Timeline tl = new Timeline();
+		game.setGameTimeline(tl);
+		assertEquals(tl, game.gameTimeline);
+	}
+	
+	@Test
+	public void decreaseSleepByOneEachTurnSleepIsCalled() {
+		game.sleep = 100;
+		for (int i = 0; i < 10; i++) {
+			game.sleepUntilTheNextDay();
+		}
+		assertEquals(90, game.sleep);
+	}
+	
+	@Test
+	public void dontShowMessageIfSleepIsNotOver() {
+		game.sleep = 2;
+		game.sleepUntilTheNextDay();
+		assertTrue(game.messages.getVbox().getChildren().isEmpty());
+	}
+	
+	@Test
+	public void displayMessageWhenSleepIsOver() {
+		game.sleep = 1;
+		game.sleepUntilTheNextDay();
+		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		assertEquals("Begin day 1: 0 new zombies.", text.getText());
+	}
+	
+	@Test
+	public void addNewZombiesOnGameChange() {
+		DayChanger.setGame(game);
+		game.sleep = 1;
+		game.sleepUntilTheNextDay();
+		assertFalse(game.getZombies().isEmpty());
+	}
+	
+	@Test
+	public void gameOverStopsTimeline() {
+		Timeline timeline = new Timeline();
+		game.setGameTimeline(timeline);
+		game.gameOver();
+		assertEquals(Status.STOPPED, timeline.statusProperty().getValue());
+	}
+	
+	@Test
+	public void gameOverCreatesAMessageToPlayer() {
+		game.setGameTimeline(new Timeline());
+		game.gameOver();
+		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		assertEquals("All survivors are lost! Game over!", text.getText());
+	}
+	
+	@Test
+	public void noLootIsDistributedAtTheEndOfTheDayIfNoZombiesAreTrapped() {
+		game.endTheCurrentDay();
+		assertTrue(game.getInventory().getGuns().isEmpty());
+		assertTrue(game.getInventory().getWeapons().isEmpty());
+		assertFalse(game.getInventory().getPistolBullets().notEmpty());
+	}
+	
+	@Test
+	public void someLootIsDistributedAtTheEndOfTheDayIfZombiesAreTrapped() {
+		addZombie(10, 10);
+		game.endTheCurrentDay();
+		int loot = collectAllLoot();
+		assertTrue(loot > 0);
+	}
+	
+	@Test
+	public void lootIsDitributedFromAllTheZombiesIfMoreZombieasAreTrapped() {
+		for (int i = 0; i < 10; i++) {
+			addZombie(10, 10);
+		}
+		game.endTheCurrentDay();
+		int loot = collectAllLoot();
+		assertTrue(loot >= 10);
+	}
+	
+	@Test
+	public void allZombiesFromPreviousDayAreDeleted() {
+		addZombie(10, 10);
+		game.endTheCurrentDay();
+		assertTrue(game.getZombies().isEmpty());
+	}
+	
+	@Test
+	public void increaseDayCounterAfterTheEndOfDay() {
+		game.endTheCurrentDay();
+		assertEquals(2, game.getDay());
+	}
+	
+	@Test
+	public void add3SecondsSleepCounterAfterEndOfDay() {
+		game.endTheCurrentDay();
+		assertEquals(180, game.sleep);
+	}
+	
+	@Test
+	public void showMessagesDisplayingDayChangeAfterDayChange() {
+		game.endTheCurrentDay();
+		Text text = (Text) game.messages.getVbox().getChildren().get(1);
+		Text text2 = (Text) game.messages.getVbox().getChildren().get(0);
+		assertEquals("All zombies cleared and trapped loot collected. You managed to survive another day!", text.getText());
+		assertEquals("Prepare for day 2", text2.getText());
+	}
+	
+	@Test
+	public void dayChangeConditionReturnsTrueWhenNoZombiesAreLeft() {
+		assertTrue(game.zombiesCleared());
+	}
+	
+	@Test
+	public void dayChangeConditionReturnsTrueWhenOnlyTrappedZombiesAreLeft() {
+		addSurvivor(20, 20);
+		addZombie(10, 10);
+		game.add(new Trap(new Point(10.2, 10.2), TrapType.BEARIRON));
+		game.moveZombies();
+		assertTrue(game.zombiesCleared());
+	}
+	
+	@Test
+	public void dayChangeConditionReturnsFalseIfThereAreZombies() {
+		addZombie(10, 10);
+		assertFalse(game.zombiesCleared());
+	}
+	
+	@Test
+	public void turnHandlesBullets() {
+		game.getBullets().add(new Bullet(new Point(0, 10), game.getMap(), new Point(0, 0), 10));
+		game.playATurn();
+		assertEquals(new Point(0, 9), game.getBullets().get(0).getLocation());
+	}
+	
+	@Test
+	public void turnMovesSurvivors() {
+		Survivor survivor = addSurvivor(0, 10);
+		survivor.moveTowards(new Point(10, 10));
+		game.playATurn();
+		assertEquals(new Point(0.5, 10), survivor.getLocation());
+	}
+	
+	@Test
+	public void turnMovesZombiesIfSurvivorsIsNotEmpty() {
+		addSurvivor(0, 10);
+		Zombie zombie = addZombie(10, 10);
+		game.playATurn();
+		assertEquals(new Point(9.7, 10), zombie.getLocation());
+	}
+	
+	@Test
+	public void turnDoesNotMoveZombiesIfSurvivorsIsEmpty() {
+		Zombie zombie = addZombie(10, 10);
+		game.playATurn();
+		assertEquals(new Point(10, 10), zombie.getLocation());
+	}
+	
+	@Test
+	public void turnFightsZombies() {
+		addZombie(10, 10);
+		Survivor survivor = addSurvivor(10, 10);
+		survivor.setWeapon(new Axe());
+		game.playATurn();
+		assertTrue(game.getZombies().isEmpty());
+	}
+	
+	@Test
+	public void turnInfectsSurvivors() {
+		addZombie(10, 10);
+		addSurvivor(10, 10);
+		game.playATurn();
+		assertTrue(game.getSurvivors().isEmpty());
+	}
+	
 	private Survivor addSurvivorWithPistol(double x, double y, int bullets) {
 		Survivor survivor = addSurvivor(x, y);
 		survivor.setGun(createGun(bullets));
@@ -357,9 +569,10 @@ public class GameTest {
 		return survivor;
 	}
 	
-	private void addZombie(double x, double y) {
+	private Zombie addZombie(double x, double y) {
 		Zombie zombie = new Zombie(new Point(x, y), game.getMap());
 		game.add(zombie);
+		return zombie;
 	}
 	
 	private Pistol createGun(int bullets) {
@@ -371,6 +584,40 @@ public class GameTest {
 		for (int i = 0; i < rounds; i++) {
 			game.fightZombies();
 		}
+	}
+
+	private ResourceEventHandler newSurvivorEvent() {
+		return new NewSurvivorEventHandlerMock();
+	}
+
+	private ResourceEventHandler deleteSurvivorEvent() {
+		return new DeleteSurvivorEventHandlerMock();
+	}
+
+	private class NewSurvivorEventHandlerMock implements NewSurvivorEventHandler {
+		public int handleEvents = 0;
+		
+		@Override
+		public void handle(NewSurvivorEvent e) {
+			handleEvents++;
+		}
+	}
+
+	private class DeleteSurvivorEventHandlerMock implements DeleteSurvivorEventHandler {
+		public int handleEvents = 0;
+		
+		@Override
+		public void handle(DeleteSurvivorEvent e) {
+			handleEvents++;
+		}
+	}
+
+	private int collectAllLoot() {
+		int loot = 0;
+		loot += game.getInventory().getGuns().size();
+		loot += game.getInventory().getWeapons().size();
+		loot += game.getInventory().getPistolBullets().getBullets();
+		return loot;
 	}
 	
 }

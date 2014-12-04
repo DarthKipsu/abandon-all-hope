@@ -22,11 +22,11 @@ public class Game implements EventHandler {
 	private Map map;
 	private Inventory inventory;
 	private LootDistributor lootDistributor;
-	private MessagePanel messages;
-	private Timeline gameTimeline;
+	protected MessagePanel messages;
+	protected Timeline gameTimeline;
 	private ResourceEvents resourceEvents;
 	private int day;
-	private int sleep;
+	protected int sleep;
 
 	private List<Zombie> zombies;
 	private List<Survivor> survivors;
@@ -166,7 +166,7 @@ public class Game implements EventHandler {
 		}
 	}
 
-	private void sleepUntilTheNextDay() {
+	protected void sleepUntilTheNextDay() {
 		if (sleep == 1) {
 			DayChanger.nextDay();
 			messages.addMessage("Begin day " + day + ": " + zombies.size() + " new zombies.");
@@ -174,12 +174,12 @@ public class Game implements EventHandler {
 		sleep--;
 	}
 
-	private void gameOver() {
+	protected void gameOver() {
 		gameTimeline.stop();
 		messages.addMessage("All survivors are lost! Game over!");
 	}
 
-	private void endTheCurrentDay() {
+	protected void endTheCurrentDay() {
 		for (Zombie zombie : zombies) {
 			lootDistributor.getLoot();
 		}
@@ -190,7 +190,7 @@ public class Game implements EventHandler {
 		sleep = 180;
 	}
 
-	private boolean zombiesCleared() {
+	protected boolean zombiesCleared() {
 		for (Zombie zombie : zombies) {
 			if (!zombie.isTrapped()) {
 				return false;
@@ -199,7 +199,7 @@ public class Game implements EventHandler {
 		return true;
 	}
 
-	private void playATurn() {
+	protected void playATurn() {
 		handleBullets();
 		moveSurvivors();
 		if (!zombies.isEmpty()) {
@@ -317,7 +317,7 @@ public class Game implements EventHandler {
 		}
 	}
 
-	private void killAZombie(MovingObject target) {
+	protected void killAZombie(MovingObject target) {
 		zombies.remove(target);
 		messages.addMessage("Zombie dropped " + lootDistributor.getLoot());
 	}
