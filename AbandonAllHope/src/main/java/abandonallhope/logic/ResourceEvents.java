@@ -16,8 +16,8 @@ import java.util.Set;
  */
 public class ResourceEvents {
 	
-	private Set<NewSurvivorEventHandler> newSurvivorEventHandlers;
-	private Set<DeleteSurvivorEventHandler> deleteSurvivorEventHandlers;
+	protected Set<NewSurvivorEventHandler> newSurvivorEventHandlers;
+	protected Set<DeleteSurvivorEventHandler> deleteSurvivorEventHandlers;
 
 	/**
 	 * Creates a new resource event container class.
