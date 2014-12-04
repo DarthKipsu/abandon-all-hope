@@ -27,3 +27,4 @@ Päivämäärä | Tunnit | Aihe
 30.11.2014 | 8h | Ansat toimimaan, käyttöliittymän parantelua, zombit tiputtaa juttujayms.
 3.12.2014 | 1h | Testien parantelua ja resurssi eventit omaan luokkaansa
 4.12.2014 | 1h | Testien parantelua
+4.12.2014 | 2h | Korjaa survivorien poisto resurssipaneelista ja esitä uudet aseet (keskeneräinen), sekvenssikaavio
