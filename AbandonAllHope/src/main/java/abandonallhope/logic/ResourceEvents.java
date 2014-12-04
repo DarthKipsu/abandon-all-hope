@@ -2,10 +2,13 @@
 package abandonallhope.logic;
 
 import abandonallhope.domain.Survivor;
+import abandonallhope.domain.weapons.Weapon;
 import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
+import abandonallhope.events.action.NewWeaponEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
+import abandonallhope.events.handlers.NewWeaponEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +21,7 @@ public class ResourceEvents {
 	
 	protected Set<NewSurvivorEventHandler> newSurvivorEventHandlers;
 	protected Set<DeleteSurvivorEventHandler> deleteSurvivorEventHandlers;
+	protected Set<NewWeaponEventHandler> newWeaponEventHandlers;
 
 	/**
 	 * Creates a new resource event container class.
@@ -25,6 +29,7 @@ public class ResourceEvents {
 	public ResourceEvents() {
 		newSurvivorEventHandlers = new HashSet<>();
 		deleteSurvivorEventHandlers = new HashSet<>();
+		newWeaponEventHandlers = new HashSet<>();
 	}
 	
 	/**
@@ -37,6 +42,8 @@ public class ResourceEvents {
 			newSurvivorEventHandlers.add((NewSurvivorEventHandler)event);
 		} else if (type.equals("deleteSurvivor")) {
 			deleteSurvivorEventHandlers.add((DeleteSurvivorEventHandler)event);
+		} else if (type.equals("newWeapon")) {
+			newWeaponEventHandlers.add((NewWeaponEventHandler)event);
 		}
 	}
 	
@@ -59,6 +66,17 @@ public class ResourceEvents {
 		DeleteSurvivorEvent deleteSurvivorEvent = new DeleteSurvivorEvent(survivor);
 		for (DeleteSurvivorEventHandler dseh : deleteSurvivorEventHandlers) {
 			dseh.handle(deleteSurvivorEvent);
+		}
+	}
+	
+	/**
+	 * Triggers an event notifying resources panel to display a new weapon.
+	 * @param weapon weapon to be added
+	 */
+	public void triggerNewWeaponEvent(Weapon weapon) {
+		NewWeaponEvent newWeaponEvent = new NewWeaponEvent(weapon);
+		for (NewWeaponEventHandler nweh : newWeaponEventHandlers) {
+			nweh.handle(newWeaponEvent);
 		}
 	}
 }

@@ -1,10 +1,13 @@
 package abandonallhope.ui;
 
+import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Survivor;
 import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
+import abandonallhope.events.action.NewWeaponEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
+import abandonallhope.events.handlers.NewWeaponEventHandler;
 import abandonallhope.logic.Game;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +25,14 @@ import javafx.scene.text.Text;
  *
  * @author kipsu
  */
-public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEventHandler {
+public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEventHandler,
+		NewWeaponEventHandler {
 
 	private VBox vbox;
 	private VBox survivors;
 	private VBox bullets;
-	private Game game;
+	private Inventory inventory;
+	
 
 	private ArrayList<Text> survivorNames;
 	private ArrayList<ComboBox> survivorWeapons;
@@ -40,9 +45,10 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 * @param game game containing the resources
 	 */
 	public ResourcePanel(Game game) {
-		this.game = game;
 		game.addNewResourceEventHandler(this, "newSurvivor");
 		game.addNewResourceEventHandler(this, "deleteSurvivor");
+		game.addNewResourceEventHandler(this, "newWeapon");
+		inventory = game.getInventory();
 		vbox = new VBox();
 		vbox.setPadding(new Insets(10));
 		vbox.setSpacing(8);
@@ -66,15 +72,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	public void updateBullets() {
 		bullets.getChildren().clear();
 		bullets.getChildren().add(new Text("  Pistol: "
-				+ game.getInventory().getPistolBullets().getBullets()));
-	}
-
-	private static String printWeapon(Survivor survivor) {
-		return "weapon: " + (survivor.getWeapon() != null ? survivor.getWeapon() : "-");
-	}
-
-	private static String printGun(Survivor survivor) {
-		return "gun: " + (survivor.getGun() != null ? survivor.getGun() : "-");
+				+ inventory.getPistolBullets().getBullets()));
 	}
 
 	private void createVBoxContents() {
@@ -109,8 +107,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	@Override
 	public void handle(DeleteSurvivorEvent e) {
 		List<Node> nodesToRemove = new ArrayList<>();
-		for (int i = 0; i < survivors.getChildren().size(); i++) {
-			Node node = survivors.getChildren().get(i);
+		for (Node node : survivors.getChildren()) {
 			if (node.getId().equals(e.getSurvivor().getName())) {
 				nodesToRemove.add(node);
 			}
@@ -118,11 +115,19 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		survivors.getChildren().removeAll(nodesToRemove);
 	}
 
+	@Override
+	public void handle(NewWeaponEvent e) {
+		for (ComboBox combo : survivorWeapons) {
+			String weaponNow = combo.getItems().get(0).toString().substring(8);
+			if (!weaponNow.equals(e.getWeapon().toString())) {
+				combo.getItems().add(e.getWeapon().toString());
+			}
+		}
+	}
+
 	private void addMeleeWeaponComboBox(NewSurvivorEvent e) {
 		ComboBox<String> comboBox = new ComboBox();
-		comboBox.getItems().addAll(
-				printWeapon(e.getSurvivor())
-		);
+		comboBox.getItems().addAll(printWeapons(e.getSurvivor()));
 		comboBox.setValue(printWeapon(e.getSurvivor()));
 		comboBox.setPrefWidth(150);
 		comboBox.setId(e.getSurvivor().getName());
@@ -132,14 +137,36 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	private void addFirearmComboBox(NewSurvivorEvent e) {
 		ComboBox<String> comboBox = new ComboBox();
-		comboBox.getItems().addAll(
-				printGun(e.getSurvivor())
-		);
+		comboBox.getItems().addAll(printGuns(e.getSurvivor()));
 		comboBox.setValue(printGun(e.getSurvivor()));
 		comboBox.setPrefWidth(150);
 		comboBox.setId(e.getSurvivor().getName());
-		survivorWeapons.add(comboBox);
+		survivorGuns.add(comboBox);
 		survivors.getChildren().add(comboBox);
+	}
+
+	private String printWeapons(Survivor survivor) {
+		String weapons = printWeapon(survivor);
+		if (!inventory.getWeapons().isEmpty()) {
+			weapons += ", " + inventory.getWeapons().get(0);   
+		}
+		return weapons;
+	}
+
+	private String printWeapon(Survivor survivor) {
+		return "weapon: " + (survivor.getWeapon() != null ? survivor.getWeapon() : "-");
+	}
+
+	private String printGuns(Survivor survivor) {
+		String guns = printGun(survivor);
+		if (!inventory.getGuns().isEmpty()) {
+			guns += ", " + inventory.getGuns().get(0);   
+		}
+		return guns;
+	}
+
+	private String printGun(Survivor survivor) {
+		return "gun: " + (survivor.getGun() != null ? survivor.getGun() : "-");
 	}
 
 }

@@ -53,4 +53,13 @@ public class Inventory {
 			this.guns.add(firearm);
 		}
 	}
+	
+	public boolean containsWeapon(Weapon weapon) {
+		for (Weapon comparator : weapons) {
+			if (weapon.getClass() == comparator.getClass()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

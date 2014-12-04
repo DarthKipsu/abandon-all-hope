@@ -1,6 +1,7 @@
 package abandonallhope.logic.loot;
 
 import abandonallhope.domain.Inventory;
+import abandonallhope.logic.ResourceEvents;
 import java.util.Random;
 
 /**
@@ -18,12 +19,12 @@ public class LootDistributor {
 	 * Create new loot distributor to distribute loot to player after killing zombies.
 	 * @param inventory inventory where the loot is added
 	 */
-	public LootDistributor(Inventory inventory) {
+	public LootDistributor(Inventory inventory, ResourceEvents resEvents) {
 		this.inventory = inventory;
 		random = new Random();
 		loot = new Loot[]{
 			new BulletLoot(),
-			new WeaponLoot(),
+			new WeaponLoot(resEvents),
 			new FirearmLoot()
 		};
 	}

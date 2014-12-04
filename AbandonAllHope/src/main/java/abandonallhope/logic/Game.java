@@ -41,8 +41,8 @@ public class Game implements EventHandler {
 	 */
 	public Game(int mapSize) {
 		inventory = new Inventory();
-		lootDistributor = new LootDistributor(inventory);
 		resourceEvents = new ResourceEvents();
+		lootDistributor = new LootDistributor(inventory, resourceEvents);
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
