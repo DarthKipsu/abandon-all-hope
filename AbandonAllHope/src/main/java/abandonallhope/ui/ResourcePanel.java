@@ -7,7 +7,9 @@ import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.logic.Game;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -106,7 +108,14 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	@Override
 	public void handle(DeleteSurvivorEvent e) {
-		System.out.println("remove: " + e.getSurvivor().getName());
+		List<Node> nodesToRemove = new ArrayList<>();
+		for (int i = 0; i < survivors.getChildren().size(); i++) {
+			Node node = survivors.getChildren().get(i);
+			if (node.getId().equals(e.getSurvivor().getName())) {
+				nodesToRemove.add(node);
+			}
+		}
+		survivors.getChildren().removeAll(nodesToRemove);
 	}
 
 	private void addMeleeWeaponComboBox(NewSurvivorEvent e) {
@@ -116,6 +125,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		);
 		comboBox.setValue(printWeapon(e.getSurvivor()));
 		comboBox.setPrefWidth(150);
+		comboBox.setId(e.getSurvivor().getName());
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
@@ -127,6 +137,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		);
 		comboBox.setValue(printGun(e.getSurvivor()));
 		comboBox.setPrefWidth(150);
+		comboBox.setId(e.getSurvivor().getName());
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
