@@ -50,6 +50,13 @@ public class WallTest {
 	}
 	
 	@Test
+	public void returnsCorrectCost() {
+		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
+		assertEquals(1, wall.getCost().getWood());
+		assertEquals(0, wall.getCost().getMetal());
+	}
+	
+	@Test
 	public void returnsCorrectColor() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
 		assertEquals(Color.BROWN, wall.getColor());

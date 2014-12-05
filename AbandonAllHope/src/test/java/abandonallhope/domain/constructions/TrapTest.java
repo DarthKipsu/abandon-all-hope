@@ -1,11 +1,7 @@
 
 package abandonallhope.domain.constructions;
 
-import abandonallhope.domain.Map;
-import abandonallhope.domain.Point;
-import abandonallhope.domain.Survivor;
-import abandonallhope.domain.Zombie;
-import java.util.AbstractList;
+import abandonallhope.domain.*;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
@@ -45,6 +41,13 @@ public class TrapTest {
 	public void returnsCorrectOccupatedArea() {
 		createTrap(TrapType.BEARIRON);
 		assertEquals(new Rectangle2D(10, 10, 5, 5), trap.occupiedArea());
+	}
+	
+	@Test
+	public void returnsCorrectCost() {
+		createTrap(TrapType.BEARIRON);
+		assertEquals(0, trap.getCost().getWood());
+		assertEquals(1, trap.getCost().getMetal());
 	}
 	
 	@Test

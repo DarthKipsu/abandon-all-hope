@@ -18,6 +18,7 @@ public class ZombieTest {
 	private double speed;
 	private Map map;
 	private List<Survivor> survivors;
+	private List<Zombie> zombies;
 	private List<Wall> walls;
 	private List<Trap> traps;
 	
@@ -27,7 +28,8 @@ public class ZombieTest {
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
 		map = new Map(30, survivors, walls, traps);
-		zombie = new Zombie(new Point(10, 10), map, new ArrayList<Zombie>());
+		zombies = new ArrayList<Zombie>();
+		zombie = new Zombie(new Point(10, 10), map, zombies);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map, "name", 1));
 	}
@@ -174,6 +176,49 @@ public class ZombieTest {
 		zombie2.move();
 		assertTrue(zombie.isTrapped());
 		assertFalse(zombie2.isTrapped());
+	}
+	
+	@Test
+	public void doesNotMoveStraightIfAnotherZombieIsAtLocation() {
+		zombies.add(new Zombie(new Point(10.3, 10.3), map, zombies));
+		zombie.move();
+		assertFalse(zombie.getLocation().equals(new Point(10.3, 10.3)));
+	}
+	
+	@Test
+	public void anotherZomieTooNear1() {
+		Zombie zombie2 = new Zombie(new Point(10.99, 10.99), map, zombies);
+		assertTrue(zombie.locationTooNearToDestination(zombie2));
+	}
+	
+	@Test
+	public void anotherZomieTooNear2() {
+		Zombie zombie2 = new Zombie(new Point(9.1, 9.1), map, zombies);
+		assertTrue(zombie.locationTooNearToDestination(zombie2));
+	}
+	
+	@Test
+	public void anotherZomieTooNear3() {
+		Zombie zombie2 = new Zombie(new Point(11, 11), map, zombies);
+		assertFalse(zombie.locationTooNearToDestination(zombie2));
+	}
+	
+	@Test
+	public void anotherZomieTooNear4() {
+		Zombie zombie2 = new Zombie(new Point(9, 9), map, zombies);
+		assertFalse(zombie.locationTooNearToDestination(zombie2));
+	}
+	
+	@Test
+	public void anotherZomieTooNear5() {
+		Zombie zombie2 = new Zombie(new Point(9.1, 11), map, zombies);
+		assertFalse(zombie.locationTooNearToDestination(zombie2));
+	}
+	
+	@Test
+	public void anotherZomieTooNear6() {
+		Zombie zombie2 = new Zombie(new Point(9, 10.9), map, zombies);
+		assertFalse(zombie.locationTooNearToDestination(zombie2));
 	}
 	
 	private void moveNtimes(int x, int y, int n) {

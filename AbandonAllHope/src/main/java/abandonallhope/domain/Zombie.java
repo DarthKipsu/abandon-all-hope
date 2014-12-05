@@ -85,7 +85,7 @@ public class Zombie extends MovingObject implements DrawableObject {
 		return false;
 	}
 	
-	private boolean locationTooNearToDestination(Zombie zombie) {
+	protected boolean locationTooNearToDestination(Zombie zombie) {
 		return zombie.location.x > location.x - 1 &&
 				zombie.location.x < location.x + 1 &&
 				zombie.location.y > location.y - 1 &&

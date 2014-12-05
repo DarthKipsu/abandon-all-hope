@@ -1,6 +1,7 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Cost;
 import abandonallhope.domain.weapons.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +80,34 @@ public class InventoryTest {
 	public void doesNotContainAxeWhenOtherWeaponIsInInventory() {
 		inventory.addWeapons(new Weapon(1, 1));
 		assertFalse(inventory.containsWeapon(new Axe()));
+	}
+	
+	@Test
+	public void returnsTrueIfEnoughResourcesToBuild() {
+		inventory.addMetal(2);
+		inventory.addWood(4);
+		assertTrue(inventory.enoughResources(new Cost(4, 2)));
+	}
+	
+	@Test
+	public void returnsFalseIfNotEnoughResourcesToBuild() {
+		inventory.addMetal(2);
+		inventory.addWood(4);
+		assertFalse(inventory.enoughResources(new Cost(5, 2)));
+	}
+	
+	@Test
+	public void returnsFalseIfNotEnoughResourcesToBuild2() {
+		inventory.addMetal(2);
+		inventory.addWood(4);
+		assertFalse(inventory.enoughResources(new Cost(4, 3)));
+	}
+	
+	@Test
+	public void payingSubstractsResources() {
+		inventory.payResources(new Cost(1, 1));
+		assertEquals(-1, inventory.getWood());
+		assertEquals(-1, inventory.getMetal());
 	}
 	
 }
