@@ -25,6 +25,7 @@ public class Wall implements DrawableObject {
 	protected int height;
 	protected int hitPoints;
 	protected Color color;
+	protected Cost cost;
 
 	/**
 	 * Create a new wall object.
@@ -38,6 +39,7 @@ public class Wall implements DrawableObject {
 		this.height = wallType.getHeight(o);
 		hitPoints = wallType.getMaxHP();
 		this.color = wallType.getColor();
+		this.cost = wallType.getCost();
 		this.location = location;
 	}
 
@@ -60,6 +62,10 @@ public class Wall implements DrawableObject {
 
 	public WallType getType() {
 		return type;
+	}
+
+	public Cost getCost() {
+		return cost;
 	}
 
 	/**

@@ -117,6 +117,7 @@ public class GameCanvas implements EventHandler {
 	 */
 	public void changeToBuildHoverEventListener(Wall wall) {
 		wallBuildHoverEvent = new WallBuildHoverEvent(wall, constrHoverDrawer);
+		constrHoverDrawer.setBuildingCost(wall.getCost());
 		canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
 	}

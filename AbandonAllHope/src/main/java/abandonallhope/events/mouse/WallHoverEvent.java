@@ -3,7 +3,7 @@ package abandonallhope.events.mouse;
 
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.ui.drawing.ConstructionHoverDrawer;
-import javafx.event.EventHandler;
+import javafx.event.EventHandler; 
 import javafx.scene.input.MouseEvent;
 
 /**

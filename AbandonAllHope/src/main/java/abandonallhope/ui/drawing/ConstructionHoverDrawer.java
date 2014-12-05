@@ -1,6 +1,8 @@
 package abandonallhope.ui.drawing;
 
 import abandonallhope.domain.DrawableObject;
+import abandonallhope.domain.Inventory;
+import abandonallhope.domain.constructions.Cost;
 import abandonallhope.logic.Game;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
@@ -21,6 +23,8 @@ public class ConstructionHoverDrawer extends Drawer {
 	private int wallHeight;
 	private int width;
 	private int height;
+	private Inventory inventory;
+	private Cost buildingCost;
 
 	/**
 	 * Creates a new construction hover drawing object, used to draw shadows of
@@ -31,6 +35,7 @@ public class ConstructionHoverDrawer extends Drawer {
 	 */
 	public ConstructionHoverDrawer(Game game, GraphicsContext gc) {
 		super(game, gc);
+		inventory = game.getInventory();
 		upperLeftX = 0;
 		upperLeftY = 0;
 	}
@@ -44,6 +49,10 @@ public class ConstructionHoverDrawer extends Drawer {
 		height = (int) buildingDimension.getHeight();
 		wallWidth = width;
 		wallHeight = height;
+	}
+	
+	public void setBuildingCost(Cost cost) {
+		buildingCost = cost;
 	}
 
 	/**
@@ -64,11 +73,9 @@ public class ConstructionHoverDrawer extends Drawer {
 	 */
 	public void updateBuildingDimensions(int width, int height) {
 		if (width != 0) {
-			this.height = wallHeight;
-			this.width = (width / wallWidth) * wallWidth;
+			updateHorizonalDimension(width);
 		} else {
-			this.width = wallHeight;
-			this.height = (height / wallWidth) * wallWidth;
+			updateVerticalDimension(height);
 		}
 	}
 
@@ -95,12 +102,29 @@ public class ConstructionHoverDrawer extends Drawer {
 	public void drawUnbuilt(List<? extends DrawableObject> objects) {
 		for (DrawableObject obj : objects) {
 			setGraphicsContextAttributes(Color.LIGHTGREEN, 1);
-//			draw(obj);
 		}
 	}
 
 	private void setGraphicsContextAttributes(Color stroke, int lineWidth) {
 		gc.setStroke(stroke);
 		gc.setLineWidth(lineWidth);
+	}
+
+	private void updateHorizonalDimension(int width1) {
+		this.height = wallHeight;
+		this.width = (width1 / wallWidth) * wallWidth;
+		if (Math.abs(this.width) > inventory.getWood() * wallWidth) {
+			this.width = this.width < 0 ? inventory.getWood() * wallWidth * (-1) :
+					inventory.getWood() * wallWidth;
+		}
+	}
+
+	private void updateVerticalDimension(int height1) {
+		this.width = wallHeight;
+		this.height = (height1 / wallWidth) * wallWidth;
+		if (Math.abs(this.height) > inventory.getWood() * wallWidth) {
+			this.height = this.height < 0 ? inventory.getWood() * wallWidth * (-1) :
+					inventory.getWood() * wallWidth;
+		}
 	}
 }
