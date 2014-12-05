@@ -1,5 +1,6 @@
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Cost;
 import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Magazine;
 import abandonallhope.domain.weapons.Weapon;
@@ -16,14 +17,18 @@ public class Inventory {
 	private Magazine pistolBullets;
 	private List<Weapon> weapons;
 	private List<Firearm> guns;
+	private int wood;
+	private int metal;
 
 	/**
-	 * Create empty inventory.
+	 * Create an empty inventory.
 	 */
 	public Inventory() {
 		pistolBullets = new Magazine();
 		weapons = new ArrayList<>();
 		guns = new ArrayList<>();
+		wood = 0;
+		metal = 0;
 	}
 
 	public Magazine getPistolBullets() {
@@ -36,6 +41,14 @@ public class Inventory {
 
 	public List<Firearm> getGuns() {
 		return guns;
+	}
+
+	public int getMetal() {
+		return metal;
+	}
+
+	public int getWood() {
+		return wood;
 	}
 
 	public void addPistolBullets(int amount) {
@@ -52,6 +65,23 @@ public class Inventory {
 		for (Firearm firearm : firearms) {
 			this.guns.add(firearm);
 		}
+	}
+	
+	public void addWood(int amount) {
+		wood += amount;
+	}
+	
+	public void addMetal(int amount) {
+		metal += amount;
+	}
+	
+	/**
+	 * Check if player has enough resources for this purchase.
+	 * @param cost cost of the purchase
+	 * @return true if enough resources
+	 */
+	public boolean enoughResources(Cost cost) {
+		return wood - cost.getWood() >= 0 && metal - cost.getMetal() >= 0;
 	}
 	
 	/**
@@ -80,5 +110,14 @@ public class Inventory {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Removes resources used to pay a building
+	 * @param cost cost of the building
+	 */
+	public void payResources(Cost cost) {
+		metal -= cost.getMetal();
+		wood -= cost.getWood();
 	}
 }

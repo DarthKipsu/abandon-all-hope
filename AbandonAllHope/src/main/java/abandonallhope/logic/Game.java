@@ -85,6 +85,10 @@ public class Game implements EventHandler {
 		return day;
 	}
 
+	public MessagePanel getMessages() {
+		return messages;
+	}
+
 	public ResourceEvents getResourceEvents() {
 		return resourceEvents;
 	}

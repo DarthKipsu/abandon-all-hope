@@ -9,17 +9,19 @@ import javafx.scene.paint.Color;
  */
 public enum TrapType {
 	
-	BEARIRON(5, 1, Color.SANDYBROWN),
-	PIT(10, 5, Color.SIENNA);
+	BEARIRON(5, 1, Color.SANDYBROWN, new Cost(0, 1)),
+	PIT(10, 5, Color.SIENNA, new Cost(4, 2));
 	
 	private final int size;
 	private final int capacity;
 	private final Color color;
+	private final Cost cost;
 
-	private TrapType(int size, int capacity, Color color) {
+	private TrapType(int size, int capacity, Color color, Cost cost) {
 		this.size = size;
 		this.capacity = capacity;
 		this.color = color;
+		this.cost = cost;
 	}
 
 	public int getCapacity() {
@@ -32,6 +34,10 @@ public enum TrapType {
 
 	public int getSize() {
 		return size;
+	}
+
+	public Cost getCost() {
+		return cost;
 	}
 	
 }

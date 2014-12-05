@@ -8,18 +8,20 @@ import javafx.scene.paint.Color;
  */
 public enum WallType {
 
-	WOODEN(10, 3, 500, Color.BROWN);
+	WOODEN(10, 3, 500, Color.BROWN, new Cost(1, 0));
 
 	private final int width;
 	private final int height;
 	private final int maxHP;
 	private final Color color;
+	private final Cost cost;
 
-	private WallType(int width, int height, int maxHP, Color color) {
+	private WallType(int width, int height, int maxHP, Color color, Cost cost) {
 		this.width = width;
 		this.height = height;
 		this.maxHP = maxHP;
 		this.color = color;
+		this.cost = cost;
 	}
 
 	public int getWidth(Wall.Orientation orientation) {
@@ -42,5 +44,9 @@ public enum WallType {
 
 	public Color getColor() {
 		return color;
+	}
+
+	public Cost getCost() {
+		return cost;
 	}
 }

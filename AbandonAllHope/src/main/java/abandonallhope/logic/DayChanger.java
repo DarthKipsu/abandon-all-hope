@@ -39,7 +39,7 @@ public class DayChanger {
 	public static void setupDayOne() {
 		addDayOneSurvivors();
 		addZombies(cities[1]);
-		addBullets();
+		addResources();
 	}
 	
 	/**
@@ -68,8 +68,10 @@ public class DayChanger {
 		}
 	}
 	
-	private static void addBullets() {
+	private static void addResources() {
 		game.getInventory().addPistolBullets(5);
+		game.getInventory().addWood(20);
+		game.getInventory().addMetal(5);
 	}
 	
 	private static void addZombies(Point point) {

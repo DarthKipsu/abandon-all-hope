@@ -27,7 +27,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	private VBox vbox;
 	private VBox survivors;
-	private VBox bullets;
+	private VBox resources;
 	private Inventory inventory;
 	private Game game;
 
@@ -59,7 +59,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		survivorNames = new ArrayList<>();
 		survivorWeapons = new ArrayList<>();
 		survivorGuns = new ArrayList<>();
-		bullets = new VBox();
+		resources = new VBox();
 		createVBoxContents();
 	}
 
@@ -68,12 +68,16 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	}
 
 	/**
-	 * Update left panel bullet count
+	 * Update left panel bullet and material counts
 	 */
-	public void updateBullets() {
-		bullets.getChildren().clear();
-		bullets.getChildren().add(new Text("  Pistol: "
+	public void updateResources() {
+		resources.getChildren().clear();
+		resources.getChildren().add(new Text("  Bullets: "
 				+ inventory.getPistolBullets().getBullets()));
+		resources.getChildren().add(new Text("  Wood: "
+				+ inventory.getWood()));
+		resources.getChildren().add(new Text("  Metal: "
+				+ inventory.getMetal()));
 	}
 
 	private void createVBoxContents() {
@@ -89,9 +93,9 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	}
 
 	private void addBulletInventory() {
-		addTitle("Bullets:");
-		vbox.getChildren().add(bullets);
-		updateBullets();
+		addTitle("Resources:");
+		vbox.getChildren().add(resources);
+		updateResources();
 	}
 
 	@Override

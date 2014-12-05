@@ -18,6 +18,7 @@ public class Trap implements DrawableObject {
 	private int capacity;
 	private int contents;
 	private Color color;
+	private Cost cost;
 
 	/**
 	 * Creates a new trap at given location.
@@ -31,6 +32,7 @@ public class Trap implements DrawableObject {
 		size = type.getSize();
 		color = type.getColor();
 		capacity = type.getCapacity();
+		cost = type.getCost();
 		contents = 0;
 	}
 
@@ -41,6 +43,10 @@ public class Trap implements DrawableObject {
 
 	public Point getLocation() {
 		return location;
+	}
+
+	public Cost getCost() {
+		return cost;
 	}
 
 	public void setLocation(Point location) {

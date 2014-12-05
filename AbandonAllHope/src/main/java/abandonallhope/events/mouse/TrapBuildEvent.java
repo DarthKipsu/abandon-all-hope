@@ -35,6 +35,7 @@ public class TrapBuildEvent implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent t) {
 		trap.setLocation(new Point(t.getX(), t.getY()));
 		game.add(trap);
+		game.getInventory().payResources(trap.getCost());
 		canvas.removeTrapBuildingEventListeners();
 	}
 	
