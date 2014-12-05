@@ -22,10 +22,14 @@ public class LootDistributor {
 	public LootDistributor(Inventory inventory, ResourceEvents resEvents) {
 		this.inventory = inventory;
 		random = new Random();
+		BulletLoot bullets = new BulletLoot();
+		WoodLoot wood = new WoodLoot();
 		loot = new Loot[]{
-			new BulletLoot(),
+			bullets, bullets, bullets,
 			new WeaponLoot(resEvents),
-			new FirearmLoot(resEvents)
+			new FirearmLoot(resEvents),
+			new MetalLoot(),
+			wood, wood
 		};
 	}
 	

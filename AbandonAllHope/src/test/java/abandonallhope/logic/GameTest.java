@@ -618,6 +618,8 @@ public class GameTest {
 		loot += game.getInventory().getGuns().size();
 		loot += game.getInventory().getWeapons().size();
 		loot += game.getInventory().getPistolBullets().getBullets();
+		loot += game.getInventory().getMetal();
+		loot += game.getInventory().getWood();
 		return loot;
 	}
 	
