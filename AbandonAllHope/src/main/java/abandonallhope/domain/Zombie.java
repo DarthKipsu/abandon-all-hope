@@ -1,6 +1,7 @@
 package abandonallhope.domain;
 
 import abandonallhope.logic.Collision;
+import java.util.List;
 import java.util.Random;
 import javafx.scene.paint.Color;
 
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 public class Zombie extends MovingObject implements DrawableObject {
 
 	private Random zombieBrain;
+	private List<Zombie> zombies;
 	private double dx;
 	private double dy;
 
@@ -22,9 +24,10 @@ public class Zombie extends MovingObject implements DrawableObject {
 	 * entering game
 	 * @param map Map where the zombie is added
 	 */
-	public Zombie(Point startingLocation, Map map) {
+	public Zombie(Point startingLocation, Map map, List<Zombie> zombies) {
 		super(startingLocation, map, 3, Color.LIME);
 		this.speed = 0.3;
+		this.zombies = zombies;
 		zombieBrain = new Random();
 		trapped = false;
 	}
@@ -38,6 +41,8 @@ public class Zombie extends MovingObject implements DrawableObject {
 		if (canMove()) {
 			setDirection();
 			if (map.hasObstacle(location.x + dx, location.y + dy)) {
+				tryToGoAroundTheObstacle(dx, dy);
+			} else if (anotherZombieIsBlockingTheWay()) {
 				tryToGoAroundTheObstacle(dx, dy);
 			} else {
 				super.move(dx, dy);
@@ -69,6 +74,22 @@ public class Zombie extends MovingObject implements DrawableObject {
 			color = Color.DARKRED;
 			trapped = true;
 		}
+	}
+	
+	private boolean anotherZombieIsBlockingTheWay() {
+		for (Zombie zombie : zombies) {
+			if (!zombie.equals(this) && !zombie.isTrapped() && locationTooNearToDestination(zombie)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean locationTooNearToDestination(Zombie zombie) {
+		return zombie.location.x > location.x - 1 &&
+				zombie.location.x < location.x + 1 &&
+				zombie.location.y > location.y - 1 &&
+				zombie.location.y < location.y + 1;
 	}
 
 }

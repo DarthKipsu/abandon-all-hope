@@ -51,16 +51,16 @@ public class GameTest {
 	@Test
 	public void addsCorrectAmountOfZombiesOneByOne() {
 		for (int i = 0; i < 5; i++) {
-			game.add(new Zombie(new Point(10,10), game.getMap()));
+			game.add(new Zombie(new Point(10,10), game.getMap(), game.getZombies()));
 		}
 		assertEquals(5, game.getZombies().size());
 	}
 	
 	@Test
 	public void addsCorrectAmountOfZombiesAtOnce() {
-		game.add(new Zombie(new Point(10,10), game.getMap()),
-				new Zombie(new Point(10,10), game.getMap()),
-				new Zombie(new Point(10,10), game.getMap()));
+		game.add(new Zombie(new Point(10,10), game.getMap(), game.getZombies()),
+				new Zombie(new Point(10,10), game.getMap(), game.getZombies()),
+				new Zombie(new Point(10,10), game.getMap(), game.getZombies()));
 		assertEquals(3, game.getZombies().size());
 	}
 
@@ -118,9 +118,8 @@ public class GameTest {
 	
 	@Test
 	public void movesZombies() {
-		Zombie zombie = new Zombie(new Point(20, 20), game.getMap());
+		Zombie zombie = addZombie(20, 20);
 		game.add(new Survivor(new Point(10, 10), game.getMap(), "name", 1));
-		game.add(zombie);
 		game.moveZombies();
 		assertEquals(new Point(20 - zombie.getSpeed(), 20 - zombie.getSpeed()), zombie.getLocation());
 	}
@@ -251,7 +250,7 @@ public class GameTest {
 	@Test
 	public void doesNotWasteBulletsOnTrappedZombies() {
 		Survivor survivor = addSurvivor(10, 5);
-		Zombie zombie = new Zombie(new Point(5, 5), game.getMap());
+		Zombie zombie = addZombie(5, 5);
 		game.add(zombie);
 		game.add(new Trap(new Point(5, 5), TrapType.BEARIRON));
 		zombie.move();
@@ -571,7 +570,7 @@ public class GameTest {
 	}
 	
 	private Zombie addZombie(double x, double y) {
-		Zombie zombie = new Zombie(new Point(x, y), game.getMap());
+		Zombie zombie = new Zombie(new Point(x, y), game.getMap(), game.getZombies());
 		game.add(zombie);
 		return zombie;
 	}

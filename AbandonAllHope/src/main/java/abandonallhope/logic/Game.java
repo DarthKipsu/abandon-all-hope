@@ -301,7 +301,7 @@ public class Game implements EventHandler {
 				messages.addMessage(survivor.getName() + " was bit and turned into a zombie!");
 				resourceEvents.triggerDeleteSurvivorEvent(survivor);
 				survivors.remove(survivor);
-				add(new Zombie(survivorLocation, map));
+				add(new Zombie(survivorLocation, map, zombies));
 				return;
 			}
 		}

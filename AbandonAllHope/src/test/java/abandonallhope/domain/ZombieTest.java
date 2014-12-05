@@ -27,7 +27,7 @@ public class ZombieTest {
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
 		map = new Map(30, survivors, walls, traps);
-		zombie = new Zombie(new Point(10, 10), map);
+		zombie = new Zombie(new Point(10, 10), map, new ArrayList<Zombie>());
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map, "name", 1));
 	}
@@ -169,7 +169,7 @@ public class ZombieTest {
 	@Test
 	public void twoZombiesDoNotGetTrappedOnBearIron() {
 		traps.add(new Trap(new Point(10.2, 10.2), TrapType.BEARIRON));
-		Zombie zombie2 = new Zombie(new Point(10, 10), map);
+		Zombie zombie2 = new Zombie(new Point(10, 10), map, new ArrayList<Zombie>());
 		zombie.move();
 		zombie2.move();
 		assertTrue(zombie.isTrapped());

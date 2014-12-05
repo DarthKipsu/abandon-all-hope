@@ -80,7 +80,7 @@ public class DayChanger {
 			Point locationNearPoint = createLocationNearPoint(point);
 			Zombie zombie = new Zombie(
 					r.nextDouble() < 0.25 ? randomLocation : locationNearPoint,
-					map);
+					map, game.getZombies());
 			game.add(zombie);
 		}
 	}
