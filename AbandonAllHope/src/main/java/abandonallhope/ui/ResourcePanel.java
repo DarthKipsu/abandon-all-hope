@@ -3,10 +3,12 @@ package abandonallhope.ui;
 import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Survivor;
 import abandonallhope.events.action.DeleteSurvivorEvent;
+import abandonallhope.events.action.DeleteWeaponEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
 import abandonallhope.events.action.NewWeaponEvent;
 import abandonallhope.events.action.WeaponEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
+import abandonallhope.events.handlers.DeleteWeaponEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.events.handlers.NewWeaponEventHandler;
 import abandonallhope.logic.Game;
@@ -27,7 +29,7 @@ import javafx.scene.text.Text;
  * @author kipsu
  */
 public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEventHandler,
-		NewWeaponEventHandler {
+		NewWeaponEventHandler, DeleteWeaponEventHandler {
 
 	private VBox vbox;
 	private VBox survivors;
@@ -49,6 +51,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		game.addNewResourceEventHandler(this, "newSurvivor");
 		game.addNewResourceEventHandler(this, "deleteSurvivor");
 		game.addNewResourceEventHandler(this, "newWeapon");
+		game.addNewResourceEventHandler(this, "deleteWeapon");
 		this.game = game;
 		inventory = game.getInventory();
 		vbox = new VBox();
@@ -120,10 +123,26 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	@Override
 	public void handle(NewWeaponEvent e) {
 		for (ComboBox combo : survivorWeapons) {
-			String weaponNow = combo.getItems().get(0).toString();
+			String weaponNow = combo.getValue().toString();
 			if (!weaponNow.equals(e.getWeapon().toString())) {
 				combo.getItems().add(e.getWeapon().toString());
 			}
+		}
+	}
+
+	@Override
+	public void handle(DeleteWeaponEvent e) {
+		for (ComboBox combo : survivorWeapons) {
+			String weaponNow = combo.getValue().toString();
+			if (!weaponNow.equals(e.getWeapon().toString())) {
+				removeWeaponLabels(combo, e);
+			}
+		}
+	}
+
+	private void removeWeaponLabels(ComboBox combo, DeleteWeaponEvent e) {
+		while (combo.getItems().contains(e.getWeapon().toString())) {
+			combo.getItems().remove(e.getWeapon().toString());
 		}
 	}
 
@@ -133,7 +152,8 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		addCBWeapons(comboBox, survivorWeapon);
 		comboBox.setValue(printSurvivorWeapon(e.getSurvivor()));
 		setCBProperties(comboBox, e);
-		comboBox.valueProperty().addListener(new WeaponEvent(inventory, e.getSurvivor(), game));
+		comboBox.valueProperty().addListener(new WeaponEvent(inventory,
+				e.getSurvivor(), game, comboBox));
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}

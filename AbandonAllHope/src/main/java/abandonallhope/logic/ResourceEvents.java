@@ -4,9 +4,11 @@ package abandonallhope.logic;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.weapons.Weapon;
 import abandonallhope.events.action.DeleteSurvivorEvent;
+import abandonallhope.events.action.DeleteWeaponEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
 import abandonallhope.events.action.NewWeaponEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
+import abandonallhope.events.handlers.DeleteWeaponEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.events.handlers.NewWeaponEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
@@ -22,6 +24,7 @@ public class ResourceEvents {
 	protected Set<NewSurvivorEventHandler> newSurvivorEventHandlers;
 	protected Set<DeleteSurvivorEventHandler> deleteSurvivorEventHandlers;
 	protected Set<NewWeaponEventHandler> newWeaponEventHandlers;
+	protected Set<DeleteWeaponEventHandler> deleteWeaponEventHandlers;
 
 	/**
 	 * Creates a new resource event container class.
@@ -30,6 +33,7 @@ public class ResourceEvents {
 		newSurvivorEventHandlers = new HashSet<>();
 		deleteSurvivorEventHandlers = new HashSet<>();
 		newWeaponEventHandlers = new HashSet<>();
+		deleteWeaponEventHandlers = new HashSet<>();
 	}
 	
 	/**
@@ -44,6 +48,8 @@ public class ResourceEvents {
 			deleteSurvivorEventHandlers.add((DeleteSurvivorEventHandler)event);
 		} else if (type.equals("newWeapon")) {
 			newWeaponEventHandlers.add((NewWeaponEventHandler)event);
+		} else if (type.equals("deleteWeapon")) {
+			deleteWeaponEventHandlers.add((DeleteWeaponEventHandler)event);
 		}
 	}
 	
@@ -77,6 +83,17 @@ public class ResourceEvents {
 		NewWeaponEvent newWeaponEvent = new NewWeaponEvent(weapon);
 		for (NewWeaponEventHandler nweh : newWeaponEventHandlers) {
 			nweh.handle(newWeaponEvent);
+		}
+	}
+	
+	/**
+	 * Triggers an event notifying resources panel to delete a weapon from display.
+	 * @param weapon weapon to be added
+	 */
+	public void triggerDeleteWeaponEvent(Weapon weapon) {
+		DeleteWeaponEvent deleteWeaponEvent = new DeleteWeaponEvent(weapon);
+		for (DeleteWeaponEventHandler dweh : deleteWeaponEventHandlers) {
+			dweh.handle(deleteWeaponEvent);
 		}
 	}
 }
