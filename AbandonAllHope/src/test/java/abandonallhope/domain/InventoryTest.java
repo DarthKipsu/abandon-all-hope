@@ -1,16 +1,8 @@
 
 package abandonallhope.domain;
 
-import abandonallhope.domain.weapons.Axe;
-import abandonallhope.domain.weapons.Firearm;
-import abandonallhope.domain.weapons.Magazine;
-import abandonallhope.domain.weapons.Pistol;
-import abandonallhope.domain.weapons.Weapon;
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
+import abandonallhope.domain.weapons.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -53,6 +45,40 @@ public class InventoryTest {
 	public void testFirearmsAdding2() {
 		inventory.addFireamrs(new Pistol(inventory), new Pistol(inventory));
 		assertEquals(2, inventory.getGuns().size());
+	}
+	
+	@Test
+	public void containsPistolWhenPistolIsInInventory() {
+		inventory.addFireamrs(new Pistol(inventory));
+		assertTrue(inventory.containsFirearm(new Pistol(inventory)));
+	}
+	
+	@Test
+	public void doesNotContainPistolWhenPistolIsNotInInventory() {
+		assertFalse(inventory.containsFirearm(new Pistol(inventory)));
+	}
+	
+	@Test
+	public void doesNotContainPistolWhenSomeOtherWeaponIsInInventory() {
+		inventory.addFireamrs(new Firearm(1, 1, null));
+		assertFalse(inventory.containsFirearm(new Pistol(inventory)));
+	}
+	
+	@Test
+	public void containsAxeWhenAxeIsInInventory() {
+		inventory.addWeapons(new Axe());
+		assertTrue(inventory.containsWeapon(new Axe()));
+	}
+	
+	@Test
+	public void doesNotContainAxeWhenInventoryIsEmpty() {
+		assertFalse(inventory.containsWeapon(new Axe()));
+	}
+	
+	@Test
+	public void doesNotContainAxeWhenOtherWeaponIsInInventory() {
+		inventory.addWeapons(new Weapon(1, 1));
+		assertFalse(inventory.containsWeapon(new Axe()));
 	}
 	
 }
