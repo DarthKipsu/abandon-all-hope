@@ -17,7 +17,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 /**
  * Contains game field presentation and object drawing.
@@ -108,7 +107,7 @@ public class GameCanvas implements EventHandler {
 		wallHoverEvent = new WallHoverEvent(wall, constrHoverDrawer);
 		wallBuildEvent = new WallBuildEvent(game, this, wall);
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
-		canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, wallBuildEvent);
+		canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, wallBuildEvent);
 	}
 
 	/**
@@ -128,7 +127,7 @@ public class GameCanvas implements EventHandler {
 	 */
 	public void removeWallBuildingEventListeners() {
 		try {
-			canvas.removeEventHandler(MouseEvent.MOUSE_CLICKED, wallBuildEvent);
+			canvas.removeEventHandler(MouseEvent.MOUSE_PRESSED, wallBuildEvent);
 			canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
 			wallHoverEvent = null;
 			addSurvivorSelectorEventListener();
