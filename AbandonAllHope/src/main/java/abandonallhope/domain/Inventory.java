@@ -54,9 +54,28 @@ public class Inventory {
 		}
 	}
 	
+	/**
+	 * Check if inventory already has this type of weapon.
+	 * @param weapon weapon whose type is checked
+	 * @return true if similar weapon already exists
+	 */
 	public boolean containsWeapon(Weapon weapon) {
 		for (Weapon comparator : weapons) {
 			if (weapon.getClass() == comparator.getClass()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Check if inventory already has this type of firearm.
+	 * @param firearm firearm whose type is checked
+	 * @return true if similar firearm already exists
+	 */
+	public boolean containsFirearm(Firearm firearm) {
+		for (Firearm comparator : guns) {
+			if (firearm.getClass() == comparator.getClass()) {
 				return true;
 			}
 		}

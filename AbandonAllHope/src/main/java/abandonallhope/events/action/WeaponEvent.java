@@ -3,7 +3,6 @@ package abandonallhope.events.action;
 import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.weapons.Weapon;
-import abandonallhope.logic.Game;
 import abandonallhope.logic.ResourceEvents;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,11 +20,17 @@ public class WeaponEvent implements ChangeListener<String> {
 	private ResourceEvents resEvent;
 	private ComboBox combo;
 
-	public WeaponEvent(Inventory inventory, Survivor survivor, Game game, ComboBox combo) {
+	/**
+	 * Creates a new weapon event handling changing survivor weapons.
+	 * @param inventory
+	 * @param survivor
+	 * @param resEvent 
+	 */
+	public WeaponEvent(Inventory inventory, Survivor survivor, ResourceEvents resEvent) {
 		this.inventory = inventory;
 		this.survivor = survivor;
 		this.combo = combo;
-		resEvent = game.getResourceEvents();
+		this.resEvent = resEvent;
 	}
 
 	@Override

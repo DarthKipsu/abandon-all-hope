@@ -25,7 +25,7 @@ public class LootDistributor {
 		loot = new Loot[]{
 			new BulletLoot(),
 			new WeaponLoot(resEvents),
-			new FirearmLoot()
+			new FirearmLoot(resEvents)
 		};
 	}
 	

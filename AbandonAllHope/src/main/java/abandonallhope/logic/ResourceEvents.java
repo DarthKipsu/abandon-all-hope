@@ -2,13 +2,18 @@
 package abandonallhope.logic;
 
 import abandonallhope.domain.Survivor;
+import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.events.action.DeleteFirearmEvent;
 import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.action.DeleteWeaponEvent;
+import abandonallhope.events.action.NewFirearmEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
 import abandonallhope.events.action.NewWeaponEvent;
+import abandonallhope.events.handlers.DeleteFirearmEventHandler;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.DeleteWeaponEventHandler;
+import abandonallhope.events.handlers.NewFirearmEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.events.handlers.NewWeaponEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
@@ -25,6 +30,8 @@ public class ResourceEvents {
 	protected Set<DeleteSurvivorEventHandler> deleteSurvivorEventHandlers;
 	protected Set<NewWeaponEventHandler> newWeaponEventHandlers;
 	protected Set<DeleteWeaponEventHandler> deleteWeaponEventHandlers;
+	protected Set<NewFirearmEventHandler> newFirearmEventHandlers;
+	protected Set<DeleteFirearmEventHandler> deleteFirearmEventHandlers;
 
 	/**
 	 * Creates a new resource event container class.
@@ -34,6 +41,8 @@ public class ResourceEvents {
 		deleteSurvivorEventHandlers = new HashSet<>();
 		newWeaponEventHandlers = new HashSet<>();
 		deleteWeaponEventHandlers = new HashSet<>();
+		newFirearmEventHandlers = new HashSet<>();
+		deleteFirearmEventHandlers = new HashSet<>();
 	}
 	
 	/**
@@ -50,6 +59,10 @@ public class ResourceEvents {
 			newWeaponEventHandlers.add((NewWeaponEventHandler)event);
 		} else if (type.equals("deleteWeapon")) {
 			deleteWeaponEventHandlers.add((DeleteWeaponEventHandler)event);
+		} else if (type.equals("newFirearm")) {
+			newFirearmEventHandlers.add((NewFirearmEventHandler)event);
+		} else if (type.equals("deleteFirearm")) {
+			deleteFirearmEventHandlers.add((DeleteFirearmEventHandler)event);
 		}
 	}
 	
@@ -94,6 +107,28 @@ public class ResourceEvents {
 		DeleteWeaponEvent deleteWeaponEvent = new DeleteWeaponEvent(weapon);
 		for (DeleteWeaponEventHandler dweh : deleteWeaponEventHandlers) {
 			dweh.handle(deleteWeaponEvent);
+		}
+	}
+	
+	/**
+	 * Triggers an event notifying resources panel to display a new firearm.
+	 * @param firearm weapon to be added
+	 */
+	public void triggerNewFirearmEvent(Firearm firearm) {
+		NewFirearmEvent newFirearmEvent = new NewFirearmEvent(firearm);
+		for (NewFirearmEventHandler nfeh : newFirearmEventHandlers) {
+			nfeh.handle(newFirearmEvent);
+		}
+	}
+	
+	/**
+	 * Triggers an event notifying resources panel to delete a firearm from display.
+	 * @param firearm weapon to be added
+	 */
+	public void triggerDeleteFirearmEvent(Firearm firearm) {
+		DeleteFirearmEvent deleteFirearmEvent = new DeleteFirearmEvent(firearm);
+		for (DeleteFirearmEventHandler dfeh : deleteFirearmEventHandlers) {
+			dfeh.handle(deleteFirearmEvent);
 		}
 	}
 }
