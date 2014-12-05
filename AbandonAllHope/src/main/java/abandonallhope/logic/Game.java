@@ -85,6 +85,10 @@ public class Game implements EventHandler {
 		return day;
 	}
 
+	public ResourceEvents getResourceEvents() {
+		return resourceEvents;
+	}
+
 	/**
 	 * Add one or more survivors to the game
 	 *

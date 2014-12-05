@@ -5,6 +5,7 @@ import abandonallhope.domain.Survivor;
 import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.action.NewSurvivorEvent;
 import abandonallhope.events.action.NewWeaponEvent;
+import abandonallhope.events.action.WeaponEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.events.handlers.NewWeaponEventHandler;
@@ -32,7 +33,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private VBox survivors;
 	private VBox bullets;
 	private Inventory inventory;
-	
+	private Game game;
 
 	private ArrayList<Text> survivorNames;
 	private ArrayList<ComboBox> survivorWeapons;
@@ -48,6 +49,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		game.addNewResourceEventHandler(this, "newSurvivor");
 		game.addNewResourceEventHandler(this, "deleteSurvivor");
 		game.addNewResourceEventHandler(this, "newWeapon");
+		this.game = game;
 		inventory = game.getInventory();
 		vbox = new VBox();
 		vbox.setPadding(new Insets(10));
@@ -118,7 +120,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	@Override
 	public void handle(NewWeaponEvent e) {
 		for (ComboBox combo : survivorWeapons) {
-			String weaponNow = combo.getItems().get(0).toString().substring(8);
+			String weaponNow = combo.getItems().get(0).toString();
 			if (!weaponNow.equals(e.getWeapon().toString())) {
 				combo.getItems().add(e.getWeapon().toString());
 			}
@@ -127,10 +129,11 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	private void addMeleeWeaponComboBox(NewSurvivorEvent e) {
 		ComboBox<String> comboBox = new ComboBox();
-		comboBox.getItems().addAll(printWeapons(e.getSurvivor()));
-		comboBox.setValue(printWeapon(e.getSurvivor()));
-		comboBox.setPrefWidth(150);
-		comboBox.setId(e.getSurvivor().getName());
+		String survivorWeapon = printSurvivorWeapon(e.getSurvivor());
+		addCBWeapons(comboBox, survivorWeapon);
+		comboBox.setValue(printSurvivorWeapon(e.getSurvivor()));
+		setCBProperties(comboBox, e);
+		comboBox.valueProperty().addListener(new WeaponEvent(inventory, e.getSurvivor(), game));
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
@@ -138,35 +141,38 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private void addFirearmComboBox(NewSurvivorEvent e) {
 		ComboBox<String> comboBox = new ComboBox();
 		comboBox.getItems().addAll(printGuns(e.getSurvivor()));
-		comboBox.setValue(printGun(e.getSurvivor()));
-		comboBox.setPrefWidth(150);
-		comboBox.setId(e.getSurvivor().getName());
+		comboBox.setValue(printSurvivorGun(e.getSurvivor()));
+		setCBProperties(comboBox, e);
 		survivorGuns.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
 
-	private String printWeapons(Survivor survivor) {
-		String weapons = printWeapon(survivor);
-		if (!inventory.getWeapons().isEmpty()) {
-			weapons += ", " + inventory.getWeapons().get(0);   
-		}
-		return weapons;
+	private void setCBProperties(ComboBox<String> comboBox, NewSurvivorEvent e) {
+		comboBox.setPrefWidth(150);
+		comboBox.setId(e.getSurvivor().getName());
 	}
 
-	private String printWeapon(Survivor survivor) {
-		return "weapon: " + (survivor.getWeapon() != null ? survivor.getWeapon() : "-");
+	private void addCBWeapons(ComboBox<String> comboBox, String survivorWeapon) {
+		comboBox.getItems().add(survivorWeapon);
+		if (!survivorWeapon.equals("none")) {
+			comboBox.getItems().add("none");
+		}
+	}
+
+	private String printSurvivorWeapon(Survivor survivor) {
+		return survivor.getWeapon() != null ? survivor.getWeapon().toString() : "none";
 	}
 
 	private String printGuns(Survivor survivor) {
-		String guns = printGun(survivor);
+		String guns = printSurvivorGun(survivor);
 		if (!inventory.getGuns().isEmpty()) {
-			guns += ", " + inventory.getGuns().get(0);   
+			guns += ", " + inventory.getGuns().get(0);
 		}
 		return guns;
 	}
 
-	private String printGun(Survivor survivor) {
-		return "gun: " + (survivor.getGun() != null ? survivor.getGun() : "-");
+	private String printSurvivorGun(Survivor survivor) {
+		return survivor.getGun() != null ? survivor.getGun().toString() : "none";
 	}
 
 }
