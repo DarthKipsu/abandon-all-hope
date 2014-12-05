@@ -88,6 +88,18 @@ public class DayChangerTest {
 		DayChanger.setupDayOne();
 		assertEquals(5, game.getInventory().getPistolBullets().getBullets());
 	}
+	
+	@Test
+	public void survivorsStartsWith20Wood() {
+		DayChanger.setupDayOne();
+		assertEquals(20, game.getInventory().getWood());
+	}
+	
+	@Test
+	public void survivorsStartWith5Metal() {
+		DayChanger.setupDayOne();
+		assertEquals(5, game.getInventory().getMetal());
+	}
 
 	@Test
 	public void nextDaysHaveCorrectAmountOfZombies() {

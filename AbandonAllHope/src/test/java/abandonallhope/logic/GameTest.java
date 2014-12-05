@@ -557,6 +557,18 @@ public class GameTest {
 		assertTrue(game.getSurvivors().isEmpty());
 	}
 	
+	@Test
+	public void getGameMessages() {
+		MessagePanel mp = new MessagePanel(game);
+		game.setMessages(mp);
+		assertEquals(mp, game.getMessages());
+	}
+	
+	@Test
+	public void getResourcesPAnel() {
+		assertNotNull(game.getResourceEvents());
+	}
+	
 	private Survivor addSurvivorWithPistol(double x, double y, int bullets) {
 		Survivor survivor = addSurvivor(x, y);
 		survivor.setGun(createGun(bullets));
