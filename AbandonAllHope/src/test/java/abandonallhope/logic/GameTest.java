@@ -434,7 +434,7 @@ public class GameTest {
 		game.setGameTimeline(new Timeline());
 		game.gameOver();
 		Text text = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("All survivors are lost! Game over!", text.getText());
+		assertEquals("All survivors are lost! You survived 1 days. Game over!", text.getText());
 	}
 	
 	@Test

@@ -184,7 +184,7 @@ public class Game implements EventHandler {
 
 	protected void gameOver() {
 		gameTimeline.stop();
-		messages.addMessage("All survivors are lost! Game over!");
+		messages.addMessage("All survivors are lost! You survived " + day + " days. Game over!");
 	}
 
 	protected void endTheCurrentDay() {
