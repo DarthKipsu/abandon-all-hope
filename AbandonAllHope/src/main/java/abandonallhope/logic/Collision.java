@@ -46,8 +46,16 @@ public class Collision {
 	 * @return The nearest found person
 	 */
 	public static MovingObject nearestPerson(MovingObject person, List<? extends MovingObject> enemies) {
-		MovingObject nearest = enemies.get(0);
-		Double nearesDifference = Double.MAX_VALUE;
+		try {
+			MovingObject nearest = enemies.get(0);
+			return nearest(enemies, person, nearest);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	private static MovingObject nearest(List<? extends MovingObject> enemies, MovingObject person, MovingObject nearest) {
+		double nearesDifference = Double.MAX_VALUE;
 		for (MovingObject enemy : enemies) {
 			if (enemyIsTrapped(enemy)) {
 				continue;
