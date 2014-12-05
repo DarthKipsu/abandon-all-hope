@@ -15,7 +15,7 @@ public class Pistol extends Firearm {
 	 * @param bullets Bullet magazine connected with this type of weapon
 	 */
 	public Pistol(Inventory inventory) {
-		super(35, 600, inventory.getPistolBullets());
+		super(50, 300, inventory.getPistolBullets());
 	}
 
 	@Override

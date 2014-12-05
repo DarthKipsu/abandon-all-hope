@@ -29,8 +29,8 @@ public class PistolTest {
 	}
 
 	@Test
-	public void rangeIs35() {
-		assertEquals(35.0, pistol.getRange(), 0.1);
+	public void rangeIs50() {
+		assertEquals(50.0, pistol.getRange(), 0.1);
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class PistolTest {
 	public void canBeUsedAgainAfter600Frames() {
 		bullets.add(2);
 		pistol.use();
-		decreaseRounds(600);
+		decreaseRounds(300);
 		assertTrue(pistol.canBeUsed());
 	}
 
@@ -63,15 +63,15 @@ public class PistolTest {
 	public void canNotUsedAgainAfter600FramesIfNoBullets() {
 		bullets.add(1);
 		pistol.use();
-		decreaseRounds(600);
+		decreaseRounds(300);
 		assertFalse(pistol.canBeUsed());
 	}
 
 	@Test
-	public void canNotBeUsedAgainAfter599Frames() {
+	public void canNotBeUsedAgainAfter299Frames() {
 		bullets.add(2);
 		pistol.use();
-		decreaseRounds(599);
+		decreaseRounds(299);
 		assertFalse(pistol.canBeUsed());
 	}
 	

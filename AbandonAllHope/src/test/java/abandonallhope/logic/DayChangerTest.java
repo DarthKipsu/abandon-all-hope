@@ -79,7 +79,8 @@ public class DayChangerTest {
 	public void zombieLocationIsOnTheBorderOfTheMap() {
 		DayChanger.setupDayOne();
 		Point firstZombieLocation = game.getZombies().get(0).getLocation();
-		assertTrue(firstZombieLocation.x == 0 || firstZombieLocation.y == 0);
+		assertTrue((firstZombieLocation.x == 0 || firstZombieLocation.x == 499) ? true :
+				(firstZombieLocation.y == 0 || firstZombieLocation.y == 499));
 	}
 
 	@Test
