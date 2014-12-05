@@ -28,3 +28,4 @@ Päivämäärä | Tunnit | Aihe
 3.12.2014 | 1h | Testien parantelua ja resurssi eventit omaan luokkaansa
 4.12.2014 | 1h | Testien parantelua
 4.12.2014 | 2h | Korjaa survivorien poisto resurssipaneelista ja esitä uudet aseet (keskeneräinen), sekvenssikaavio
+5.12.2014 | 5h | Aseiden esitys ja vaihto valmiiksi, materiaalien lisäys ja liitto rakentamiseen
