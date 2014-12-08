@@ -30,3 +30,4 @@ Päivämäärä | Tunnit | Aihe
 4.12.2014 | 2h | Korjaa survivorien poisto resurssipaneelista ja esitä uudet aseet (keskeneräinen), sekvenssikaavio
 5.12.2014 | 5h | Aseiden esitys ja vaihto valmiiksi, materiaalien lisäys ja liitto rakentamiseen
 6.12.2014 | 0,5h | Luokkakaavio ui:n ja pelin välillä kulkevista eventeistä
+8.12.2014 | 3,5h | Bugien korjailua ja etsintää. Michonne easter egg, pause toiminto
