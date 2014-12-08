@@ -1,6 +1,8 @@
 package abandonallhope.events.key;
 
+import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
+import abandonallhope.domain.weapons.Katana;
 import abandonallhope.logic.Game;
 import abandonallhope.logic.SurvivorSelector;
 import abandonallhope.ui.GameCanvas;
@@ -17,9 +19,13 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 
 	private GameCanvas canvas;
 	private Game game;
+	private String michonneEgg = "michonne";
+	private int eggIndex = 0;
+	private boolean michonneNotYetPlaced = true;
 
 	/**
 	 * Creates a new key selection event to track player keystrokes.
+	 *
 	 * @param canvas canvas containing other events
 	 * @param game game containing selectable objects
 	 */
@@ -30,11 +36,41 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 
 	@Override
 	public void handle(KeyEvent keyPressed) {
-		if (keyPressed.getCode() == KeyCode.ESCAPE) {
+		KeyCode key = keyPressed.getCode();
+		if (typingMichonneEgg(key, keyPressed)) {
+			checkIfMichonneCanBeAdded();
+		} else {
+			handleOtherHotKeys(key, keyPressed);
+		}
+	}
+
+	private boolean typingMichonneEgg(KeyCode key, KeyEvent keyPressed) {
+		return michonneNotYetPlaced && key.isLetterKey() && keyPressed.getText().charAt(0) == michonneEgg.charAt(eggIndex);
+	}
+
+	private void checkIfMichonneCanBeAdded() {
+		if (eggIndex == 7) {
+			michonneNotYetPlaced = false;
+			game.getMessages().addMessage("Michonne has joined your team!");
+			addMichonne();
+		} else {
+			eggIndex++;
+		}
+	}
+	
+	private void addMichonne() {
+		Survivor michonne = new Survivor(new Point(250, 250), game.getMap(), "Michonne", 0);
+		michonne.setWeapon(new Katana());
+		game.add(michonne);
+//		game.getResourceEvents().triggerNewSurvivorEvent(michonne);
+	}
+
+	private void handleOtherHotKeys(KeyCode key, KeyEvent keyPressed) throws NumberFormatException {
+		if (key == KeyCode.ESCAPE) {
 			deselectEverything();
-		} else if (keyPressed.getCode() == KeyCode.PAUSE) {
+		} else if (key == KeyCode.PAUSE) {
 			game.pause();
-		} else if (keyPressed.getCode().isDigitKey()) {
+		} else if (key.isDigitKey()) {
 			selectSurvivorWithKeyID(keyPressed);
 		}
 	}

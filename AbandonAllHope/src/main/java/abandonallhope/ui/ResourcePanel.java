@@ -105,8 +105,10 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		name.setId(e.getSurvivor().getName());
 		survivorNames.add(name);
 		survivors.getChildren().add(name);
-		addMeleeWeaponComboBox(e);
-		addFirearmComboBox(e);
+		if (e.getSurvivor().getId() != 0) {
+			addMeleeWeaponComboBox(e);
+			addFirearmComboBox(e);
+		}
 	}
 
 	@Override
