@@ -32,6 +32,8 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent keyPressed) {
 		if (keyPressed.getCode() == KeyCode.ESCAPE) {
 			deselectEverything();
+		} else if (keyPressed.getCode() == KeyCode.PAUSE) {
+			game.pause();
 		} else if (keyPressed.getCode().isDigitKey()) {
 			selectSurvivorWithKeyID(keyPressed);
 		}

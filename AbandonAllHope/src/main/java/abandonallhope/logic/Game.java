@@ -8,6 +8,7 @@ import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -171,6 +172,14 @@ public class Game implements EventHandler {
 			endTheCurrentDay();
 		} else {
 			playATurn();
+		}
+	}
+	
+	public void pause() {
+		if (gameTimeline.getStatus() == Animation.Status.PAUSED) {
+			gameTimeline.play();
+		} else {
+			gameTimeline.pause();
 		}
 	}
 
