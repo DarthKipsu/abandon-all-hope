@@ -67,6 +67,10 @@ public class Trap implements DrawableObject {
 	public void addZombie() {
 		contents++;
 	}
+	
+	public void empty() {
+		contents = 0;
+	}
 
 	@Override
 	public Rectangle2D occupiedArea() {

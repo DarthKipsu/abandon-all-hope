@@ -200,6 +200,9 @@ public class Game implements EventHandler {
 		for (Zombie zombie : zombies) {
 			lootDistributor.getLoot();
 		}
+		for (Trap trap : traps) {
+			trap.empty();
+		}
 		zombies.clear();
 		day++;
 		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");

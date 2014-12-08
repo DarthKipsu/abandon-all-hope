@@ -130,6 +130,7 @@ public class GameCanvas implements EventHandler {
 		try {
 			canvas.removeEventHandler(MouseEvent.MOUSE_PRESSED, wallBuildEvent);
 			canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
+			canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
 			wallHoverEvent = null;
 			addSurvivorSelectorEventListener();
 		} catch (NullPointerException e) {
