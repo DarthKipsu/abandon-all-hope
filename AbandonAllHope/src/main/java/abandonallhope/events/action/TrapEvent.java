@@ -37,6 +37,8 @@ public class TrapEvent implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent t) {
 		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		canvas.removeWallBuildingEventListeners();
+		canvas.removeTrapBuildingEventListeners();
 		trap = new Trap(new Point(0, 500), trapType);
 		if (game.getInventory().enoughResources(trap.getCost())) {
 			canvas.removeWallBuildingEventListeners();
