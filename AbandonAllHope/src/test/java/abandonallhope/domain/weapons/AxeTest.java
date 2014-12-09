@@ -1,7 +1,6 @@
 
 package abandonallhope.domain.weapons;
 
-import abandonallhope.domain.weapons.Axe;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

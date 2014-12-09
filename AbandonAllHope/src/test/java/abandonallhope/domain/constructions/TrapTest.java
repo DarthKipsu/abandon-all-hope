@@ -66,6 +66,14 @@ public class TrapTest {
 		assertEquals(new Point(20, 20), trap.getLocation());
 	}
 	
+	@Test
+	public void trapCanBeEmptied() {
+		createTrap(TrapType.BEARIRON);
+		trap.addZombie();
+		trap.empty();
+		assertTrue(trap.hasCapacityLeft());
+	}
+	
 	private void createTrap(TrapType type) {
 		trap = new Trap(new Point(10, 10), TrapType.BEARIRON);
 	}

@@ -2,9 +2,6 @@
 package abandonallhope.domain.weapons;
 
 import abandonallhope.domain.Inventory;
-import abandonallhope.domain.weapons.Pistol;
-import abandonallhope.domain.weapons.Magazine;
-import abandonallhope.domain.weapons.Firearm;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +12,7 @@ public class PistolTest {
 	
 	Firearm pistol;
 	Magazine bullets;
-	
+
 	@Before
 	public void setUp() {
 		Inventory inventory = new Inventory();
