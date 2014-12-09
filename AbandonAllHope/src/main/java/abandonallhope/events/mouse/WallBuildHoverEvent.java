@@ -1,9 +1,7 @@
 
 package abandonallhope.events.mouse;
 
-import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Point;
-import abandonallhope.domain.constructions.Cost;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.ui.drawing.ConstructionHoverDrawer;
 import javafx.event.EventHandler;
@@ -19,6 +17,12 @@ public class WallBuildHoverEvent implements EventHandler<MouseEvent> {
 	private Point start;
 	private ConstructionHoverDrawer constrHoverDrawer;
 
+	/**
+	 * Create new wall build hover event used to update wall dimensions when 
+	 * drawing construction shadows
+	 * @param wall
+	 * @param constrHoverDrawer 
+	 */
 	public WallBuildHoverEvent(Wall wall, ConstructionHoverDrawer constrHoverDrawer) {
 		this.start = wall.getLocation();
 		this.constrHoverDrawer = constrHoverDrawer;
@@ -29,7 +33,6 @@ public class WallBuildHoverEvent implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent t) {
 		int width = (int) (t.getX() - start.x);
 		int height = (int) (t.getY() - start.y);
-		
 		if (Math.abs(width) > Math.abs(height)) {
 			height = 0;
 		} else {

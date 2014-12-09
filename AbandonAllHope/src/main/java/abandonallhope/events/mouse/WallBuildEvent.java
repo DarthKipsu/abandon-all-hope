@@ -20,7 +20,7 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	private GameCanvas canvas;
 	private Wall wall;
 	private boolean buildingIsFinal;
-	
+
 	private double startX;
 	private double startY;
 	private int wallAmount;
@@ -55,9 +55,28 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	private void buildWallsAndRemoveEventHandlers(MouseEvent t) {
 		startX = wall.getLocation().x;
 		startY = wall.getLocation().y;
-		Wall.Orientation orientation = setOrientation(t);
-		addWallsToGame(orientation);
+		addWallsToGame(setOrientation(t));
 		canvas.removeWallBuildingEventListeners();
+	}
+
+	private void addWallsToGame(Wall.Orientation orientation) {
+		for (int i = 0; i < wallAmount && inventory.enoughResources(wall.getCost()); i++) {
+			addNewWallToGame(orientation);
+			addWallWidthToCoordinates(orientation);
+		}
+	}
+
+	private void addNewWallToGame(Wall.Orientation orientation) {
+		game.add(new Wall(wall.getType(), orientation, new Point(startX, startY)));
+		inventory.payResources(wall.getCost());
+	}
+
+	private void addWallWidthToCoordinates(Wall.Orientation orientation) {
+		if (orientation == Wall.Orientation.HORIZONAL) {
+			startX += wall.getType().getWidth(orientation);
+		} else {
+			startY += wall.getType().getHeight(orientation);
+		}
 	}
 
 	private Wall.Orientation setOrientation(MouseEvent t) {
@@ -72,23 +91,6 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 		}
 	}
 
-	private void addWallsToGame(Wall.Orientation orientation) {
-		for (int i = 0; i < wallAmount && inventory.enoughResources(wall.getCost()); i++) {
-			Wall newWall = new Wall(wall.getType(), orientation, new Point(startX, startY));
-			game.add(newWall);
-			inventory.payResources(wall.getCost());
-			addWallWidthToCoordinates(orientation);
-		}
-	}
-
-	private void addWallWidthToCoordinates(Wall.Orientation orientation) {
-		if (orientation == Wall.Orientation.HORIZONAL) {
-			startX += wall.getType().getWidth(orientation);
-		} else {
-			startY += wall.getType().getHeight(orientation);
-		}
-	}
-
 	private static boolean wallOrientationIsHorizonal(int buildingWidth, int buildingHeight) {
 		return Math.abs(buildingWidth) > Math.abs(buildingHeight);
 	}
@@ -100,17 +102,21 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 		}
 	}
 
+	private void setWallAmount(int buildingHeight) {
+		wallAmount = Math.abs(buildingHeight) / wall.getWidth();
+		if (notEnoughResourcesToBuyThatManyWalls()) {
+			wallAmount = inventory.getWood() * wall.getWidth();
+		}
+	}
+
+	private boolean notEnoughResourcesToBuyThatManyWalls() {
+		return wallAmount / wall.getWidth() > inventory.getWood();
+	}
+
 	private void setVerticalWallDimensions(int buildingHeight, MouseEvent t) {
 		setWallAmount(buildingHeight);
 		if (t.getY() < startY) {
 			startY -= decreaseWallStartingPointWithWidth();
-		}
-	}
-
-	private void setWallAmount(int buildingHeight) {
-		wallAmount = Math.abs(buildingHeight) / wall.getWidth();
-		if (wallAmount / wall.getWidth() > inventory.getWood()) {
-			wallAmount = inventory.getWood() * wall.getWidth();
 		}
 	}
 

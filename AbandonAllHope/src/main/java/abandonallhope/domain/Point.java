@@ -7,7 +7,13 @@ package abandonallhope.domain;
  */
 public class Point {
 	
+	/**
+	 * X coordinate for the location
+	 */
 	public double x;
+	/**
+	 * Y coordinate for the location
+	 */
 	public double y;
 
 	/**
