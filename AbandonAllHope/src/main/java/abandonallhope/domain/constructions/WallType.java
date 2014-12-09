@@ -24,6 +24,11 @@ public enum WallType {
 		this.cost = cost;
 	}
 
+	/**
+	 * get the horizonal width of the object
+	 * @param orientation
+	 * @return 
+	 */
 	public int getWidth(Wall.Orientation orientation) {
 		if (orientation == Wall.Orientation.VERTICAL) {
 			return height;
@@ -31,6 +36,11 @@ public enum WallType {
 		return width;
 	}
 
+	/**
+	 * Get the vertical height of the object
+	 * @param orientation
+	 * @return 
+	 */
 	public int getHeight(Wall.Orientation orientation) {
 		if (orientation == Wall.Orientation.VERTICAL) {
 			return width;

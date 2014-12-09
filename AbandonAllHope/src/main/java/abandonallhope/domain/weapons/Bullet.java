@@ -17,19 +17,18 @@ public class Bullet extends MovingObject implements DrawableObject {
 	protected double y;
 	private int distanceLeft;
 
+	/**
+	 * Create a new bullet object
+	 * @param startingLocation
+	 * @param map
+	 * @param destination
+	 * @param distance 
+	 */
 	public Bullet(Point startingLocation, Map map, Point destination, int distance) {
 		super(startingLocation, map, 2, Color.BLACK);
 		this.speed = 1;
 		distanceLeft = distance;
 		setXandY(destination);
-	}
-
-	private void setXandY(Point destination) {
-		x = destination.x - location.x;
-		y = destination.y - location.y;
-		double distanceTogether = Math.abs(x) + Math.abs(y);
-		x = x / distanceTogether;
-		y = y / distanceTogether;
 	}
 	
 	/**
@@ -47,6 +46,14 @@ public class Bullet extends MovingObject implements DrawableObject {
 			location.translate(x, y);
 			distanceLeft--;
 		}
+	}
+
+	private void setXandY(Point destination) {
+		x = destination.x - location.x;
+		y = destination.y - location.y;
+		double distanceTogether = Math.abs(x) + Math.abs(y);
+		x = x / distanceTogether;
+		y = y / distanceTogether;
 	}
 	
 }

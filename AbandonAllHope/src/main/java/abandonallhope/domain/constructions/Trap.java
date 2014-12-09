@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 public class Trap implements DrawableObject {
 
 	protected Point location;
-	private TrapType type;
 	private int size;
 	private int capacity;
 	private int contents;
@@ -28,7 +27,6 @@ public class Trap implements DrawableObject {
 	 */
 	public Trap(Point location, TrapType type) {
 		this.location = location;
-		this.type = type;
 		size = type.getSize();
 		color = type.getColor();
 		capacity = type.getCapacity();
@@ -55,6 +53,7 @@ public class Trap implements DrawableObject {
 
 	/**
 	 * Returns true if capacity is not full
+	 *
 	 * @return false if capacity is full
 	 */
 	public boolean hasCapacityLeft() {
@@ -67,7 +66,10 @@ public class Trap implements DrawableObject {
 	public void addZombie() {
 		contents++;
 	}
-	
+
+	/**
+	 * Empty the trap
+	 */
 	public void empty() {
 		contents = 0;
 	}

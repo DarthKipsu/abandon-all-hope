@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 
 /**
  * Walls are used to hold zombies from closing the survivors.
+ *
  * @author kipsu
  */
 public class Wall implements DrawableObject {
@@ -15,6 +16,7 @@ public class Wall implements DrawableObject {
 	 * Orientation of the wall.
 	 */
 	public enum Orientation {
+
 		HORIZONAL,
 		VERTICAL
 	};
@@ -29,6 +31,7 @@ public class Wall implements DrawableObject {
 
 	/**
 	 * Create a new wall object.
+	 *
 	 * @param wallType Type of the wall
 	 * @param o Orientation of the wall
 	 * @param location Wall location
@@ -70,12 +73,13 @@ public class Wall implements DrawableObject {
 
 	/**
 	 * Set wall location
-	 * @param location 
+	 *
+	 * @param location
 	 */
 	public void setLocation(Point location) {
 		this.location = location;
 	}
-	
+
 	/**
 	 * Saves the orientation of the wall by exchanging width and height.
 	 */
@@ -86,8 +90,9 @@ public class Wall implements DrawableObject {
 	}
 
 	/**
-	 * Wall will sustain a certain amount of hits. Colliding with a wall will decrease
-	 * hit points, until they reach 0 when wall breaks down.
+	 * Wall will sustain a certain amount of hits. Colliding with a wall will
+	 * decrease hit points, until they reach 0 when wall breaks down.
+	 *
 	 * @return true if wall breaks down.
 	 */
 	public boolean breakDown() {
@@ -96,18 +101,19 @@ public class Wall implements DrawableObject {
 		return hitPoints < 0;
 	}
 
-	private void changeWallColorToRedIfHitPointsTooLow() {
-		if (hitPoints < 200) {
-			color = Color.RED;
-		}
-	}
-	
 	/**
 	 * Get the area this object is occupying at the moment
+	 *
 	 * @return occupied area
 	 */
 	@Override
 	public Rectangle2D occupiedArea() {
 		return new Rectangle2D(location.x, location.y, width, height);
+	}
+
+	private void changeWallColorToRedIfHitPointsTooLow() {
+		if (hitPoints < 200) {
+			color = Color.RED;
+		}
 	}
 }
