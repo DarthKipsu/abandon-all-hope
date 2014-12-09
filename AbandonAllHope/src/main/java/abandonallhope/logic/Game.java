@@ -1,32 +1,26 @@
 package abandonallhope.logic;
 
 import abandonallhope.domain.*;
+import abandonallhope.domain.Map;
 import abandonallhope.domain.constructions.*;
 import abandonallhope.domain.weapons.*;
 import abandonallhope.events.handlers.ResourceEventHandler;
-import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.animation.Animation;
-import javafx.animation.Timeline;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import java.util.*;
+import javafx.animation.*;
+import javafx.event.*;
 
 /**
  * The events taking place in single gameTimeline frame (from UserInterface)
- *
- * @author kipsu
  */
 public class Game implements EventHandler {
 
 	private Map map;
 	private Inventory inventory;
-	private LootDistributor lootDistributor;
 	protected MessagePanel messages;
 	protected Timeline gameTimeline;
 	private ResourceEvents resourceEvents;
-	private int day;
+	private Turn turn;
 	protected int sleep;
 
 	private List<Zombie> zombies;
@@ -37,20 +31,18 @@ public class Game implements EventHandler {
 
 	/**
 	 * Create new game event handler
-	 *
 	 * @param mapSize
 	 */
 	public Game(int mapSize) {
 		inventory = new Inventory();
 		resourceEvents = new ResourceEvents();
-		lootDistributor = new LootDistributor(inventory, resourceEvents);
+		turn = new Turn(this);
 		zombies = new ArrayList<>();
 		survivors = new ArrayList<>();
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
 		map = new Map(mapSize, this);
-		day = 1;
 		sleep = 0;
 	}
 
@@ -82,8 +74,8 @@ public class Game implements EventHandler {
 		return inventory;
 	}
 
-	public int getDay() {
-		return day;
+	public Turn getTurn() {
+		return turn;
 	}
 
 	public MessagePanel getMessages() {
@@ -95,48 +87,36 @@ public class Game implements EventHandler {
 	}
 
 	/**
-	 * Add one or more survivors to the game
-	 *
-	 * @param survivors
+	 * Add one survivor to the game
+	 * @param survivor
 	 */
-	public void add(Survivor... survivors) {
-		for (Survivor survivor : survivors) {
-			this.survivors.add(survivor);
-			resourceEvents.triggerNewSurvivorEvent(survivor);
-		}
+	public void add(Survivor survivor) {
+		this.survivors.add(survivor);
+		resourceEvents.triggerNewSurvivorEvent(survivor);
 	}
 
 	/**
-	 * add one or more zombies to the game
-	 *
-	 * @param zombies
+	 * add one zombie to the game
+	 * @param zombie
 	 */
-	public void add(Zombie... zombies) {
-		for (Zombie zombie : zombies) {
-			this.zombies.add(zombie);
-		}
+	public void add(Zombie zombie) {
+		this.zombies.add(zombie);
 	}
 
 	/**
-	 * Add one or more walls to the game.
-	 *
-	 * @param walls
+	 * Add a wall to the game.
+	 * @param wall
 	 */
-	public void add(Wall... walls) {
-		for (Wall wall : walls) {
-			this.walls.add(wall);
-		}
+	public void add(Wall wall) {
+		walls.add(wall);
 	}
 
 	/**
-	 * Add one or more traps to the game.
-	 *
-	 * @param traps
+	 * Add a trap to the game.
+	 * @param trap
 	 */
-	public void add(Trap... traps) {
-		for (Trap trap : traps) {
-			this.traps.add(trap);
-		}
+	public void add(Trap trap) {
+		traps.add(trap);
 	}
 
 	public void setMessages(MessagePanel messages) {
@@ -146,7 +126,7 @@ public class Game implements EventHandler {
 	public void setGameTimeline(Timeline gameTimeline) {
 		this.gameTimeline = gameTimeline;
 	}
-	
+
 	/**
 	 * Adds a new resource event handler in game.
 	 * @param event event handler to be added.
@@ -157,10 +137,7 @@ public class Game implements EventHandler {
 	}
 
 	/**
-	 * Handle game event: move survivors and zombies, fight zombies and infect
-	 * survivors.
-	 *
-	 * @param t
+	 * Handle game event: move survivors and zombies, fight zombies and infect survivors.
 	 */
 	@Override
 	public void handle(Event t) {
@@ -171,10 +148,10 @@ public class Game implements EventHandler {
 		} else if (zombiesCleared()) {
 			endTheCurrentDay();
 		} else {
-			playATurn();
+			turn.play();
 		}
 	}
-	
+
 	public void pause() {
 		if (gameTimeline.getStatus() == Animation.Status.PAUSED) {
 			gameTimeline.play();
@@ -186,28 +163,29 @@ public class Game implements EventHandler {
 	protected void sleepUntilTheNextDay() {
 		if (sleep == 1) {
 			DayChanger.nextDay();
-			messages.addMessage("Begin day " + day + ": " + zombies.size() + " new zombies.");
+			messages.addMessage("Begin day " + DayChanger.day + ": " + zombies.size() + " new zombies.");
 		}
 		sleep--;
 	}
 
 	protected void gameOver() {
 		gameTimeline.stop();
-		messages.addMessage("All survivors are lost! You survived " + day + " days. Game over!");
+		messages.addMessage("All survivors are lost! You survived " + DayChanger.day + " days. Game over!");
 	}
 
 	protected void endTheCurrentDay() {
-		for (Zombie zombie : zombies) {
-			lootDistributor.getLoot();
-		}
+		turn.getLootDistributor().collectLootFrom(zombies.size());
+		emptyTraps();
+		zombies.clear();
+		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
+		messages.addMessage("Prepare for day " + (DayChanger.day + 1));
+		sleep = 180;
+	}
+
+	private void emptyTraps() {
 		for (Trap trap : traps) {
 			trap.empty();
 		}
-		zombies.clear();
-		day++;
-		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
-		messages.addMessage("Prepare for day " + day);
-		sleep = 180;
 	}
 
 	protected boolean zombiesCleared() {
@@ -218,134 +196,4 @@ public class Game implements EventHandler {
 		}
 		return true;
 	}
-
-	protected void playATurn() {
-		handleBullets();
-		moveSurvivors();
-		if (!zombies.isEmpty()) {
-			moveZombies();
-			fightZombies();
-			infectSurvivors();
-		}
-	}
-
-	protected void moveSurvivors() {
-		for (Survivor survivor : survivors) {
-			survivor.move();
-		}
-	}
-
-	protected void moveZombies() {
-		for (Zombie zombie : zombies) {
-			zombie.move();
-		}
-	}
-
-	protected void handleBullets() {
-		List<Bullet> bulletsToRemove = new ArrayList<>();
-		for (Bullet bullet : bullets) {
-			checkHitsAndMoveBullets(bullet, bulletsToRemove);
-		}
-		bullets.removeAll(bulletsToRemove);
-	}
-
-	private void checkHitsAndMoveBullets(Bullet bullet, List<Bullet> bulletsToRemove) {
-		Zombie zombie = (Zombie) Collision.hitTest(bullet, zombies);
-		if (zombie != null) {
-			removeZombieAndBullet(zombie, bulletsToRemove, bullet);
-		} else if (bullet.hasReachedMaxDistance()) {
-			bulletsToRemove.add(bullet);
-		} else {
-			bullet.move();
-		}
-	}
-
-	private void removeZombieAndBullet(Zombie zombie, List<Bullet> bulletsToRemove, Bullet bullet) {
-		Point targetLocation = zombie.getLocation();
-		killAZombie(zombie);
-		bulletsToRemove.add(bullet);
-	}
-
-	protected void fightZombies() {
-		for (Survivor survivor : survivors) {
-			fightNearestZombieIfPossible(survivor);
-		}
-	}
-
-	private void fightNearestZombieIfPossible(Survivor survivor) {
-		if (survivor.getGun() != null && survivor.getGun().canBeUsed()) {
-			useFirearmWeapon(survivor);
-		} else if (survivor.getWeapon() != null) {
-			useBasicWeapon(survivor);
-		}
-		decreaseGunRoundsToUse(survivor);
-	}
-
-	private void useFirearmWeapon(Survivor survivor) {
-		Firearm gun = survivor.getGun();
-		MovingObject target = Collision.nearestPerson(survivor, zombies);
-		if (target == null) {
-			return;
-		}
-		fireGunIfCloseEnoughToTarget(gun, survivor, target.getLocation());
-	}
-
-	private void useBasicWeapon(Survivor survivor) {
-		Weapon weapon = survivor.getWeapon();
-		MovingObject target = Collision.nearestPerson(survivor, zombies);
-		if (target == null) {
-			return;
-		}
-		useWeapon(weapon, survivor, target);
-	}
-
-	private void decreaseGunRoundsToUse(Survivor survivor) {
-		if (survivor.getGun() != null) {
-			survivor.getGun().decreaseRoundsToUse();
-		}
-	}
-
-	protected void infectSurvivors() {
-		for (Zombie zombie : zombies) {
-			Survivor survivor = (Survivor) Collision.hitTest(zombie, map.getSurvivors());
-			if (survivor != null) {
-				Point survivorLocation = survivor.getLocation();
-				messages.addMessage(survivor.getName() + " was bit and turned into a zombie!");
-				resourceEvents.triggerDeleteSurvivorEvent(survivor);
-				survivors.remove(survivor);
-				add(new Zombie(survivorLocation, map, zombies));
-				return;
-			}
-		}
-	}
-
-	private void fireGunIfCloseEnoughToTarget(Firearm gun, Survivor survivor, Point destination) {
-		if (Collision.distanceBetween(survivor.getLocation(), destination) <= gun.getRange() * 1.2) {
-			gun.use();
-			Bullet newBullet = new Bullet(new Point(survivor.getLocation().x, survivor.getLocation().y),
-					map, destination, (int) gun.getRange());
-			bullets.add(newBullet);
-		}
-	}
-
-	private void useWeapon(Weapon weapon, Survivor survivor, MovingObject target) {
-		if (weaponCanBeUsed(weapon, survivor.getLocation(), target.getLocation())) {
-			weapon.use();
-			killAZombie(target);
-		} else {
-			weapon.decreaseRoundsToUse();
-		}
-	}
-
-	protected void killAZombie(MovingObject target) {
-		zombies.remove(target);
-		messages.addMessage("Zombie dropped " + lootDistributor.getLoot());
-	}
-
-	private static boolean weaponCanBeUsed(Weapon weapon, Point survivor, Point target) {
-		return weapon.canBeUsed()
-				&& Collision.distanceBetween(survivor, target)
-				<= weapon.getRange();
-	}
-
 }

@@ -24,7 +24,11 @@ public class LootDistributor {
 		random = new Random();
 		BulletLoot bullets = new BulletLoot();
 		WoodLoot wood = new WoodLoot();
-		loot = new Loot[]{
+		loot = addLootTypes(bullets, resEvents, wood);
+	}
+
+	private Loot[] addLootTypes(BulletLoot bullets, ResourceEvents resEvents, WoodLoot wood) {
+		return new Loot[]{
 			bullets, bullets, bullets,
 			new WeaponLoot(resEvents),
 			new FirearmLoot(resEvents),
@@ -39,6 +43,12 @@ public class LootDistributor {
 	 */
 	public String getLoot() {
 		return loot[random.nextInt(loot.length)].giveOut(inventory);
+	}
+	
+	public void collectLootFrom(int amount) {
+		for (int i = 0; i < amount; i++) {
+			getLoot();
+		}
 	}
 
 }

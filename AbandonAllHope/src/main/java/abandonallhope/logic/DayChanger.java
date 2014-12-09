@@ -22,6 +22,11 @@ public class DayChanger {
 		new Point(100, 500)};
 	private static Game game;
 	private static Map map;
+	
+	/**
+	 * Game day
+	 */
+	public static int day;
 
 	/**
 	 * Give game object to game changer so new survivors and zombies can be
@@ -38,6 +43,7 @@ public class DayChanger {
 	 * Add survivors and zombies for the games first level.
 	 */
 	public static void setupDayOne() {
+		day = 1;
 		addDayOneSurvivors();
 		addZombies(nearByCities[1]);
 		addResources();
@@ -47,6 +53,7 @@ public class DayChanger {
 	 * Add zombies for the next day.
 	 */
 	public static void nextDay() {
+		day++;
 		addZombies(nearByCities[random.nextInt(3)]);
 	}
 
@@ -81,7 +88,7 @@ public class DayChanger {
 	}
 
 	private static void addZombies(Point point) {
-		for (int i = 0; i < game.getDay() * (random.nextInt(5) + 1); i++) {
+		for (int i = 0; i < day * (random.nextInt(5) + 1); i++) {
 			game.add(createNewZombie(point));
 		}
 	}
