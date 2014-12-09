@@ -11,6 +11,10 @@ public class DeleteSurvivorEvent {
 	
 	private Survivor survivor;
 
+	/**
+	 * Delete given survivor from ui.
+	 * @param survivor 
+	 */
 	public DeleteSurvivorEvent(Survivor survivor) {
 		this.survivor = survivor;
 	}

@@ -11,6 +11,10 @@ public class NewWeaponEvent {
 	
 	private Weapon weapon;
 
+	/**
+	 * Adds a new weapon to display in ui.
+	 * @param weapon 
+	 */
 	public NewWeaponEvent(Weapon weapon) {
 		this.weapon = weapon;
 	}

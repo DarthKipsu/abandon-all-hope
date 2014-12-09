@@ -11,6 +11,10 @@ public class DeleteWeaponEvent {
 	
 	private Weapon weapon;
 
+	/**
+	 * Delete given weapon from ui.
+	 * @param weapon 
+	 */
 	public DeleteWeaponEvent(Weapon weapon) {
 		this.weapon = weapon;
 	}

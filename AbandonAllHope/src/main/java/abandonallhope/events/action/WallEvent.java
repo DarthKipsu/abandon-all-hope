@@ -36,19 +36,36 @@ public class WallEvent implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent t) {
-		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		removeSurvivorSelections();
 		createNewWall();
-		if (game.getInventory().enoughResources(wall.getCost())) {
-			canvas.removeTrapBuildingEventListeners();
-			canvas.removeSurvivorSelectorEventListener();
+		if (enoughResourcesForAtLeastOneWall()) {
+			removePreviousEventListeners();
 			canvas.addWallHoverEventListener(wall);
 		} else {
-			game.getMessages().addMessage("Not enough resources to build!");
+			showErrorMessage();
 		}
+	}
+
+	private void removeSurvivorSelections() {
+		new SurvivorSelector(game.getSurvivors()).unselectAll();
 	}
 
 	private void createNewWall() {
 		this.wall = new Wall(wallType, Wall.Orientation.HORIZONAL, new Point(0, 500));
+	}
+
+	private boolean enoughResourcesForAtLeastOneWall() {
+		return game.getInventory().enoughResources(wall.getCost());
+	}
+
+	private void removePreviousEventListeners() {
+		canvas.removeWallBuildingEventListeners();
+		canvas.removeTrapBuildingEventListeners();
+		canvas.removeSurvivorSelectorEventListener();
+	}
+
+	private void showErrorMessage() {
+		game.getMessages().addMessage("Not enough resources to build!");
 	}
 
 }

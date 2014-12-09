@@ -11,6 +11,10 @@ public class NewSurvivorEvent {
 	
 	private Survivor survivor;
 
+	/**
+	 * Adds a new survivor to ui.
+	 * @param survivor survivor to be added.
+	 */
 	public NewSurvivorEvent(Survivor survivor) {
 		this.survivor = survivor;
 	}

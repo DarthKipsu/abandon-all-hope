@@ -11,6 +11,10 @@ public class NewFirearmEvent {
 	
 	private Firearm firearm;
 
+	/**
+	 * Sets a new firearm to select from ui.
+	 * @param firearm 
+	 */
 	public NewFirearmEvent(Firearm firearm) {
 		this.firearm = firearm;
 	}

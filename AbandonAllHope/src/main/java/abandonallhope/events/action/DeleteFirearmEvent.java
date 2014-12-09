@@ -11,6 +11,10 @@ public class DeleteFirearmEvent {
 	
 	private Firearm firearm;
 
+	/**
+	 * Delete given firearm from ui.
+	 * @param firearm 
+	 */
 	public DeleteFirearmEvent(Firearm firearm) {
 		this.firearm = firearm;
 	}
