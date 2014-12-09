@@ -190,37 +190,37 @@ public class ZombieTest {
 	@Test
 	public void anotherZomieTooNear1() {
 		Zombie zombie2 = new Zombie(new Point(10.99, 10.99), map, zombies);
-		assertTrue(zombie.locationTooNearToDestination(zombie2));
+		assertTrue(zombie.isBlockingTheWay(zombie2));
 	}
 	
 	@Test
 	public void anotherZomieTooNear2() {
 		Zombie zombie2 = new Zombie(new Point(9.1, 9.1), map, zombies);
-		assertTrue(zombie.locationTooNearToDestination(zombie2));
+		assertTrue(zombie.isBlockingTheWay(zombie2));
 	}
 	
 	@Test
 	public void anotherZomieTooNear3() {
 		Zombie zombie2 = new Zombie(new Point(11, 11), map, zombies);
-		assertFalse(zombie.locationTooNearToDestination(zombie2));
+		assertFalse(zombie.isBlockingTheWay(zombie2));
 	}
 	
 	@Test
 	public void anotherZomieTooNear4() {
 		Zombie zombie2 = new Zombie(new Point(9, 9), map, zombies);
-		assertFalse(zombie.locationTooNearToDestination(zombie2));
+		assertFalse(zombie.isBlockingTheWay(zombie2));
 	}
 	
 	@Test
 	public void anotherZomieTooNear5() {
 		Zombie zombie2 = new Zombie(new Point(9.1, 11), map, zombies);
-		assertFalse(zombie.locationTooNearToDestination(zombie2));
+		assertFalse(zombie.isBlockingTheWay(zombie2));
 	}
 	
 	@Test
 	public void anotherZomieTooNear6() {
 		Zombie zombie2 = new Zombie(new Point(9, 10.9), map, zombies);
-		assertFalse(zombie.locationTooNearToDestination(zombie2));
+		assertFalse(zombie.isBlockingTheWay(zombie2));
 	}
 	
 	private void moveNtimes(int x, int y, int n) {

@@ -40,13 +40,7 @@ public class Zombie extends MovingObject implements DrawableObject {
 	public void move() {
 		if (canMove()) {
 			setDirection();
-			if (map.hasObstacle(location.x + dx, location.y + dy)) {
-				tryToGoAroundTheObstacle(dx, dy);
-			} else if (anotherZombieIsBlockingTheWay()) {
-				tryToGoAroundTheObstacle(dx, dy);
-			} else {
-				super.move(dx, dy);
-			}
+			makeAMove();
 			checkIfTrapped();
 		}
 	}
@@ -59,6 +53,34 @@ public class Zombie extends MovingObject implements DrawableObject {
 		Point nearestSurvivor = Collision.nearestPersonLocation(this, map.getSurvivors());
 		dx = normalize(nearestSurvivor.x - location.x);
 		dy = normalize(nearestSurvivor.y - location.y);
+	}
+
+	private void makeAMove() {
+		if (wayIsBlocked()) {
+			tryToGoAroundTheObstacle(dx, dy);
+		} else {
+			super.move(dx, dy);
+		}
+	}
+
+	private boolean wayIsBlocked() {
+		return map.hasObstacle(location.x + dx, location.y + dy) || anotherZombieIsBlockingTheWay();
+	}
+
+	private boolean anotherZombieIsBlockingTheWay() {
+		for (Zombie zombie : zombies) {
+			if (!zombie.equals(this) && !zombie.isTrapped() && isBlockingTheWay(zombie)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected boolean isBlockingTheWay(Zombie zombie) {
+		return zombie.location.x > location.x - 1 &&
+				zombie.location.x < location.x + 1 &&
+				zombie.location.y > location.y - 1 &&
+				zombie.location.y < location.y + 1;
 	}
 
 	private void tryToGoAroundTheObstacle(double dx, double dy) {
@@ -74,22 +96,6 @@ public class Zombie extends MovingObject implements DrawableObject {
 			color = Color.DARKRED;
 			trapped = true;
 		}
-	}
-	
-	private boolean anotherZombieIsBlockingTheWay() {
-		for (Zombie zombie : zombies) {
-			if (!zombie.equals(this) && !zombie.isTrapped() && locationTooNearToDestination(zombie)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	protected boolean locationTooNearToDestination(Zombie zombie) {
-		return zombie.location.x > location.x - 1 &&
-				zombie.location.x < location.x + 1 &&
-				zombie.location.y > location.y - 1 &&
-				zombie.location.y < location.y + 1;
 	}
 
 }

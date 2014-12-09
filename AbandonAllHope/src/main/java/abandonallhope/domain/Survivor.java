@@ -37,10 +37,6 @@ public class Survivor extends MovingObject implements DrawableObject {
 		return weapon;
 	}
 
-	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
-	}
-
 	public Firearm getGun() {
 		return gun;
 	}
@@ -51,6 +47,10 @@ public class Survivor extends MovingObject implements DrawableObject {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 
 	public void setGun(Firearm gun) {
@@ -79,21 +79,29 @@ public class Survivor extends MovingObject implements DrawableObject {
 		this.destination = destination;
 	}
 
-	/**
-	 * Move towards a direction if a direction is set and no obstacles are
-	 * ahead. You can set direction with moveTowards()
-	 */
 	@Override
 	public void move() {
-		if (destination != null) {
-			double dx = normalize(destination.x - location.x);
-			double dy = normalize(destination.y - location.y);
-			if (map.hasObstacle(location.x + dx, location.y + dy)) {
-				stop();
-			} else {
-				moveOnce(dx, dy);
-			}
+		if (hasDestination()) {
+			makeAMove();
 		}
+	}
+
+	private boolean hasDestination() {
+		return destination != null;
+	}
+
+	private void makeAMove() {
+		double dx = normalize(destination.x - location.x);
+		double dy = normalize(destination.y - location.y);
+		if (hitsObstacle(dx, dy)) {
+			stop();
+		} else {
+			moveOnce(dx, dy);
+		}
+	}
+
+	private boolean hitsObstacle(double dx, double dy) {
+		return map.hasObstacle(location.x + dx, location.y + dy);
 	}
 
 	private void stop() {
@@ -108,8 +116,8 @@ public class Survivor extends MovingObject implements DrawableObject {
 	}
 
 	protected boolean hasReachedLocation() {
-		return Math.abs(location.x - destination.x) < 0.5
-				&& Math.abs(location.y - destination.y) < 0.5;
+		return Math.abs(location.x - destination.x) < 0.5 &&
+				Math.abs(location.y - destination.y) < 0.5;
 	}
 
 }
