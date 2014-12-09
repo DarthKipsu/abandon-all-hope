@@ -15,8 +15,8 @@ import java.util.Random;
  */
 public class DayChanger {
 
-	private static final Random random = new Random(42);
-	private static final Point[] nearByCities = new Point[]{
+	private static final Random RANDOM = new Random(42);
+	private static final Point[] CITIES = new Point[]{
 		new Point(100, 0),
 		new Point(0, 200),
 		new Point(100, 500)};
@@ -45,7 +45,7 @@ public class DayChanger {
 	public static void setupDayOne() {
 		day = 1;
 		addDayOneSurvivors();
-		addZombies(nearByCities[1]);
+		addZombies(CITIES[1]);
 		addResources();
 	}
 
@@ -54,7 +54,7 @@ public class DayChanger {
 	 */
 	public static void nextDay() {
 		day++;
-		addZombies(nearByCities[random.nextInt(3)]);
+		addZombies(CITIES[RANDOM.nextInt(3)]);
 	}
 
 	private static void addDayOneSurvivors() {
@@ -67,7 +67,7 @@ public class DayChanger {
 	}
 
 	private static Point pointInsideCamp() {
-		return new Point(325 + random.nextInt(50), 275 + random.nextInt(50));
+		return new Point(325 + RANDOM.nextInt(50), 275 + RANDOM.nextInt(50));
 	}
 
 	private static void addWeapons(int i, Survivor survivor) {
@@ -88,7 +88,7 @@ public class DayChanger {
 	}
 
 	private static void addZombies(Point point) {
-		for (int i = 0; i < day * (random.nextInt(5) + 1); i++) {
+		for (int i = 0; i < day * (RANDOM.nextInt(5) + 1); i++) {
 			game.add(createNewZombie(point));
 		}
 	}
@@ -97,24 +97,24 @@ public class DayChanger {
 		Point randomLocation = createRandomLocation();
 		Point locationNearPoint = createLocationNearPoint(point);
 		return new Zombie(
-				random.nextDouble() < 0.25 ? randomLocation : locationNearPoint,
+				RANDOM.nextDouble() < 0.25 ? randomLocation : locationNearPoint,
 				map, game.getZombies());
 	}
 
 	protected static Point createRandomLocation() {
-		double side = random.nextDouble();
+		double side = RANDOM.nextDouble();
 		if (side < 0) {
-			return new Point(random.nextInt(500), random.nextDouble() < 0 ? 0 : 499);
+			return new Point(RANDOM.nextInt(500), RANDOM.nextDouble() < 0 ? 0 : 499);
 		} else {
-			return new Point(random.nextDouble() < 0 ? 0 : 499, random.nextInt(500));
+			return new Point(RANDOM.nextDouble() < 0 ? 0 : 499, RANDOM.nextInt(500));
 		}
 	}
 
 	protected static Point createLocationNearPoint(Point point) {
 		if (point.x == 0) {
-			return new Point(0, point.y + random.nextInt(100));
+			return new Point(0, point.y + RANDOM.nextInt(100));
 		} else {
-			return new Point(point.x + random.nextInt(100), point.y);
+			return new Point(point.x + RANDOM.nextInt(100), point.y);
 		}
 	}
 

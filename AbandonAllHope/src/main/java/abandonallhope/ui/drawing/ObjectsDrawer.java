@@ -1,7 +1,6 @@
 package abandonallhope.ui.drawing;
 
 import abandonallhope.domain.DrawableObject;
-import abandonallhope.domain.MovingObject;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.logic.Game;

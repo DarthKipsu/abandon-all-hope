@@ -11,7 +11,7 @@ import javafx.animation.*;
 import javafx.event.*;
 
 /**
- * The events taking place in single gameTimeline frame (from UserInterface)
+ * Contains game objects and handles game timeline
  */
 public class Game implements EventHandler {
 

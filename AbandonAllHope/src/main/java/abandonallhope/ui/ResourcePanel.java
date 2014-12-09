@@ -1,7 +1,6 @@
 package abandonallhope.ui;
 
-import abandonallhope.domain.Inventory;
-import abandonallhope.domain.Survivor;
+import abandonallhope.domain.*;
 import abandonallhope.events.action.*;
 import abandonallhope.events.handlers.*;
 import abandonallhope.logic.Game;
@@ -12,18 +11,13 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 
 /**
  * Left ui panel containing info about survivors and resources.
- *
- * @author kipsu
  */
 public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEventHandler,
-		NewWeaponEventHandler, DeleteWeaponEventHandler, NewFirearmEventHandler,
-		DeleteFirearmEventHandler {
+		NewWeaponEventHandler, DeleteWeaponEventHandler, NewFirearmEventHandler, DeleteFirearmEventHandler {
 
 	private VBox vbox;
 	private VBox survivors;
@@ -31,32 +25,21 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private Inventory inventory;
 	private Game game;
 
-	private ArrayList<Text> survivorNames;
 	private ArrayList<ComboBox> survivorWeapons;
 	private ArrayList<ComboBox> survivorGuns;
 
 	/**
 	 * Creates a new resources panel,containing information about player
 	 * resources.
-	 *
 	 * @param game game containing the resources
 	 */
 	public ResourcePanel(Game game) {
-		game.addNewResourceEventHandler(this, "newSurvivor");
-		game.addNewResourceEventHandler(this, "deleteSurvivor");
-		game.addNewResourceEventHandler(this, "newWeapon");
-		game.addNewResourceEventHandler(this, "deleteWeapon");
-		game.addNewResourceEventHandler(this, "newFirearm");
-		game.addNewResourceEventHandler(this, "deleteFirearm");
 		this.game = game;
+		addEventHandlers();
 		inventory = game.getInventory();
-		vbox = new VBox();
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(8);
-		vbox.setPrefWidth(200);
+		vBoxSetup();
 		survivors = new VBox();
 		survivors.setPrefHeight(350);
-		survivorNames = new ArrayList<>();
 		survivorWeapons = new ArrayList<>();
 		survivorGuns = new ArrayList<>();
 		resources = new VBox();
@@ -72,30 +55,9 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 */
 	public void updateResources() {
 		resources.getChildren().clear();
-		resources.getChildren().add(new Text("  Bullets: "
-				+ inventory.getPistolBullets().getBullets()));
-		resources.getChildren().add(new Text("  Wood: "
-				+ inventory.getWood()));
-		resources.getChildren().add(new Text("  Metal: "
-				+ inventory.getMetal()));
-	}
-
-	private void createVBoxContents() {
-		addTitle("Survivors:");
-		vbox.getChildren().add(survivors);
-		addBulletInventory();
-	}
-
-	private void addTitle(String text) {
-		Label title = new Label(text);
-		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-		vbox.getChildren().add(title);
-	}
-
-	private void addBulletInventory() {
-		addTitle("Resources:");
-		vbox.getChildren().add(resources);
-		updateResources();
+		resources.getChildren().add(new Text("  Bullets: " + inventory.getPistolBullets().getBullets()));
+		resources.getChildren().add(new Text("  Wood: " + inventory.getWood()));
+		resources.getChildren().add(new Text("  Metal: " + inventory.getMetal()));
 	}
 
 	@Override
@@ -103,7 +65,6 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		Text name = new Text(e.getSurvivor().getId() + ". " + e.getSurvivor().getName());
 		name.setFont(Font.font("Arial", FontWeight.BOLD, 12));
 		name.setId(e.getSurvivor().getName());
-		survivorNames.add(name);
 		survivors.getChildren().add(name);
 		if (e.getSurvivor().getId() != 0) {
 			addMeleeWeaponComboBox(e);
@@ -124,62 +85,80 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	@Override
 	public void handle(NewWeaponEvent e) {
-		for (ComboBox combo : survivorWeapons) {
-			String weaponNow = combo.getValue().toString();
-			if (!weaponNow.equals(e.getWeapon().toString())) {
-				combo.getItems().add(e.getWeapon().toString());
-			}
-		}
+		changeLadel(survivorWeapons, "add", e.getWeapon().toString());
 	}
 
 	@Override
 	public void handle(DeleteWeaponEvent e) {
-		for (ComboBox combo : survivorWeapons) {
-			String weaponNow = combo.getValue().toString();
-			if (!weaponNow.equals(e.getWeapon().toString())) {
-				removeWeaponLabels(combo, e);
-			}
-		}
+		changeLadel(survivorWeapons, "delete", e.getWeapon().toString());
 	}
 
 	@Override
 	public void handle(NewFirearmEvent e) {
-		for (ComboBox combo : survivorGuns) {
-			String gunNow = combo.getValue().toString();
-			if (!gunNow.equals(e.getFirearm().toString())) {
-				combo.getItems().add(e.getFirearm().toString());
-			}
-		}
+		changeLadel(survivorGuns, "add", e.getFirearm().toString());
 	}
 
 	@Override
 	public void handle(DeleteFirearmEvent e) {
-		for (ComboBox combo : survivorGuns) {
-			String gunNow = combo.getValue().toString();
-			if (!gunNow.equals(e.getFirearm().toString())) {
-				removeFirearmLabels(combo, e);
+		changeLadel(survivorGuns, "delete", e.getFirearm().toString());
+	}
+
+	private void changeLadel(List<ComboBox> cBoxes, String type, String weapon) {
+		for (ComboBox combo : cBoxes) {
+			String weaponNow = combo.getValue().toString();
+			if (!weaponNow.equals(weapon)) {
+				if (type.equals("delete")) {
+					removeLabels(combo, weapon);
+				} else {
+					combo.getItems().add(weapon);
+				}
 			}
 		}
 	}
 
-	private void removeWeaponLabels(ComboBox combo, DeleteWeaponEvent e) {
-		while (combo.getItems().contains(e.getWeapon().toString())) {
-			combo.getItems().remove(e.getWeapon().toString());
+	private void addEventHandlers() {
+		String[] events = new String[]{"newSurvivor", "deleteSurvivor", "newWeapon", "deleteWeapon",
+			"newFirearm", "deleteFirearm"};
+		for (int i = 0; i < events.length; i++) {
+			game.addNewResourceEventHandler(this, events[i]);
 		}
 	}
 
-	private void removeFirearmLabels(ComboBox combo, DeleteFirearmEvent e) {
-		while (combo.getItems().contains(e.getFirearm().toString())) {
-			combo.getItems().remove(e.getFirearm().toString());
+	private void vBoxSetup() {
+		vbox = new VBox();
+		vbox.setPadding(new Insets(10));
+		vbox.setSpacing(8);
+		vbox.setPrefWidth(200);
+	}
+
+	private void createVBoxContents() {
+		addTitle("Survivors:");
+		vbox.getChildren().add(survivors);
+		addBulletInventory();
+	}
+
+	private void addTitle(String text) {
+		Label title = new Label(text);
+		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		vbox.getChildren().add(title);
+	}
+
+	private void addBulletInventory() {
+		addTitle("Resources:");
+		vbox.getChildren().add(resources);
+		updateResources();
+	}
+
+	private void removeLabels(ComboBox combo, String weapon) {
+		while (combo.getItems().contains(weapon)) {
+			combo.getItems().remove(weapon);
 		}
 	}
 
 	private void addMeleeWeaponComboBox(NewSurvivorEvent e) {
 		ComboBox<String> comboBox = new ComboBox();
-		String survivorWeapon = printSurvivorWeapon(e.getSurvivor());
-		addCBWeapons(comboBox, survivorWeapon);
-		comboBox.setValue(printSurvivorWeapon(e.getSurvivor()));
-		setCBProperties(comboBox, e);
+		addComboItems(comboBox, printSurvivorWeapon(e.getSurvivor()));
+		setCBProperties(comboBox, e, printSurvivorWeapon(e.getSurvivor()));
 		comboBox.valueProperty().addListener(new WeaponEvent(inventory,
 				e.getSurvivor(), game.getResourceEvents()));
 		survivorWeapons.add(comboBox);
@@ -188,31 +167,23 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	private void addFirearmComboBox(NewSurvivorEvent e) {
 		ComboBox<String> comboBox = new ComboBox();
-		String survivorGun = printSurvivorGun(e.getSurvivor());
-		addCBGuns(comboBox, survivorGun);
-		comboBox.setValue(printSurvivorGun(e.getSurvivor()));
-		setCBProperties(comboBox, e);
+		addComboItems(comboBox, printSurvivorGun(e.getSurvivor()));
+		setCBProperties(comboBox, e, printSurvivorGun(e.getSurvivor()));
 		comboBox.valueProperty().addListener(new FirearmEvent(inventory,
 				e.getSurvivor(), game.getResourceEvents()));
 		survivorGuns.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
 
-	private void setCBProperties(ComboBox<String> comboBox, NewSurvivorEvent e) {
+	private void setCBProperties(ComboBox<String> comboBox, NewSurvivorEvent e, String value) {
+		comboBox.setValue(value);
 		comboBox.setPrefWidth(150);
 		comboBox.setId(e.getSurvivor().getName());
 	}
 
-	private void addCBWeapons(ComboBox<String> comboBox, String survivorWeapon) {
-		comboBox.getItems().add(survivorWeapon);
-		if (!survivorWeapon.equals("none")) {
-			comboBox.getItems().add("none");
-		}
-	}
-
-	private void addCBGuns(ComboBox<String> comboBox, String SurvivorGun) {
-		comboBox.getItems().add(SurvivorGun);
-		if (!SurvivorGun.equals("none")) {
+	private void addComboItems(ComboBox<String> comboBox, String item) {
+		comboBox.getItems().add(item);
+		if (!item.equals("none")) {
 			comboBox.getItems().add("none");
 		}
 	}

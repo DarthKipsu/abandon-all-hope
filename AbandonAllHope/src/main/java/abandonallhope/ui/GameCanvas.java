@@ -1,25 +1,17 @@
 package abandonallhope.ui;
 
-import abandonallhope.domain.constructions.Trap;
-import abandonallhope.domain.constructions.Wall;
-import abandonallhope.ui.drawing.ObjectsDrawer;
-import abandonallhope.ui.drawing.ConstructionHoverDrawer;
-import abandonallhope.events.mouse.SurvivorEvent;
-import abandonallhope.events.mouse.TrapBuildEvent;
-import abandonallhope.events.mouse.TrapHoverEvent;
-import abandonallhope.events.mouse.WallBuildEvent;
-import abandonallhope.events.mouse.WallBuildHoverEvent;
-import abandonallhope.events.mouse.WallHoverEvent;
+import abandonallhope.domain.constructions.*;
+import abandonallhope.ui.drawing.*;
+import abandonallhope.events.mouse.*;
 import abandonallhope.logic.Game;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Contains game field presentation and object drawing.
+ * Contains game field presentation and events.
  *
  * @author kipsu
  */
@@ -68,8 +60,8 @@ public class GameCanvas implements EventHandler {
 	@Override
 	public void handle(Event t) {
 		resetCanvasBase();
-		objectsDrawer.drawObjects(game.getWalls());
 		objectsDrawer.drawObjects(game.getTraps());
+		objectsDrawer.drawObjects(game.getWalls());
 		objectsDrawer.drawSurvivors();
 		objectsDrawer.drawObjects(game.getZombies());
 		objectsDrawer.drawObjects(game.getBullets());
@@ -92,7 +84,7 @@ public class GameCanvas implements EventHandler {
 		try {
 			canvas.removeEventHandler(MouseEvent.MOUSE_CLICKED, survivorSelectionEvent);
 		} catch (NullPointerException e) {
-			// No need to do anything
+			// ignore
 		}
 	}
 
@@ -117,7 +109,6 @@ public class GameCanvas implements EventHandler {
 	 */
 	public void changeToBuildHoverEventListener(Wall wall) {
 		wallBuildHoverEvent = new WallBuildHoverEvent(wall, constrHoverDrawer);
-		constrHoverDrawer.setBuildingCost(wall.getCost());
 		canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallBuildHoverEvent);
 	}
@@ -134,7 +125,7 @@ public class GameCanvas implements EventHandler {
 			wallHoverEvent = null;
 			addSurvivorSelectorEventListener();
 		} catch (NullPointerException e) {
-			// No need to do anything
+			// ignore
 		}
 	}
 
@@ -159,7 +150,7 @@ public class GameCanvas implements EventHandler {
 			trapHoverEvent = null;
 			addSurvivorSelectorEventListener();
 		} catch (NullPointerException e) {
-			// No need to do anything
+			// ignore
 		}
 	}
 

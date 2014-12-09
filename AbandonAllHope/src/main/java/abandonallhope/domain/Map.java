@@ -54,8 +54,8 @@ public class Map {
 	 * @param point point that needs to be validated
 	 */
 	public boolean isValidMove(Point point) {
-		return point.x >= 0 && point.x <= width
-				&& point.y >= 0 && point.y <= height;
+		return point.x >= 0 && point.x <= width &&
+				point.y >= 0 && point.y <= height;
 	}
 
 	/**
@@ -67,8 +67,8 @@ public class Map {
 	 * @param dy displacement to y direction
 	 */
 	public boolean isValidMove(Point point, double dx, double dy) {
-		return point.x + dx >= 0 && point.x + dx <= width
-				&& point.y + dy >= 0 && point.y + dy <= height;
+		return point.x + dx >= 0 && point.x + dx <= width &&
+				point.y + dy >= 0 && point.y + dy <= height;
 	}
 
 	/**
@@ -96,8 +96,7 @@ public class Map {
 	 */
 	public boolean isTrapped(Point point) {
 		for (Trap trap : game.getTraps()) {
-			if (trap.occupiedArea().contains(point.x, point.y)
-					&& trap.hasCapacityLeft()) {
+			if (trap.occupiedArea().contains(point.x, point.y) && trap.hasCapacityLeft()) {
 				trap.addZombie();
 				return true;
 			}

@@ -16,6 +16,11 @@ public abstract class Drawer {
 	protected Game game;
 	protected GraphicsContext gc;
 
+	/**
+	 * Creates a new drawer object
+	 * @param game game containing information about what to draw
+	 * @param gc Graphics context to add the drawings into
+	 */
 	public Drawer(Game game, GraphicsContext gc) {
 		this.game = game;
 		this.gc = gc;

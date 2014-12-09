@@ -134,7 +134,7 @@ public class Turn {
 	private void useWeapon(Weapon weapon, Survivor survivor, MovingObject target) {
 		if (weaponCanBeUsed(weapon, survivor.getLocation(), target.getLocation())) {
 			weapon.use();
-			killAZombie((Zombie)target);
+			killAZombie((Zombie) target);
 		} else {
 			weapon.decreaseRoundsToUse();
 		}

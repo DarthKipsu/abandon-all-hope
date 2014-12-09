@@ -2,7 +2,6 @@ package abandonallhope.ui.drawing;
 
 import abandonallhope.domain.DrawableObject;
 import abandonallhope.domain.Inventory;
-import abandonallhope.domain.constructions.Cost;
 import abandonallhope.logic.Game;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
@@ -24,7 +23,6 @@ public class ConstructionHoverDrawer extends Drawer {
 	private int width;
 	private int height;
 	private Inventory inventory;
-	private Cost buildingCost;
 
 	/**
 	 * Creates a new construction hover drawing object, used to draw shadows of
@@ -49,10 +47,6 @@ public class ConstructionHoverDrawer extends Drawer {
 		height = (int) buildingDimension.getHeight();
 		wallWidth = width;
 		wallHeight = height;
-	}
-	
-	public void setBuildingCost(Cost cost) {
-		buildingCost = cost;
 	}
 
 	/**
