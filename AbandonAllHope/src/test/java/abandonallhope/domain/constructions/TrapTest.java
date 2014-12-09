@@ -2,8 +2,8 @@
 package abandonallhope.domain.constructions;
 
 import abandonallhope.domain.*;
+import abandonallhope.logic.Game;
 import java.util.ArrayList;
-import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import static org.junit.Assert.*;
@@ -13,16 +13,12 @@ import org.junit.Test;
 public class TrapTest {
 	
 	private Trap trap;
-	private Map map;
-	private List<Trap> traps;
 	
 	@Before
 	public void setUp() {
-		List<Survivor> survivors = new ArrayList<>();
-		survivors.add(new Survivor(new Point(20,20), map, "name", 1));
-		traps = new ArrayList<>();
-		map = new Map(30, survivors, new ArrayList<Wall>(), traps);
-		new Zombie(new Point(9.8, 9.8), map, new ArrayList<Zombie>());
+		Game game = new Game(30);
+		game.getSurvivors().add(new Survivor(new Point(20,20), game.getMap(), "name", 1));
+		new Zombie(new Point(9.8, 9.8), game.getMap(), new ArrayList<Zombie>());
 	}
 	
 	@Test

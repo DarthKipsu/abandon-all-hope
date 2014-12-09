@@ -5,6 +5,7 @@ import abandonallhope.domain.constructions.Trap;
 import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
+import abandonallhope.logic.Game;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
@@ -24,11 +25,12 @@ public class ZombieTest {
 	
 	@Before
 	public void setUp() {
-		survivors = new ArrayList<>();
-		walls = new ArrayList<>();
-		traps = new ArrayList<>();
-		map = new Map(30, survivors, walls, traps);
-		zombies = new ArrayList<Zombie>();
+		Game game = new Game(30);
+		survivors = game.getSurvivors();
+		walls = game.getWalls();
+		traps = game.getTraps();
+		map = game.getMap();
+		zombies = game.getZombies();
 		zombie = new Zombie(new Point(10, 10), map, zombies);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map, "name", 1));

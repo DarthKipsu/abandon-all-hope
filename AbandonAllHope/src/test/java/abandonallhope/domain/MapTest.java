@@ -1,7 +1,9 @@
 
 package abandonallhope.domain;
 
-import java.util.ArrayList;
+import abandonallhope.domain.constructions.Wall;
+import abandonallhope.domain.constructions.WallType;
+import abandonallhope.logic.Game;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,13 +11,15 @@ import static org.junit.Assert.*;
 
 public class MapTest {
 	
+	private Game game;
 	private Map map;
 	private List<Survivor> survivors;
 	
 	@Before
 	public void setUp() {
-		survivors = new ArrayList<>();
-		map = new Map(500, 500, survivors, new ArrayList(), new ArrayList());
+		game = new Game(500);
+		survivors = game.getSurvivors();
+		map = game.getMap();
 		survivors.add(new Survivor(new Point(50, 20), map, "name", 1));
 		survivors.add(new Survivor(new Point(20, 50), map, "name", 2));
 	}
@@ -78,6 +82,18 @@ public class MapTest {
 	@Test
 	public void toStringReturnsCorrectString() {
 		assertEquals("500.0 x 500.0", map.toString());
+	}
+	
+	@Test
+	public void removeWallsWhenTheyBreakUp() {
+		Wall wall = new Wall(WallType.WOODEN, Wall.Orientation.VERTICAL, new Point(10, 10));
+		game.add(wall);
+		for (int i = 0; i < 500; i++) {
+			map.hasObstacle(10, 10);
+		}
+		assertFalse(game.getWalls().isEmpty());
+		map.hasObstacle(10, 10);
+		assertTrue(game.getWalls().isEmpty());
 	}
 	
 }

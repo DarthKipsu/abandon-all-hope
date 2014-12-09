@@ -1,9 +1,8 @@
 
 package abandonallhope.domain.weapons;
 
-import abandonallhope.domain.Map;
 import abandonallhope.domain.Point;
-import java.util.ArrayList;
+import abandonallhope.logic.Game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -76,9 +75,10 @@ public class BulletTest {
 	}
 	
 	public void createBullet(int startX, int startY, int destX, int destY, int distance) {
+		Game game = new Game(500);
 		bullet = new Bullet(
 				new Point(startX, startY), 
-				new Map(500, new ArrayList(), new ArrayList(), new ArrayList()), 
+				game.getMap(), 
 				new Point(destX, destY), 
 				distance
 		);

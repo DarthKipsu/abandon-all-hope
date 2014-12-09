@@ -9,7 +9,7 @@ import abandonallhope.domain.weapons.Weapon;
 import abandonallhope.domain.weapons.Pistol;
 import abandonallhope.domain.weapons.Axe;
 import abandonallhope.domain.weapons.Firearm;
-import java.util.ArrayList;
+import abandonallhope.logic.Game;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
@@ -28,10 +28,11 @@ public class SurvivorTest {
 	
 	@Before
 	public void setUp() {
-		survivors = new ArrayList<>();
-		walls = new ArrayList<Wall>();
-		traps = new ArrayList<>();
-		map = new Map(30, survivors, walls, traps);
+		Game game = new Game(30);
+		survivors = game.getSurvivors();
+		walls = game.getWalls();
+		traps = game.getTraps();
+		map = game.getMap();
 		survivor = new Survivor(new Point(10, 10), map, "Uolevi", 1);
 		speed = survivor.getSpeed();
 	}

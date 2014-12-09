@@ -49,7 +49,7 @@ public class Game implements EventHandler {
 		bullets = new ArrayList<>();
 		walls = new ArrayList<>();
 		traps = new ArrayList<>();
-		map = new Map(mapSize, survivors, walls, traps);
+		map = new Map(mapSize, this);
 		day = 1;
 		sleep = 0;
 	}

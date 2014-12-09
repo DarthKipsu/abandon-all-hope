@@ -1,10 +1,8 @@
 
 package abandonallhope.logic;
 
-import abandonallhope.domain.Map;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
-import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -17,11 +15,11 @@ public class SurvivorSelectorTest {
 	
 	@Before
 	public void setUp() {
-		survivors = new ArrayList<Survivor>();
+		Game game = new Game(30);
+		survivors = game.getSurvivors();
 		selector = new SurvivorSelector(survivors);
-		Map map = new Map(30, survivors, new ArrayList(), new ArrayList());
-		survivors.add(new Survivor(new Point(10, 10), map, "name", 1));
-		survivors.add(new Survivor(new Point(20, 20), map, "name", 1));
+		survivors.add(new Survivor(new Point(10, 10), game.getMap(), "name", 1));
+		survivors.add(new Survivor(new Point(20, 20), game.getMap(), "name", 1));
 	}
 	
 	@Test

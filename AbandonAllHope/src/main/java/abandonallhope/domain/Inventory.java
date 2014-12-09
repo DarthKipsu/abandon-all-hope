@@ -51,26 +51,46 @@ public class Inventory {
 		return wood;
 	}
 
+	/**
+	 * Adds bullets for pistol firearm.
+	 * @param amount 
+	 */
 	public void addPistolBullets(int amount) {
 		pistolBullets.add(amount);
 	}
 
+	/**
+	 * Adds one or more new melee weapons.
+	 * @param weapons 
+	 */
 	public void addWeapons(Weapon... weapons) {
 		for (Weapon weapon : weapons) {
 			this.weapons.add(weapon);
 		}
 	}
 
+	/**
+	 * Adds one or more firearms
+	 * @param firearms 
+	 */
 	public void addFireamrs(Firearm... firearms) {
 		for (Firearm firearm : firearms) {
 			this.guns.add(firearm);
 		}
 	}
 	
+	/**
+	 * Adds new wood to player resources
+	 * @param amount 
+	 */
 	public void addWood(int amount) {
 		wood += amount;
 	}
 	
+	/**
+	 * Adds new metal to player resources
+	 * @param amount 
+	 */
 	public void addMetal(int amount) {
 		metal += amount;
 	}
