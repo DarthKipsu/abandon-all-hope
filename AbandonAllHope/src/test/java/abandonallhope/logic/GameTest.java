@@ -8,8 +8,10 @@ import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.ui.MessagePanel;
 import javafx.animation.Animation.Status;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -136,11 +138,30 @@ public class GameTest {
 	
 	@Test
 	public void gameOverStopsTimeline() {
-		Timeline timeline = new Timeline();
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
 		timeline.play();
 		game.setGameTimeline(timeline);
 		game.gameOver();
-		assertEquals(Status.STOPPED, timeline.statusProperty().getValue());
+		assertEquals(Status.STOPPED, timeline.getStatus());
+	}
+
+	@Test
+	public void pauseStopsGameTimeline() {
+		Timeline gtl = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
+		gtl.play();
+		game.setGameTimeline(gtl);
+		game.pause();
+		assertEquals(Status.PAUSED, gtl.getStatus());
+	}
+
+	@Test
+	public void pauseAgainContinuesGameTimeline() {
+		Timeline gtl = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
+		gtl.play();
+		game.setGameTimeline(gtl);
+		game.pause();
+		game.pause();
+		assertEquals(Status.RUNNING, gtl.getStatus());
 	}
 	
 	@Test
