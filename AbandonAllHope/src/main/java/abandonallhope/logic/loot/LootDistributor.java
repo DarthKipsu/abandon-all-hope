@@ -22,19 +22,7 @@ public class LootDistributor {
 	public LootDistributor(Inventory inventory, ResourceEvents resEvents) {
 		this.inventory = inventory;
 		random = new Random();
-		BulletLoot bullets = new BulletLoot();
-		WoodLoot wood = new WoodLoot();
-		loot = addLootTypes(bullets, resEvents, wood);
-	}
-
-	private Loot[] addLootTypes(BulletLoot bullets, ResourceEvents resEvents, WoodLoot wood) {
-		return new Loot[]{
-			bullets, bullets, bullets,
-			new WeaponLoot(resEvents),
-			new FirearmLoot(resEvents),
-			new MetalLoot(),
-			wood, wood
-		};
+		loot = addLootTypes(resEvents);
 	}
 	
 	/**
@@ -45,10 +33,26 @@ public class LootDistributor {
 		return loot[random.nextInt(loot.length)].giveOut(inventory);
 	}
 	
+	/**
+	 * Collect loot from n amount of zombies at once
+	 * @param amount amount of zombies to collect from
+	 */
 	public void collectLootFrom(int amount) {
 		for (int i = 0; i < amount; i++) {
 			getLoot();
 		}
+	}
+
+	private Loot[] addLootTypes(ResourceEvents resEvents) {
+		BulletLoot bullets = new BulletLoot();
+		WoodLoot wood = new WoodLoot();
+		return new Loot[]{
+			bullets, bullets, bullets,
+			new WeaponLoot(resEvents),
+			new FirearmLoot(resEvents),
+			new MetalLoot(),
+			wood, wood
+		};
 	}
 
 }

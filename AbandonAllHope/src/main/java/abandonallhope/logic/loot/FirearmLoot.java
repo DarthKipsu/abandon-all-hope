@@ -21,11 +21,15 @@ public class FirearmLoot implements Loot {
 	@Override
 	public String giveOut(Inventory inventory) {
 		Firearm firearm = new Pistol(inventory);
+		triggerEventIfNewKindOfWeapon(inventory, firearm);
+		inventory.addFireamrs(firearm);
+		return firearm.toString();
+	}
+
+	private void triggerEventIfNewKindOfWeapon(Inventory inventory, Firearm firearm) {
 		if (!inventory.containsFirearm(firearm)) {
 			resEvents.triggerNewFirearmEvent(firearm);
 		}
-		inventory.addFireamrs(firearm);
-		return firearm.toString();
 	}
 	
 }

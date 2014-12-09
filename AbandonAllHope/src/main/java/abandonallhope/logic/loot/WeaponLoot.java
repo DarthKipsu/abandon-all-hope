@@ -21,11 +21,15 @@ public class WeaponLoot implements Loot {
 	@Override
 	public String giveOut(Inventory inventory) {
 		Weapon weapon = new Axe();
+		triggerEventIfNewKindOfWeapon(inventory, weapon);
+		inventory.addWeapons(weapon);
+		return weapon.toString();
+	}
+
+	private void triggerEventIfNewKindOfWeapon(Inventory inventory, Weapon weapon) {
 		if (!inventory.containsWeapon(weapon)) {
 			resEvents.triggerNewWeaponEvent(weapon);
 		}
-		inventory.addWeapons(weapon);
-		return weapon.toString();
 	}
 
 }
