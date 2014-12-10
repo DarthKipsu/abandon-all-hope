@@ -1,6 +1,8 @@
 
 package abandonallhope.domain;
 
+import abandonallhope.domain.constructions.Trap;
+import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import abandonallhope.logic.Game;
@@ -88,12 +90,28 @@ public class MapTest {
 	public void removeWallsWhenTheyBreakUp() {
 		Wall wall = new Wall(WallType.WOODEN, Wall.Orientation.VERTICAL, new Point(10, 10));
 		game.add(wall);
-		for (int i = 0; i < 500; i++) {
-			map.hasObstacle(10, 10);
-		}
+		hitAWall(500);
 		assertFalse(game.getWalls().isEmpty());
 		map.hasObstacle(10, 10);
 		assertTrue(game.getWalls().isEmpty());
+	}
+	
+	@Test
+	public void givesInfomationAboutTraps() {
+		game.add(new Trap(new Point(10, 10), TrapType.PIT));
+		assertTrue(map.hasTrap(10, 10));
+	}
+	
+	@Test
+	public void doesNotGiveWrongInfomationAboutTraps() {
+		game.add(new Trap(new Point(10, 10), TrapType.PIT));
+		assertFalse(map.hasTrap(9, 9));
+	}
+
+	private void hitAWall(int times) {
+		for (int i = 0; i < times; i++) {
+			map.hasObstacle(10, 10);
+		}
 	}
 	
 }

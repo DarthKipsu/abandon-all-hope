@@ -104,7 +104,7 @@ public class DayChangerTest {
 	@Test
 	public void nextDaysHaveCorrectAmountOfZombies() {
 		DayChanger.nextDay();
-		assertTrue(game.getZombies().size() < 6);
+		assertTrue(game.getZombies().size() < 10);
 		assertTrue(game.getZombies().size() > 0);
 	}
 
