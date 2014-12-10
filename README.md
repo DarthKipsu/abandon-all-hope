@@ -16,6 +16,9 @@ _Looks like it's safe._
 
 The game is a tower defence inspired survival game. Players need to protect their survivals by killing the every day increasing zombie hordes, or become a zombie themselves. How many days can you survive?
 
+![Game screencap](/screencap.jpg?raw=true "Game screencap")
+
+
 ### Version
 
 0.0 Pre beta
