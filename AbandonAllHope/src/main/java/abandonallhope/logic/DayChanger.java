@@ -71,14 +71,8 @@ public class DayChanger {
 	}
 
 	private static void addWeapons(int i, Survivor survivor) {
-		addMeleeWeapon(i, survivor);
+		survivor.setWeapon(new Axe());
 		addFirearm(i, survivor);
-	}
-
-	private static void addMeleeWeapon(int i, Survivor survivor) {
-		if (i < 3) {
-			survivor.setWeapon(new Axe());
-		}
 	}
 
 	private static void addFirearm(int i, Survivor survivor) {
@@ -88,7 +82,8 @@ public class DayChanger {
 	}
 
 	private static void addZombies(Point point) {
-		for (int i = 0; i < day * (RANDOM.nextInt(5) + 1); i++) {
+		int multiplier = RANDOM.nextInt(2) + 1;
+		for (int i = 0; i < day * multiplier + day; i++) {
 			game.add(createNewZombie(point));
 		}
 	}
@@ -119,7 +114,7 @@ public class DayChanger {
 	}
 
 	private static void addResources() {
-		game.getInventory().addPistolBullets(5);
+		game.getInventory().addPistolBullets(10);
 		game.getInventory().addWood(50);
 		game.getInventory().addMetal(20);
 	}

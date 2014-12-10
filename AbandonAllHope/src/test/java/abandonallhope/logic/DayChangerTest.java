@@ -26,14 +26,12 @@ public class DayChangerTest {
 	}
 
 	@Test
-	public void first3DayOneSurvivorsHaveAnAxe() {
+	public void dayOneSurvivorsHaveAnAxe() {
 		DayChanger.setupDayOne();
 		List<Survivor> survivors = game.getSurvivors();
-		assertTrue(survivors.get(0).getWeapon() instanceof Axe);
-		assertTrue(survivors.get(1).getWeapon() instanceof Axe);
-		assertTrue(survivors.get(2).getWeapon() instanceof Axe);
-		assertNull(survivors.get(3).getWeapon());
-		assertNull(survivors.get(4).getWeapon());
+		for (int i = 0; i < 5; i++) {
+			assertTrue(survivors.get(0).getWeapon() instanceof Axe);
+		}
 	}
 
 	@Test
@@ -84,21 +82,21 @@ public class DayChangerTest {
 	}
 
 	@Test
-	public void survivorsStartUpWith5Bullets() {
+	public void survivorsStartUpWith10Bullets() {
 		DayChanger.setupDayOne();
-		assertEquals(5, game.getInventory().getPistolBullets().getBullets());
+		assertEquals(10, game.getInventory().getPistolBullets().getBullets());
 	}
 	
 	@Test
-	public void survivorsStartsWith20Wood() {
+	public void survivorsStartsWith50Wood() {
 		DayChanger.setupDayOne();
-		assertEquals(20, game.getInventory().getWood());
+		assertEquals(50, game.getInventory().getWood());
 	}
 	
 	@Test
-	public void survivorsStartWith5Metal() {
+	public void survivorsStartWith20Metal() {
 		DayChanger.setupDayOne();
-		assertEquals(5, game.getInventory().getMetal());
+		assertEquals(20, game.getInventory().getMetal());
 	}
 
 	@Test

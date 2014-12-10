@@ -1,6 +1,7 @@
 package abandonallhope.logic.loot;
 
 import abandonallhope.domain.Inventory;
+import abandonallhope.logic.DayChanger;
 import abandonallhope.logic.ResourceEvents;
 import java.util.Random;
 
@@ -38,8 +39,12 @@ public class LootDistributor {
 	 * @param amount amount of zombies to collect from
 	 */
 	public void collectLootFrom(int amount) {
-		for (int i = 0; i < amount; i++) {
+		for (int i = 0; i < amount;) {
 			getLoot();
+			i++;
+			if (DayChanger.day > 20) {
+				i++;
+			}
 		}
 	}
 
@@ -47,7 +52,7 @@ public class LootDistributor {
 		BulletLoot bullets = new BulletLoot();
 		WoodLoot wood = new WoodLoot();
 		return new Loot[]{
-			bullets, bullets, bullets,
+			bullets, bullets,
 			new WeaponLoot(resEvents),
 			new FirearmLoot(resEvents),
 			new MetalLoot(),

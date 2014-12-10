@@ -52,7 +52,7 @@ public class WallTest {
 	@Test
 	public void returnsCorrectCost() {
 		createWall(WallType.WOODEN, Wall.Orientation.VERTICAL);
-		assertEquals(1, wall.getCost().getWood());
+		assertEquals(2, wall.getCost().getWood());
 		assertEquals(0, wall.getCost().getMetal());
 	}
 	
