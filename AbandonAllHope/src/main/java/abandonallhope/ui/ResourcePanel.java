@@ -6,11 +6,12 @@ import abandonallhope.events.handlers.*;
 import abandonallhope.logic.Game;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.*;
 
 /**
@@ -24,13 +25,11 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private VBox resources;
 	private Inventory inventory;
 	private Game game;
-
 	private ArrayList<ComboBox> survivorWeapons;
 	private ArrayList<ComboBox> survivorGuns;
 
 	/**
-	 * Creates a new resources panel,containing information about player
-	 * resources.
+	 * Creates a new resources panel,containing information about player resources.
 	 * @param game game containing the resources
 	 */
 	public ResourcePanel(Game game) {
@@ -39,7 +38,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		inventory = game.getInventory();
 		vBoxSetup();
 		survivors = new VBox();
-		survivors.setPrefHeight(350);
+		survivors.setPrefHeight(360);
 		survivorWeapons = new ArrayList<>();
 		survivorGuns = new ArrayList<>();
 		resources = new VBox();
@@ -55,15 +54,16 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 */
 	public void updateResources() {
 		resources.getChildren().clear();
-		resources.getChildren().add(new Text("  Bullets: " + inventory.getPistolBullets().getBullets()));
-		resources.getChildren().add(new Text("  Wood: " + inventory.getWood()));
-		resources.getChildren().add(new Text("  Metal: " + inventory.getMetal()));
+		resources.getChildren().add(new Text("      Bullets: " + inventory.getPistolBullets().getBullets()));
+		resources.getChildren().add(new Text("      Wood: " + inventory.getWood()));
+		resources.getChildren().add(new Text("      Metal: " + inventory.getMetal()));
 	}
 
 	@Override
 	public void handle(NewSurvivorEvent e) {
 		Text name = new Text(e.getSurvivor().getId() + ". " + e.getSurvivor().getName());
 		name.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+		name.setFill(Color.ANTIQUEWHITE);
 		name.setId(e.getSurvivor().getName());
 		survivors.getChildren().add(name);
 		if (e.getSurvivor().getId() != 0) {
@@ -126,9 +126,8 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 
 	private void vBoxSetup() {
 		vbox = new VBox();
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(8);
-		vbox.setPrefWidth(200);
+		vbox.getStyleClass().add("left");
+		vbox.setPrefWidth(247);
 	}
 
 	private void createVBoxContents() {
@@ -140,11 +139,12 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private void addTitle(String text) {
 		Label title = new Label(text);
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		title.setTextFill(Color.ANTIQUEWHITE);
 		vbox.getChildren().add(title);
 	}
 
 	private void addBulletInventory() {
-		addTitle("Resources:");
+		addTitle("     Resources:");
 		vbox.getChildren().add(resources);
 		updateResources();
 	}

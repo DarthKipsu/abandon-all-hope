@@ -1,0 +1,31 @@
+.left {
+    -fx-background-image: url("images/left.jpg");
+    -fx-background-size: 247, 500;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+.right {
+    -fx-background-image: url("images/right.jpg");
+    -fx-background-size: 252, 500;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+.bottom {
+    -fx-background-image: url("images/bottom.jpg");
+    -fx-background-size: 1000, 152;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 18;
+    -fx-spacing: 8;
+}
+
+.top {
+    -fx-background-image: url("images/top.jpg");
+    -fx-background-size: 1000, 56;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 25;
+    -fx-spacing: 8;
+}

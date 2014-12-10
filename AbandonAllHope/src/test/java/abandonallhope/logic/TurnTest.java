@@ -266,7 +266,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		turn.infectSurvivors();
 		Text text = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("name was bit and turned into a zombie!", text.getText());
+		assertEquals("     name was bit and turned into a zombie!", text.getText());
 	}
 	
 	@Test
@@ -274,7 +274,7 @@ public class TurnTest {
 		Zombie zombie = addZombie(10, 10);
 		turn.killAZombie(zombie);
 		Text text = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("Zombie dropped ", text.getText().subSequence(0, 15));
+		assertEquals("     Zombie dropped ", text.getText().subSequence(0, 20));
 	}
 	
 	@Test

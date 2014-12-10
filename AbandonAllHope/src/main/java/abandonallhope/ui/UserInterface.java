@@ -9,6 +9,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
@@ -69,8 +70,13 @@ public class UserInterface implements EventHandler {
 		MessagePanel messages = new MessagePanel(game);
 		addInitialMessage(messages);
 		BuildPanel build = new BuildPanel(game, canvas);
+		VBox top = new VBox();
+		top.getStyleClass().add("top");
+		top.setPrefHeight(56);
 		resources = new ResourcePanel(game);
 		border = new BorderPane();
+		border.getStylesheets().add("/uiStyle.css");
+		border.setTop(top);
 		border.setCenter(canvas.getCanvas());
 		border.setRight(build.getVbox());
 		border.setLeft(resources.getVbox());

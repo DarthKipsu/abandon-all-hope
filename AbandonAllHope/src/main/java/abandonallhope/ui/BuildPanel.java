@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -30,8 +31,8 @@ public class BuildPanel {
 	 */
 	public BuildPanel(Game game, GameCanvas canvas) {
 		vbox = new VBox();
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(8);
+		vbox.getStyleClass().add("right");
+		vbox.setPrefWidth(252);
 		this.game = game;
 		this.canvas = canvas;
 		createVBoxContent();
@@ -62,6 +63,7 @@ public class BuildPanel {
 	private void addTitle(String text) {
 		Label title = new Label(text);
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		title.setTextFill(Color.ANTIQUEWHITE);
 		vbox.getChildren().add(title);
 	}
 

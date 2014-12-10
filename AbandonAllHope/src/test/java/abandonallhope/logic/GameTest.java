@@ -125,7 +125,7 @@ public class GameTest {
 		game.sleep = 1;
 		game.sleepUntilTheNextDay();
 		Text text = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("Begin day 2: 0 new zombies.", text.getText());
+		assertEquals("     Begin day 2: 0 new zombies.", text.getText());
 	}
 	
 	@Test
@@ -169,7 +169,7 @@ public class GameTest {
 		game.setGameTimeline(new Timeline());
 		game.gameOver();
 		Text text = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("All survivors are lost! You survived 1 days. Game over!", text.getText());
+		assertEquals("     All survivors are lost! You survived 1 days. Game over!", text.getText());
 	}
 	
 	@Test
@@ -222,8 +222,8 @@ public class GameTest {
 		game.endTheCurrentDay();
 		Text text = (Text) game.messages.getVbox().getChildren().get(1);
 		Text text2 = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("All zombies cleared and trapped loot collected. You managed to survive another day!", text.getText());
-		assertEquals("Prepare for day 2", text2.getText());
+		assertEquals("     All zombies cleared and trapped loot collected. You managed to survive another day!", text.getText());
+		assertEquals("     Prepare for day 2", text2.getText());
 	}
 	
 	@Test

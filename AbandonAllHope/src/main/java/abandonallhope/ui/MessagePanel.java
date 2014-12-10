@@ -19,9 +19,8 @@ public class MessagePanel {
 	 */
 	public MessagePanel(Game game) {
 		vbox = new VBox();
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(4);
-		vbox.setPrefHeight(120);
+		vbox.getStyleClass().add("bottom");
+		vbox.setPrefHeight(152);
 		game.setMessages(this);
 	}
 
@@ -35,7 +34,7 @@ public class MessagePanel {
 	 * @param message message to be displayed
 	 */
 	public void addMessage(String message) {
-		vbox.getChildren().add(0, new Text(message));
+		vbox.getChildren().add(0, new Text("     " + message));
 		if (vbox.getChildren().size() > 5) {
 			vbox.getChildren().remove(5);
 		}
