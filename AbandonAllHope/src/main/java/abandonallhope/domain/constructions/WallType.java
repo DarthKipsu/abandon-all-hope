@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
  */
 public enum WallType {
 
-	WOODEN(10, 3, 500, Color.BROWN, new Cost(1, 0));
+	WOODEN(10, 3, 500, Color.BROWN, new Cost(2, 0));
 
 	private final int width;
 	private final int height;
