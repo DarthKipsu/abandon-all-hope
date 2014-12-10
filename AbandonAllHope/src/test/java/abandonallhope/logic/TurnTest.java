@@ -306,7 +306,7 @@ public class TurnTest {
 		addSurvivor(0, 10);
 		Zombie zombie = addZombie(10, 10);
 		turn.play();
-		assertEquals(new Point(9.7, 10), zombie.getLocation());
+		assertFalse(new Point(10, 10).equals(zombie.getLocation()));
 	}
 	
 	@Test

@@ -51,8 +51,11 @@ public class Zombie extends MovingObject implements DrawableObject {
 
 	private void setDirection() {
 		Point nearestSurvivor = Collision.nearestPersonLocation(this, map.getSurvivors());
-		dx = normalize(nearestSurvivor.x - location.x);
-		dy = normalize(nearestSurvivor.y - location.y);
+		double distance = Collision.distanceBetween(location, nearestSurvivor);
+		double jitterX = distance * (zombieBrain.nextDouble() - 0.5);
+		double jitterY = distance * (zombieBrain.nextDouble() - 0.5);
+		dx = normalize(nearestSurvivor.x + jitterX - location.x);
+		dy = normalize(nearestSurvivor.y + jitterY - location.y);
 	}
 
 	private void makeAMove() {
