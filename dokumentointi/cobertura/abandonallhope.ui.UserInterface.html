@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Coverage Report</title>
+<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"/>
+<script type="text/javascript" src="js/popup.js"></script>
+</head>
+<body>
+<h5>Coverage Report - abandonallhope.ui.UserInterface</h5>
+<div class="separator">&nbsp;</div>
+<table class="report">
+<thead><tr>  <td class="heading">Classes in this File</td>  <td class="heading"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">Line Coverage</a></td>  <td class="heading"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">Branch Coverage</a></td>  <td class="heading"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">Complexity</a></td></tr></thead>
+  <tr><td><a href="abandonallhope.ui.UserInterface.html">UserInterface</a></td><td><table cellpadding="0px" cellspacing="0px" class="percentgraph"><tr class="percentgraph"><td align="right" class="percentgraph" width="40">0%</td><td class="percentgraph"><div class="percentgraph"><div class="greenbar" style="width:0px"><span class="text">0/36</span></div></div></td></tr></table></td><td><table cellpadding="0px" cellspacing="0px" class="percentgraph"><tr class="percentgraph"><td align="right" class="percentgraph" width="40"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">N/A</a></td><td class="percentgraph"><div class="percentgraph"><div class="na" style="width:100px"><span class="text"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">N/A</a></span></div></div></td></tr></table></td><td class="value"><span class="hidden">1.0;</span>1</td></tr>
+
+</table>
+<div class="separator">&nbsp;</div>
+<table cellspacing="0" cellpadding="0" class="src">
+<tr>  <td class="numLine">&nbsp;1</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;2</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">package</span> abandonallhope.ui;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;3</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;4</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> abandonallhope.events.key.KeySelectEvent;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;5</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> abandonallhope.logic.DayChanger;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;6</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> abandonallhope.logic.Game;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;7</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.animation.KeyFrame;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;8</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.animation.Timeline;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;9</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.event.Event;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;10</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.event.EventHandler;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;11</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.scene.input.KeyEvent;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;12</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.scene.layout.BorderPane;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;13</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> javafx.util.Duration;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;14</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;15</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">/**</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;16</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment"> * UserInterface class will display the game events to the user.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;17</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment"> * @author kipsu</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;18</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment"> */</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;19</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">public</span> <span class="keyword">class</span> UserInterface <span class="keyword">implements</span> EventHandler {</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;20</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> BorderPane border;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;21</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> GameCanvas canvas;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;22</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> Game game;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;23</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> Duration frameDuration;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;24</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> ResourcePanel resources;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;25</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;26</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;27</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Creates a new user interface for a game, that handles game time line and</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;28</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * contains all parts the user interface consist of.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;29</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param game game the user interface will use</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;30</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;31</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        <span class="keyword">public</span> UserInterface(Game game) {</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;32</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                canvas = <span class="keyword">new</span> GameCanvas(game);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                <span class="keyword">this</span>.game = game;</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                createBorder();</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;35</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                frameDuration = Duration.millis(1000 / 60);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                border.addEventHandler(KeyEvent.KEY_PRESSED, <span class="keyword">new</span> KeySelectEvent(canvas, game));</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;37</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        }</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;39</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Get the border pane element containing objects visible to user.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;41</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return </span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;42</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;43</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> BorderPane getBorder() {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;44</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                <span class="keyword">return</span> border;</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;45</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;46</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        </pre></td></tr>
+<tr>  <td class="numLine">&nbsp;47</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Create and start time lines to control the game and user interface speed </span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;49</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * and create events for each frame.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;50</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;51</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">void</span> runGame() {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;52</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                Timeline gameTimeline = createTimeline(game);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                Timeline uiTimeline = createTimeline(<span class="keyword">this</span>);</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;54</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                </pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                gameTimeline.play();</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;56</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                uiTimeline.play();</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;57</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                </pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                setupDayOne(gameTimeline);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;59</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        }</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;60</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;61</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">void</span> setupDayOne(Timeline gameTimeline) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;62</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                game.setGameTimeline(gameTimeline);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;63</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                DayChanger.setGame(game);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;64</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                DayChanger.setupDayOne();</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;65</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        }</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;66</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;67</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        @Override</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;68</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">void</span> handle(Event t) {</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;69</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">//                resources.updateSurvivors();</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;70</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                resources.updateResources();</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;71</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                canvas.handle(t);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;72</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        }</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;73</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;74</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">void</span> createBorder() {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;75</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                MessagePanel messages = <span class="keyword">new</span> MessagePanel(game);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;76</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                addInitialMessage(messages);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;77</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                BuildPanel build = <span class="keyword">new</span> BuildPanel(game, canvas);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;78</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                resources = <span class="keyword">new</span> ResourcePanel(game);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;79</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                border = <span class="keyword">new</span> BorderPane();</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;80</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                border.setCenter(canvas.getCanvas());</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;81</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                border.setRight(build.getVbox());</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;82</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                border.setLeft(resources.getVbox());</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;83</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                border.setBottom(messages.getVbox());</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;84</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        }</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;85</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;86</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> Timeline createTimeline(EventHandler eventHandler) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;87</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                Timeline gameTimeline = <span class="keyword">new</span> Timeline(<span class="keyword">new</span> KeyFrame(frameDuration, eventHandler));</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;88</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                gameTimeline.setCycleCount(Timeline.INDEFINITE);</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;89</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                <span class="keyword">return</span> gameTimeline;</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;90</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;91</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;92</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">void</span> addInitialMessage(MessagePanel messages) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;93</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                messages.addMessage(<span class="string">"It's the first day of zombie apocalypse! You "</span> +</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;94</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                                <span class="string">"managed to survive out of the city with your group..."</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;95</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;        }</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;96</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
+</table>
+
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.0.3 on 10.12.2014 11:46.</div>
+</body>
+</html>
