@@ -1,4 +1,3 @@
-
 package abandonallhope.events.mouse;
 
 import abandonallhope.domain.Point;
@@ -10,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Event handler to build traps once user clicks the build location.
+ *
  * @author kipsu
  */
 public class TrapBuildEvent implements EventHandler<MouseEvent> {
@@ -19,8 +19,9 @@ public class TrapBuildEvent implements EventHandler<MouseEvent> {
 	private Trap trap;
 
 	/**
-	 * Build event will build the trap the player is hovering over game field
-	 * on click. Will also remove trap building related event listeners.
+	 * Build event will build the trap the player is hovering over game field on
+	 * click. Will also remove trap building related event listeners.
+	 *
 	 * @param game game where the trap will be built.
 	 * @param canvas canvas containing the event listeners.
 	 * @param trap Trap type.
@@ -33,10 +34,22 @@ public class TrapBuildEvent implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent t) {
+		if (game.getMap().hasTrap(t.getX(), t.getY())) {
+			warnAboutTheOtherTrap();
+		} else {
+			buildTheTrap(t);
+		}
+	}
+
+	private void warnAboutTheOtherTrap() {
+		game.getMessages().addMessage("Can't build on top of another trap!");
+	}
+
+	private void buildTheTrap(MouseEvent t) {
 		trap.setLocation(new Point(t.getX(), t.getY()));
 		game.add(trap);
 		game.getInventory().payResources(trap.getCost());
 		canvas.removeTrapBuildingEventListeners();
 	}
-	
+
 }

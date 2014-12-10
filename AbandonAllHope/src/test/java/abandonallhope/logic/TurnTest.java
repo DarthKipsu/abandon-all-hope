@@ -157,7 +157,7 @@ public class TurnTest {
 		Survivor survivor = addSurvivor(10, 5);
 		Zombie zombie = addZombie(5, 5);
 		game.add(zombie);
-		game.add(new Trap(new Point(5, 5), TrapType.BEARIRON));
+		game.add(new Trap(new Point(4.6, 4.6), TrapType.PIT));
 		zombie.move();
 		survivor.setGun(createGun(1));
 		turn.fightZombies();

@@ -104,6 +104,20 @@ public class Map {
 		return false;
 	}
 
+	/**
+	 * Checks if a building location contains a trap.
+	 * @param point Location of the trap
+	 * @return true if other trap is here
+	 */
+	public boolean hasTrap(double x, double y) {
+		for (Trap trap : game.getTraps()) {
+			if (trap.occupiedArea().contains(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void removeWallIfItBreaks(Wall wall) {
 		if (wall.breakDown()) {
 			game.getWalls().remove(wall);
