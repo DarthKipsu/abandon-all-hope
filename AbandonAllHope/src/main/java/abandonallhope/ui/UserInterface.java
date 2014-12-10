@@ -1,4 +1,3 @@
-
 package abandonallhope.ui;
 
 import abandonallhope.events.key.KeySelectEvent;
@@ -36,39 +35,34 @@ public class UserInterface implements EventHandler {
 		border.addEventHandler(KeyEvent.KEY_PRESSED, new KeySelectEvent(canvas, game));
 	}
 
-	/**
-	 * Get the border pane element containing objects visible to user.
-	 * @return 
-	 */
 	public BorderPane getBorder() {
 		return border;
 	}
-	
+
 	/**
-	 * Create and start time lines to control the game and user interface speed 
+	 * Create and start time lines to control the game and user interface speed
 	 * and create events for each frame.
 	 */
 	public void runGame() {
 		Timeline gameTimeline = createTimeline(game);
 		Timeline uiTimeline = createTimeline(this);
-		
+
 		gameTimeline.play();
 		uiTimeline.play();
-		
+
 		setupDayOne(gameTimeline);
+	}
+
+	@Override
+	public void handle(Event t) {
+		resources.updateResources();
+		canvas.handle(t);
 	}
 
 	private void setupDayOne(Timeline gameTimeline) {
 		game.setGameTimeline(gameTimeline);
 		DayChanger.setGame(game);
 		DayChanger.setupDayOne();
-	}
-
-	@Override
-	public void handle(Event t) {
-//		resources.updateSurvivors();
-		resources.updateResources();
-		canvas.handle(t);
 	}
 
 	private void createBorder() {
@@ -90,7 +84,7 @@ public class UserInterface implements EventHandler {
 	}
 
 	private void addInitialMessage(MessagePanel messages) {
-		messages.addMessage("It's the first day of zombie apocalypse! You " +
-				"managed to survive out of the city with your group...");
+		messages.addMessage("It's the first day of zombie apocalypse! You "
+				+ "managed to survive out of the city with your group...");
 	}
 }
