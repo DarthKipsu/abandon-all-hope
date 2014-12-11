@@ -115,8 +115,8 @@ public class DayChanger {
 
 	private static void addResources() {
 		game.getInventory().addPistolBullets(10);
-		game.getInventory().addWood(50);
-		game.getInventory().addMetal(20);
+		game.getInventory().addWood(75);
+		game.getInventory().addMetal(25);
 	}
 
 }
