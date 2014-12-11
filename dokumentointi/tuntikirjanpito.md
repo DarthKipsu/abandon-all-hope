@@ -31,3 +31,6 @@ Päivämäärä | Tunnit | Aihe
 5.12.2014 | 5h | Aseiden esitys ja vaihto valmiiksi, materiaalien lisäys ja liitto rakentamiseen
 6.12.2014 | 0,5h | Luokkakaavio ui:n ja pelin välillä kulkevista eventeistä
 8.12.2014 | 3,5h | Bugien korjailua ja etsintää. Michonne easter egg, pause toiminto
+9.12.2014 | 3h | Rakennekuvaus, käyttöopas, testausdokkari, JavaDocs paranteluja, refaktorointia
+10.11.2014 | 3,5h | Pelin ekonomian hienosäätöä, layoutin luominen
+11.11.2014 | 2h | Layouttiin lisäykset, popup viestit ja uuden pelin aloitus toiminto
