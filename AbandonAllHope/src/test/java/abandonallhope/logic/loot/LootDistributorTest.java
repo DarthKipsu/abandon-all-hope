@@ -13,7 +13,8 @@ public class LootDistributorTest {
 	
 	@Before
 	public void setUp() {
-		distributor = new LootDistributor(new Inventory(), new ResourceEvents());
+		distributor = new LootDistributor(new ResourceEvents());
+		distributor.setInventory(new Inventory());
 	}
 	
 	@Test

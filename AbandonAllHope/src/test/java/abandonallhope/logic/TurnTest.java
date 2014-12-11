@@ -8,6 +8,7 @@ import abandonallhope.domain.weapons.*;
 import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
+import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
 import javafx.scene.text.Text;
 import static org.junit.Assert.*;
@@ -23,6 +24,7 @@ public class TurnTest {
 	public void setUp() {
 		game = new Game(30);
 		turn = game.getTurn();
+		turn.getLootDistributor().setInventory(game.getInventory());
 		game.setMessages(new MessagePanel(game));
 	}
 	

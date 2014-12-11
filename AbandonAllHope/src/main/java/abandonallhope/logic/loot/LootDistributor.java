@@ -20,10 +20,13 @@ public class LootDistributor {
 	 * Create new loot distributor to distribute loot to player after killing zombies.
 	 * @param inventory inventory where the loot is added
 	 */
-	public LootDistributor(Inventory inventory, ResourceEvents resEvents) {
-		this.inventory = inventory;
+	public LootDistributor(ResourceEvents resEvents) {
 		random = new Random();
 		loot = addLootTypes(resEvents);
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 	
 	/**

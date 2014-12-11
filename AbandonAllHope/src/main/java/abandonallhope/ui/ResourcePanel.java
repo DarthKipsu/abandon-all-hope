@@ -11,7 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.*;
 
 /**
@@ -159,7 +158,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		ComboBox<String> comboBox = new ComboBox();
 		addComboItems(comboBox, printSurvivorWeapon(e.getSurvivor()));
 		setCBProperties(comboBox, e, printSurvivorWeapon(e.getSurvivor()));
-		comboBox.valueProperty().addListener(new WeaponEvent(inventory,
+		comboBox.valueProperty().addListener(new WeaponEvent(game.getInventory(),
 				e.getSurvivor(), game.getResourceEvents()));
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
@@ -169,7 +168,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		ComboBox<String> comboBox = new ComboBox();
 		addComboItems(comboBox, printSurvivorGun(e.getSurvivor()));
 		setCBProperties(comboBox, e, printSurvivorGun(e.getSurvivor()));
-		comboBox.valueProperty().addListener(new FirearmEvent(inventory,
+		comboBox.valueProperty().addListener(new FirearmEvent(game.getInventory(),
 				e.getSurvivor(), game.getResourceEvents()));
 		survivorGuns.add(comboBox);
 		survivors.getChildren().add(comboBox);

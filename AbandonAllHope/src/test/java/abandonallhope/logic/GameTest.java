@@ -24,6 +24,7 @@ public class GameTest {
 	public void setUp() {
 		game = new Game(30);
 		game.setMessages(new MessagePanel(game));
+		game.getTurn().getLootDistributor().setInventory(game.getInventory());
 		DayChanger.day = 1;
 	}
 	
