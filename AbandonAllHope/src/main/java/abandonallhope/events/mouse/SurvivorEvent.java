@@ -2,7 +2,7 @@ package abandonallhope.events.mouse;
 
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import abandonallhope.logic.SurvivorSelector;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -20,10 +20,10 @@ public class SurvivorEvent implements EventHandler<MouseEvent> {
 	/**
 	 * Create a new mouse event for tracking survivor selector
 	 *
-	 * @param game
+	 * @param items
 	 */
-	public SurvivorEvent(Game game) {
-		survivors = game.getSurvivors();
+	public SurvivorEvent(Items items) {
+		survivors = items.getSurvivors();
 	}
 
 	/**

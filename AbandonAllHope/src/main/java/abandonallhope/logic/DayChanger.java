@@ -1,6 +1,5 @@
 package abandonallhope.logic;
 
-import abandonallhope.domain.Map;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.Zombie;
@@ -20,8 +19,8 @@ public class DayChanger {
 		new Point(100, 0),
 		new Point(0, 200),
 		new Point(100, 500)};
-	private static Game game;
-	private static Map map;
+	private static Items items;
+	private static Turn turn;
 	
 	/**
 	 * Game day counter
@@ -34,9 +33,9 @@ public class DayChanger {
 	 *
 	 * @param game game where the units will be placed.
 	 */
-	public static void setGame(Game game) {
-		DayChanger.game = game;
-		map = game.getMap();
+	public static void setGame(Items items, Turn turn) {
+		DayChanger.items = items;
+		DayChanger.turn = turn;
 	}
 
 	/**
@@ -60,9 +59,10 @@ public class DayChanger {
 	private static void addDayOneSurvivors() {
 		String[] name = new String[]{"Uolevi", "Maija", "Bob", "Eve", "Alice"};
 		for (int i = 0; i < name.length; i++) {
-			Survivor survivor = new Survivor(pointInsideCamp(), map, name[i], i + 1);
+			Survivor survivor = new Survivor(pointInsideCamp(), items.getMap(), name[i], i + 1);
 			addWeapons(i, survivor);
-			game.add(survivor);
+			items.add(survivor);
+			turn.getResourceEvents().triggerNewSurvivorEvent(survivor);
 		}
 	}
 
@@ -77,14 +77,14 @@ public class DayChanger {
 
 	private static void addFirearm(int i, Survivor survivor) {
 		if (i % 3 == 0) {
-			survivor.setGun(new Pistol(game.getInventory()));
+			survivor.setGun(new Pistol(items.getInventory()));
 		}
 	}
 
 	private static void addZombies(Point point) {
 		int multiplier = RANDOM.nextInt(2) + 1;
 		for (int i = 0; i < day * multiplier + day; i++) {
-			game.add(createNewZombie(point));
+			items.add(createNewZombie(point));
 		}
 	}
 
@@ -93,7 +93,7 @@ public class DayChanger {
 		Point locationNearPoint = createLocationNearPoint(point);
 		return new Zombie(
 				RANDOM.nextDouble() < 0.25 ? randomLocation : locationNearPoint,
-				map, game.getZombies());
+				items.getMap(), items.getZombies());
 	}
 
 	protected static Point createRandomLocation() {
@@ -114,9 +114,9 @@ public class DayChanger {
 	}
 
 	private static void addResources() {
-		game.getInventory().addPistolBullets(10);
-		game.getInventory().addWood(75);
-		game.getInventory().addMetal(25);
+		items.getInventory().addPistolBullets(10);
+		items.getInventory().addWood(75);
+		items.getInventory().addMetal(25);
 	}
 
 }

@@ -2,7 +2,8 @@
 package abandonallhope.ui;
 
 import abandonallhope.logic.Game;
-import javafx.geometry.Insets;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -12,7 +13,7 @@ import javafx.scene.text.Text;
  */
 public class MessagePanel {
 	
-	private VBox vbox;
+	private static VBox vbox;
 
 	/**
 	 * Creates a new message panel displaying messages to player.
@@ -21,7 +22,6 @@ public class MessagePanel {
 		vbox = new VBox();
 		vbox.getStyleClass().add("bottom");
 		vbox.setPrefHeight(152);
-		game.setMessages(this);
 	}
 
 	public VBox getVbox() {
@@ -33,7 +33,7 @@ public class MessagePanel {
 	 * is greater than 5.
 	 * @param message message to be displayed
 	 */
-	public void addMessage(String message) {
+	public static void addMessage(String message) {
 		vbox.getChildren().add(0, new Text("     " + message));
 		if (vbox.getChildren().size() > 5) {
 			vbox.getChildren().remove(5);
@@ -43,8 +43,16 @@ public class MessagePanel {
 	/**
 	 * Removes all messages from message panel.
 	 */
-	public void clearMessages() {
+	public static void clearMessages() {
 		vbox.getChildren().clear();
+	}
+	
+	/**
+	 * Get messages panel contents. Used for testing.
+	 * @return list containing the messages.
+	 */
+	public static ObservableList<Node> getMessages() {
+		return vbox.getChildren();
 	}
 	
 }

@@ -11,24 +11,25 @@ import static org.junit.Assert.*;
 
 public class DayChangerTest {
 
-	private Game game;
+	private Items items;
 
 	@Before
 	public void setUp() {
-		game = new Game(500);
-		DayChanger.setGame(game);
+		Game game = new Game(500);
+		items = game.getItems();
+		DayChanger.setGame(items, game.getTurn());
 	}
 
 	@Test
 	public void dayOneStartsWith5Survivors() {
 		DayChanger.setupDayOne();
-		assertEquals(5, game.getSurvivors().size());
+		assertEquals(5, items.getSurvivors().size());
 	}
 
 	@Test
 	public void dayOneSurvivorsHaveAnAxe() {
 		DayChanger.setupDayOne();
-		List<Survivor> survivors = game.getSurvivors();
+		List<Survivor> survivors = items.getSurvivors();
 		for (int i = 0; i < 5; i++) {
 			assertTrue(survivors.get(0).getWeapon() instanceof Axe);
 		}
@@ -37,7 +38,7 @@ public class DayChangerTest {
 	@Test
 	public void dayOneSurvivors0and3haveAPistol() {
 		DayChanger.setupDayOne();
-		List<Survivor> survivors = game.getSurvivors();
+		List<Survivor> survivors = items.getSurvivors();
 		assertTrue(survivors.get(0).getGun() instanceof Pistol);
 		assertNull(survivors.get(1).getGun());
 		assertNull(survivors.get(2).getGun());
@@ -48,7 +49,7 @@ public class DayChangerTest {
 	@Test
 	public void dayOneSurvivorsAreLocatedInsideTheCamp() {
 		DayChanger.setupDayOne();
-		List<Survivor> survivors = game.getSurvivors();
+		List<Survivor> survivors = items.getSurvivors();
 		for (Survivor survivor : survivors) {
 			assertTrue(survivor.getLocation().x >= 325);
 			assertTrue(survivor.getLocation().x < 375);
@@ -60,7 +61,7 @@ public class DayChangerTest {
 	@Test
 	public void dayOneSurvivorsHaveCorrectIds() {
 		DayChanger.setupDayOne();
-		List<Survivor> survivors = game.getSurvivors();
+		List<Survivor> survivors = items.getSurvivors();
 		for (int i = 1; i <= survivors.size(); i++) {
 			assertEquals(i, survivors.get(i - 1).getId());
 		}
@@ -69,14 +70,14 @@ public class DayChangerTest {
 	@Test
 	public void dayOneStartsWith1To5Zombies() {
 		DayChanger.setupDayOne();
-		assertTrue(game.getZombies().size() < 6);
-		assertTrue(game.getZombies().size() > 0);
+		assertTrue(items.getZombies().size() < 6);
+		assertTrue(items.getZombies().size() > 0);
 	}
 
 	@Test
 	public void zombieLocationIsOnTheBorderOfTheMap() {
 		DayChanger.setupDayOne();
-		Point firstZombieLocation = game.getZombies().get(0).getLocation();
+		Point firstZombieLocation = items.getZombies().get(0).getLocation();
 		assertTrue((firstZombieLocation.x == 0 || firstZombieLocation.x == 499) ? true :
 				(firstZombieLocation.y == 0 || firstZombieLocation.y == 499));
 	}
@@ -84,26 +85,26 @@ public class DayChangerTest {
 	@Test
 	public void survivorsStartUpWith10Bullets() {
 		DayChanger.setupDayOne();
-		assertEquals(10, game.getInventory().getPistolBullets().getBullets());
+		assertEquals(10, items.getInventory().getPistolBullets().getBullets());
 	}
 	
 	@Test
 	public void survivorsStartsWith75Wood() {
 		DayChanger.setupDayOne();
-		assertEquals(75, game.getInventory().getWood());
+		assertEquals(75, items.getInventory().getWood());
 	}
 	
 	@Test
 	public void survivorsStartWith25Metal() {
 		DayChanger.setupDayOne();
-		assertEquals(25, game.getInventory().getMetal());
+		assertEquals(25, items.getInventory().getMetal());
 	}
 
 	@Test
 	public void nextDaysHaveCorrectAmountOfZombies() {
 		DayChanger.nextDay();
-		assertTrue(game.getZombies().size() < 10);
-		assertTrue(game.getZombies().size() > 0);
+		assertTrue(items.getZombies().size() < 10);
+		assertTrue(items.getZombies().size() > 0);
 	}
 
 	@Test

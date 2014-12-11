@@ -7,95 +7,85 @@ import abandonallhope.events.action.NewSurvivorEvent;
 import abandonallhope.events.handlers.NewSurvivorEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.ui.MessagePanel;
-import javafx.animation.Animation.Status;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTest {
 	
+	private Items items;
 	private Game game;
 	
 	@Before
 	public void setUp() {
 		game = new Game(30);
-		game.setMessages(new MessagePanel(game));
-		game.getTurn().getLootDistributor().setInventory(game.getInventory());
+		items = game.getItems();
+		game.getTurn().getLootDistributor().setInventory(items.getInventory());
 		DayChanger.day = 1;
 	}
 	
 	@Test
 	public void addsCorrectAmountOfSurvivorsOneByOne() {
 		for (int i = 0; i < 5; i++) {
-			game.add(new Survivor(new Point(10,10), game.getMap(), "name", 1));
+			items.add(new Survivor(new Point(10,10), items.getMap(), "name", 1));
 		}
-		assertEquals(5, game.getSurvivors().size());
+		assertEquals(5, items.getSurvivors().size());
 	}
 
 	@Test
 	public void NoSurvivorsAtTheBeginningOfANewGame() {
-		assertEquals(0, game.getSurvivors().size());
+		assertEquals(0, items.getSurvivors().size());
 	}
 	
 	@Test
 	public void addsCorrectAmountOfZombiesOneByOne() {
 		for (int i = 0; i < 5; i++) {
-			game.add(new Zombie(new Point(10,10), game.getMap(), game.getZombies()));
+			items.add(new Zombie(new Point(10,10), items.getMap(), items.getZombies()));
 		}
-		assertEquals(5, game.getZombies().size());
+		assertEquals(5, items.getZombies().size());
 	}
 
 	@Test
 	public void NoZombiesAtTheBeginningOfTheGame() {
-		assertEquals(0, game.getZombies().size());
+		assertEquals(0, items.getZombies().size());
 	}
 	
 	@Test
 	public void addsCorrectAmountOfWallsOneByOne() {
 		for (int i = 0; i < 50; i+=10) {
-			game.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(i,i)));
+			items.add(new Wall(WallType.WOODEN, Wall.Orientation.HORIZONAL, new Point(i,i)));
 		}
-		assertEquals(5, game.getWalls().size());
+		assertEquals(5, items.getWalls().size());
 	}
 	
 	@Test
 	public void NoWallsAtTheBeginningOfTheGame() {
-		assertEquals(0, game.getWalls().size());
+		assertEquals(0, items.getWalls().size());
 	}
 	
 	@Test
 	public void addsCorrectAmountOfTrapsOneByOne() {
 		for (int i = 0; i < 50; i+=10) {
-			game.add(new Trap(new Point(10 + i, 10 + i), TrapType.BEARIRON));
+			items.add(new Trap(new Point(10 + i, 10 + i), TrapType.BEARIRON));
 		}
-		assertEquals(5, game.getTraps().size());
+		assertEquals(5, items.getTraps().size());
 	}
 
 	@Test
 	public void NoTrapsAtTheBeginningOfTheGame() {
-		assertEquals(0, game.getTraps().size());
+		assertEquals(0, items.getTraps().size());
 	}
 
 	@Test
 	public void returnsMapWithGetMap() {
-		assertEquals("30.0 x 30.0", game.getMap().toString());
+		assertEquals("30.0 x 30.0", items.getMap().toString());
 	}
 
 	@Test
 	public void NoBulletsAtTheBeginningOfANewGame() {
-		assertEquals(0, game.getBullets().size());
-	}
-	
-	@Test
-	public void newSurvivorEventTriggersWhenNewSurvivorIsAdded() {
-		NewSurvivorEventHandlerMock res = (NewSurvivorEventHandlerMock) newSurvivorEvent();
-		game.addNewResourceEventHandler(res, "newSurvivor");
-		addSurvivor(10, 10);
-		assertEquals(1, res.handleEvents);
+		assertEquals(0, items.getBullets().size());
 	}
 	
 	@Test
@@ -118,31 +108,31 @@ public class GameTest {
 	public void dontShowMessageIfSleepIsNotOver() {
 		game.sleep = 2;
 		game.sleepUntilTheNextDay();
-		assertTrue(game.messages.getVbox().getChildren().isEmpty());
+		assertTrue(MessagePanel.getMessages().isEmpty());
 	}
 	
 	@Test
 	public void displayMessageWhenSleepIsOver() {
 		game.sleep = 1;
 		game.sleepUntilTheNextDay();
-		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		Text text = (Text) MessagePanel.getMessages().get(0);
 		assertEquals("     Begin day 2: 0 new zombies.", text.getText());
 	}
 	
 	@Test
 	public void addNewZombiesOnGameChange() {
-		DayChanger.setGame(game);
+		DayChanger.setGame(items, game.getTurn());
 		game.sleep = 1;
 		game.sleepUntilTheNextDay();
-		assertFalse(game.getZombies().isEmpty());
+		assertFalse(items.getZombies().isEmpty());
 	}
 	
 	@Test
 	public void noLootIsDistributedAtTheEndOfTheDayIfNoZombiesAreTrapped() {
 		game.endTheCurrentDay();
-		assertTrue(game.getInventory().getGuns().isEmpty());
-		assertTrue(game.getInventory().getWeapons().isEmpty());
-		assertFalse(game.getInventory().getPistolBullets().notEmpty());
+		assertTrue(items.getInventory().getGuns().isEmpty());
+		assertTrue(items.getInventory().getWeapons().isEmpty());
+		assertFalse(items.getInventory().getPistolBullets().notEmpty());
 	}
 	
 	@Test
@@ -167,7 +157,7 @@ public class GameTest {
 	public void allZombiesFromPreviousDayAreDeleted() {
 		addZombie(10, 10);
 		game.endTheCurrentDay();
-		assertTrue(game.getZombies().isEmpty());
+		assertTrue(items.getZombies().isEmpty());
 	}
 	
 	@Test
@@ -185,67 +175,41 @@ public class GameTest {
 	@Test
 	public void showMessagesDisplayingDayChangeAfterDayChange() {
 		game.endTheCurrentDay();
-		Text text = (Text) game.messages.getVbox().getChildren().get(1);
-		Text text2 = (Text) game.messages.getVbox().getChildren().get(0);
+		Text text = (Text) MessagePanel.getMessages().get(1);
+		Text text2 = (Text) MessagePanel.getMessages().get(0);
 		assertEquals("     All zombies cleared and trapped loot collected. You managed to survive another day!", text.getText());
 		assertEquals("     Prepare for day 2", text2.getText());
 	}
 	
 	@Test
 	public void dayChangeConditionReturnsTrueWhenNoZombiesAreLeft() {
-		assertTrue(game.zombiesCleared());
+		assertTrue(items.zombiesCleared());
 	}
 	
 	@Test
 	public void dayChangeConditionReturnsFalseIfThereAreZombies() {
 		addZombie(10, 10);
-		assertFalse(game.zombiesCleared());
-	}
-	
-	@Test
-	public void getGameMessages() {
-		MessagePanel mp = new MessagePanel(game);
-		game.setMessages(mp);
-		assertEquals(mp, game.getMessages());
+		assertFalse(items.zombiesCleared());
 	}
 	
 	@Test
 	public void getResourcesPAnel() {
-		assertNotNull(game.getResourceEvents());
-	}
-	
-	private Survivor addSurvivor(double x, double y) {
-		Survivor survivor = new Survivor(new Point(x, y), game.getMap(), "name", 1);
-		game.add(survivor);
-		return survivor;
+		assertNotNull(game.getTurn().getResourceEvents());
 	}
 	
 	private Zombie addZombie(double x, double y) {
-		Zombie zombie = new Zombie(new Point(x, y), game.getMap(), game.getZombies());
-		game.add(zombie);
+		Zombie zombie = new Zombie(new Point(x, y), items.getMap(), items.getZombies());
+		items.add(zombie);
 		return zombie;
-	}
-
-	private ResourceEventHandler newSurvivorEvent() {
-		return new NewSurvivorEventHandlerMock();
-	}
-
-	private class NewSurvivorEventHandlerMock implements NewSurvivorEventHandler {
-		public int handleEvents = 0;
-		
-		@Override
-		public void handle(NewSurvivorEvent e) {
-			handleEvents++;
-		}
 	}
 
 	private int collectAllLoot() {
 		int loot = 0;
-		loot += game.getInventory().getGuns().size();
-		loot += game.getInventory().getWeapons().size();
-		loot += game.getInventory().getPistolBullets().getBullets();
-		loot += game.getInventory().getMetal();
-		loot += game.getInventory().getWood();
+		loot += items.getInventory().getGuns().size();
+		loot += items.getInventory().getWeapons().size();
+		loot += items.getInventory().getPistolBullets().getBullets();
+		loot += items.getInventory().getMetal();
+		loot += items.getInventory().getWood();
 		return loot;
 	}
 	

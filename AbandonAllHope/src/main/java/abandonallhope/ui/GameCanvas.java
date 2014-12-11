@@ -3,7 +3,7 @@ package abandonallhope.ui;
 import abandonallhope.domain.constructions.*;
 import abandonallhope.ui.drawing.*;
 import abandonallhope.events.mouse.*;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.*;
@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class GameCanvas implements EventHandler {
 
-	private Game game;
+	private Items items;
 	private Canvas canvas;
 	private GraphicsContext gc;
 	private Image background;
@@ -36,16 +36,16 @@ public class GameCanvas implements EventHandler {
 	 * Creates a new game canvas and drawer classes to draw objects on game
 	 * field.
 	 *
-	 * @param game
+	 * @param items
 	 */
-	public GameCanvas(Game game) {
-		this.game = game;
+	public GameCanvas(Items items) {
+		this.items = items;
 		canvas = new Canvas(500, 500);
 		gc = canvas.getGraphicsContext2D();
 		background = new Image("/tausta.jpg");
-		objectsDrawer = new ObjectsDrawer(game, gc);
-		constrHoverDrawer = new ConstructionHoverDrawer(game, gc);
-		survivorSelectionEvent = new SurvivorEvent(game);
+		objectsDrawer = new ObjectsDrawer(items, gc);
+		constrHoverDrawer = new ConstructionHoverDrawer(items, gc);
+		survivorSelectionEvent = new SurvivorEvent(items);
 		addSurvivorSelectorEventListener();
 	}
 
@@ -60,11 +60,11 @@ public class GameCanvas implements EventHandler {
 	@Override
 	public void handle(Event t) {
 		resetCanvasBase();
-		objectsDrawer.drawObjects(game.getTraps());
-		objectsDrawer.drawObjects(game.getWalls());
+		objectsDrawer.drawObjects(items.getTraps());
+		objectsDrawer.drawObjects(items.getWalls());
 		objectsDrawer.drawSurvivors();
-		objectsDrawer.drawObjects(game.getZombies());
-		objectsDrawer.drawObjects(game.getBullets());
+		objectsDrawer.drawObjects(items.getZombies());
+		objectsDrawer.drawObjects(items.getBullets());
 		if (wallHoverEvent != null || trapHoverEvent != null) {
 			constrHoverDrawer.drawConstructionShadows();
 		}
@@ -97,7 +97,7 @@ public class GameCanvas implements EventHandler {
 	 */
 	public void addWallHoverEventListener(Wall wall) {
 		wallHoverEvent = new WallHoverEvent(wall, constrHoverDrawer);
-		wallBuildEvent = new WallBuildEvent(game, this, wall);
+		wallBuildEvent = new WallBuildEvent(items, this, wall);
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, wallHoverEvent);
 		canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, wallBuildEvent);
 	}
@@ -138,7 +138,7 @@ public class GameCanvas implements EventHandler {
 	 */
 	public void addTrapHoverEventListener(Trap trap) {
 		trapHoverEvent = new TrapHoverEvent(trap, constrHoverDrawer);
-		trapBuildEvent = new TrapBuildEvent(game, this, trap);
+		trapBuildEvent = new TrapBuildEvent(items, this, trap);
 		canvas.addEventHandler(MouseEvent.MOUSE_MOVED, trapHoverEvent);
 		canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, trapBuildEvent);
 	}

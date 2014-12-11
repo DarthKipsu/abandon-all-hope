@@ -1,140 +1,40 @@
 package abandonallhope.logic;
 
-import abandonallhope.domain.*;
-import abandonallhope.domain.Map;
-import abandonallhope.domain.constructions.*;
-import abandonallhope.domain.weapons.*;
-import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.ui.MessagePanel;
 import abandonallhope.ui.PopupMessage;
-import java.util.*;
 import javafx.animation.*;
 import javafx.event.*;
 
 /**
- * Contains game objects and handles game timeline
+ * Handles game scenarios
  */
 public class Game implements EventHandler {
 
-	private Map map;
-	private Inventory inventory;
-	protected MessagePanel messages;
 	protected Timeline gameTimeline;
-	private ResourceEvents resourceEvents;
+	private Items items;
 	private Turn turn;
 	protected int sleep;
-
-	private List<Zombie> zombies;
-	private List<Survivor> survivors;
-	private List<Bullet> bullets;
-	private List<Wall> walls;
-	private List<Trap> traps;
 
 	/**
 	 * Create new game event handler
 	 * @param mapSize
 	 */
 	public Game(int mapSize) {
-		inventory = new Inventory();
-		resourceEvents = new ResourceEvents();
-		turn = new Turn(this);
-		zombies = new ArrayList<>();
-		survivors = new ArrayList<>();
-		bullets = new ArrayList<>();
-		walls = new ArrayList<>();
-		traps = new ArrayList<>();
-		map = new Map(mapSize, this);
+		items = new Items(mapSize);
+		turn = new Turn(items);
 		sleep = 0;
-	}
-
-	public List<Survivor> getSurvivors() {
-		return survivors;
-	}
-
-	public List<Zombie> getZombies() {
-		return zombies;
-	}
-
-	public List<Bullet> getBullets() {
-		return bullets;
-	}
-
-	public List<Wall> getWalls() {
-		return walls;
-	}
-
-	public List<Trap> getTraps() {
-		return traps;
-	}
-
-	public Map getMap() {
-		return map;
-	}
-
-	public Inventory getInventory() {
-		return inventory;
 	}
 
 	public Turn getTurn() {
 		return turn;
 	}
 
-	public MessagePanel getMessages() {
-		return messages;
-	}
-
-	public ResourceEvents getResourceEvents() {
-		return resourceEvents;
-	}
-
-	/**
-	 * Add one survivor to the game
-	 * @param survivor
-	 */
-	public void add(Survivor survivor) {
-		this.survivors.add(survivor);
-		resourceEvents.triggerNewSurvivorEvent(survivor);
-	}
-
-	/**
-	 * add one zombie to the game
-	 * @param zombie
-	 */
-	public void add(Zombie zombie) {
-		this.zombies.add(zombie);
-	}
-
-	/**
-	 * Add a wall to the game.
-	 * @param wall
-	 */
-	public void add(Wall wall) {
-		walls.add(wall);
-	}
-
-	/**
-	 * Add a trap to the game.
-	 * @param trap
-	 */
-	public void add(Trap trap) {
-		traps.add(trap);
-	}
-
-	public void setMessages(MessagePanel messages) {
-		this.messages = messages;
+	public Items getItems() {
+		return items;
 	}
 
 	public void setGameTimeline(Timeline gameTimeline) {
 		this.gameTimeline = gameTimeline;
-	}
-
-	/**
-	 * Adds a new resource event handler in game.
-	 * @param event event handler to be added.
-	 * @param type type of the event: newSurvivor, deleteSurvivor
-	 */
-	public void addNewResourceEventHandler(ResourceEventHandler event, String type) {
-		resourceEvents.addNewResourceEventHandler(event, type);
 	}
 
 	/**
@@ -144,9 +44,9 @@ public class Game implements EventHandler {
 	public void handle(Event t) {
 		if (sleep > 0) {
 			sleepUntilTheNextDay();
-		} else if (survivors.isEmpty()) {
+		} else if (items.getSurvivors().isEmpty()) {
 			gameOver();
-		} else if (zombiesCleared()) {
+		} else if (items.zombiesCleared()) {
 			endTheCurrentDay();
 		} else {
 			turn.play();
@@ -164,22 +64,23 @@ public class Game implements EventHandler {
 	}
 	
 	public void startANewGame() {
-		zombies.clear();
-		walls.clear();
-		traps.clear();
-		messages.clearMessages();
-		inventory = new Inventory();
+		MessagePanel.clearMessages();
+		items.reset();
 		DayChanger.day = 1;
 		DayChanger.setupDayOne();
-		messages.addMessage("It's the first day of zombie apocalypse! You "
+		MessagePanel.addMessage("It's the first day of zombie apocalypse! You "
 				+ "managed to survive out of the city with your group...");
 		gameTimeline.play();
+	}
+
+	public void addMessage(String message) {
+		MessagePanel.addMessage(message);
 	}
 
 	protected void sleepUntilTheNextDay() {
 		if (sleep == 1) {
 			DayChanger.nextDay();
-			messages.addMessage("Begin day " + DayChanger.day + ": " + zombies.size() + " new zombies.");
+			MessagePanel.addMessage("Begin day " + DayChanger.day + ": " + items.getZombies().size() + " new zombies.");
 		}
 		sleep--;
 	}
@@ -190,26 +91,11 @@ public class Game implements EventHandler {
 	}
 
 	protected void endTheCurrentDay() {
-		turn.getLootDistributor().collectLootFrom(zombies.size());
-		emptyTraps();
-		zombies.clear();
-		messages.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
-		messages.addMessage("Prepare for day " + (DayChanger.day + 1));
+		turn.getLootDistributor().collectLootFrom(items.getZombies().size());
+		items.emptyTraps();
+		items.getZombies().clear();
+		MessagePanel.addMessage("All zombies cleared and trapped loot collected. You managed to survive another day!");
+		MessagePanel.addMessage("Prepare for day " + (DayChanger.day + 1));
 		sleep = 180;
-	}
-
-	private void emptyTraps() {
-		for (Trap trap : traps) {
-			trap.empty();
-		}
-	}
-
-	protected boolean zombiesCleared() {
-		for (Zombie zombie : zombies) {
-			if (!zombie.isTrapped()) {
-				return false;
-			}
-		}
-		return true;
 	}
 }

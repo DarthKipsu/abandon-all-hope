@@ -29,11 +29,12 @@ public class UserInterface implements EventHandler {
 	 * @param game game the user interface will use
 	 */
 	public UserInterface(Game game) {
-		canvas = new GameCanvas(game);
+		canvas = new GameCanvas(game.getItems());
 		this.game = game;
+		resources = new ResourcePanel(game);
 		createBorder();
 		frameDuration = Duration.millis(1000 / 60);
-		border.addEventHandler(KeyEvent.KEY_PRESSED, new KeySelectEvent(canvas, game));
+		border.addEventHandler(KeyEvent.KEY_PRESSED, new KeySelectEvent(canvas, game.getItems(), game));
 	}
 
 	public BorderPane getBorder() {
@@ -62,24 +63,27 @@ public class UserInterface implements EventHandler {
 
 	private void setupDayOne(Timeline gameTimeline) {
 		game.setGameTimeline(gameTimeline);
-		DayChanger.setGame(game);
+		DayChanger.setGame(game.getItems(), game.getTurn());
 		game.startANewGame();
 	}
 
 	private void createBorder() {
 		MessagePanel messages = new MessagePanel(game);
-		BuildPanel build = new BuildPanel(game, canvas);
-		VBox top = new VBox();
-		top.getStyleClass().add("top");
-		top.setPrefHeight(56);
-		resources = new ResourcePanel(game);
+		BuildPanel build = new BuildPanel(game.getItems(), canvas);
 		border = new BorderPane();
 		border.getStylesheets().add("/uiStyle.css");
-		border.setTop(top);
+		border.setTop(createTopPanel());
 		border.setCenter(canvas.getCanvas());
 		border.setRight(build.getVbox());
 		border.setLeft(resources.getVbox());
 		border.setBottom(messages.getVbox());
+	}
+
+	private VBox createTopPanel() {
+		VBox top = new VBox();
+		top.getStyleClass().add("top");
+		top.setPrefHeight(56);
+		return top;
 	}
 
 	private Timeline createTimeline(EventHandler eventHandler) {

@@ -4,8 +4,10 @@ import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.weapons.Katana;
 import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import abandonallhope.logic.SurvivorSelector;
 import abandonallhope.ui.GameCanvas;
+import abandonallhope.ui.MessagePanel;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 public class KeySelectEvent implements EventHandler<KeyEvent> {
 
 	private GameCanvas canvas;
+	private Items items;
 	private Game game;
 
 	private String michonneEgg = "michonne";
@@ -29,11 +32,12 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 	 * Creates a new key selection event to track player keystrokes.
 	 *
 	 * @param canvas canvas containing other events
-	 * @param game game containing selectable objects
+	 * @param items game containing selectable objects
 	 */
-	public KeySelectEvent(GameCanvas canvas, Game game) {
+	public KeySelectEvent(GameCanvas canvas, Items items, Game game) {
 		this.canvas = canvas;
 		this.game = game;
+		this.items = items;
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 	private void checkIfMichonneCanBeAdded() {
 		if (eggIndex == 7) {
 			addMichonne();
-			game.getMessages().addMessage("Michonne has joined your team!");
+			MessagePanel.addMessage("Michonne has joined your team!");
 		} else {
 			eggIndex++;
 		}
@@ -61,9 +65,9 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 
 	private void addMichonne() {
 		michonneNotYetPlaced = false;
-		Survivor michonne = new Survivor(new Point(250, 250), game.getMap(), "Michonne", 0);
+		Survivor michonne = new Survivor(new Point(250, 250), items.getMap(), "Michonne", 0);
 		michonne.setWeapon(new Katana());
-		game.add(michonne);
+		items.add(michonne);
 	}
 
 	private void handleOtherKeys(KeyCode key, KeyEvent keyPressed) throws NumberFormatException {
@@ -77,14 +81,14 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 	}
 
 	private void deselectEverything() {
-		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		new SurvivorSelector(items.getSurvivors()).unselectAll();
 		canvas.removeWallBuildingEventListeners();
 		canvas.removeTrapBuildingEventListeners();
 	}
 
 	private void selectSurvivorWithKeyID(KeyEvent keyPressed) throws NumberFormatException {
 		deselectEverything();
-		for (Survivor survivor : game.getSurvivors()) {
+		for (Survivor survivor : items.getSurvivors()) {
 			if (survivor.getId() == Integer.parseInt(keyPressed.getText())) {
 				survivor.select();
 			}

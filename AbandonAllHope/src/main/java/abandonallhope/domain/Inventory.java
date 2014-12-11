@@ -140,4 +140,15 @@ public class Inventory {
 		metal -= cost.getMetal();
 		wood -= cost.getWood();
 	}
+	
+	/**
+	 * Resets inventory for a new game.
+	 */
+	public void reset() {
+		guns.clear();
+		weapons.clear();
+		pistolBullets = new Magazine();
+		metal = 0;
+		wood = 0;
+	}
 }

@@ -29,10 +29,10 @@ public class SurvivorTest {
 	@Before
 	public void setUp() {
 		Game game = new Game(30);
-		survivors = game.getSurvivors();
-		walls = game.getWalls();
-		traps = game.getTraps();
-		map = game.getMap();
+		survivors = game.getItems().getSurvivors();
+		walls = game.getItems().getWalls();
+		traps = game.getItems().getTraps();
+		map = game.getItems().getMap();
 		survivor = new Survivor(new Point(10, 10), map, "Uolevi", 1);
 		speed = survivor.getSpeed();
 	}

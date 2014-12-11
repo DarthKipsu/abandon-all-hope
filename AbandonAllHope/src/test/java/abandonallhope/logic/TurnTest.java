@@ -8,7 +8,6 @@ import abandonallhope.domain.weapons.*;
 import abandonallhope.events.action.DeleteSurvivorEvent;
 import abandonallhope.events.handlers.DeleteSurvivorEventHandler;
 import abandonallhope.events.handlers.ResourceEventHandler;
-import abandonallhope.logic.loot.LootDistributor;
 import abandonallhope.ui.MessagePanel;
 import javafx.scene.text.Text;
 import static org.junit.Assert.*;
@@ -17,30 +16,31 @@ import org.junit.Test;
 
 public class TurnTest {
 	
-	private Game game;
+	private Items items;
 	private Turn turn;
 	
 	@Before
 	public void setUp() {
-		game = new Game(30);
+		Game game = new Game(30);
+		MessagePanel messages = new MessagePanel(game);
+		items = game.getItems();
 		turn = game.getTurn();
-		turn.getLootDistributor().setInventory(game.getInventory());
-		game.setMessages(new MessagePanel(game));
+		turn.getLootDistributor().setInventory(items.getInventory());
 	}
 	
 	@Test
 	public void movesZombies() {
 		Zombie zombie = addZombie(20, 20);
-		game.add(new Survivor(new Point(10, 10), game.getMap(), "name", 1));
+		items.add(new Survivor(new Point(10, 10), items.getMap(), "name", 1));
 		turn.moveZombies();
 		assertEquals(new Point(20 - zombie.getSpeed(), 20 - zombie.getSpeed()), zombie.getLocation());
 	}
 	
 	@Test
 	public void movesSurvivors() {
-		Survivor survivor = new Survivor(new Point(10, 10), game.getMap(), "name", 1);
+		Survivor survivor = new Survivor(new Point(10, 10), items.getMap(), "name", 1);
 		survivor.moveTowards(new Point(20, 20));
-		game.add(survivor);
+		items.add(survivor);
 		turn.moveSurvivors();
 		assertEquals(new Point(10 + survivor.getSpeed(), 10 + survivor.getSpeed()), survivor.getLocation());
 	}
@@ -50,7 +50,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		addZombie(10, 10);
 		turn.infectSurvivors();
-		assertTrue(game.getSurvivors().isEmpty());
+		assertTrue(items.getSurvivors().isEmpty());
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		addZombie(7.1, 7.1);
 		turn.infectSurvivors();
-		assertTrue(game.getSurvivors().isEmpty());
+		assertTrue(items.getSurvivors().isEmpty());
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		addZombie(12.9, 12.9);
 		turn.infectSurvivors();
-		assertTrue(game.getSurvivors().isEmpty());
+		assertTrue(items.getSurvivors().isEmpty());
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		addZombie(7, 7);
 		turn.infectSurvivors();
-		assertEquals(1, game.getSurvivors().size());
+		assertEquals(1, items.getSurvivors().size());
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		addZombie(10, 10);
 		turn.infectSurvivors();
-		assertEquals(2, game.getZombies().size());
+		assertEquals(2, items.getZombies().size());
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class TurnTest {
 		Weapon axe = new Axe();
 		survivor.setWeapon(axe);
 		turn.fightZombies();
-		assertTrue(game.getZombies().isEmpty());
+		assertTrue(items.getZombies().isEmpty());
 		assertFalse(axe.canBeUsed());
 	}
 	
@@ -101,7 +101,7 @@ public class TurnTest {
 		addSurvivor(10, 10);
 		addZombie(8.4, 8.4);
 		turn.fightZombies();
-		assertFalse(game.getZombies().isEmpty());
+		assertFalse(items.getZombies().isEmpty());
 	}
 	
 	@Test
@@ -111,7 +111,7 @@ public class TurnTest {
 		survivor.setWeapon(new Axe());
 		survivor.getWeapon().use();
 		turn.fightZombies();
-		assertFalse(game.getZombies().isEmpty());
+		assertFalse(items.getZombies().isEmpty());
 	}
 	
 	@Test
@@ -131,7 +131,7 @@ public class TurnTest {
 		survivor.setWeapon(new Axe());
 		survivor.setGun(createGun(1));
 		turn.fightZombies();
-		assertEquals(1, game.getBullets().size());
+		assertEquals(1, items.getBullets().size());
 	}
 	
 	@Test
@@ -141,7 +141,7 @@ public class TurnTest {
 		survivor.setWeapon(new Axe());
 		survivor.setGun(createGun(1));
 		turn.fightZombies();
-		assertEquals(0, game.getBullets().size());
+		assertEquals(0, items.getBullets().size());
 	}
 	
 	@Test
@@ -151,15 +151,15 @@ public class TurnTest {
 		survivor.setWeapon(new Axe());
 		survivor.setGun(createGun(0));
 		turn.fightZombies();
-		assertEquals(0, game.getBullets().size());
+		assertEquals(0, items.getBullets().size());
 	}
 	
 	@Test
 	public void doesNotWasteBulletsOnTrappedZombies() {
 		Survivor survivor = addSurvivor(10, 5);
 		Zombie zombie = addZombie(5, 5);
-		game.add(zombie);
-		game.add(new Trap(new Point(4.6, 4.6), TrapType.PIT));
+		items.add(zombie);
+		items.add(new Trap(new Point(4.6, 4.6), TrapType.PIT));
 		zombie.move();
 		survivor.setGun(createGun(1));
 		turn.fightZombies();
@@ -192,17 +192,17 @@ public class TurnTest {
 		Survivor survivor = addSurvivor(5, 5);
 		addZombie(5, 5);
 		turn.fightZombies();
-		assertEquals(1, game.getZombies().size());
+		assertEquals(1, items.getZombies().size());
 	}
 	
 	@Test
 	public void bulletsDecreaseWhenFightingZombiesAndGunIsUsed() {
 		Survivor survivor = addSurvivor(5, 5);
 		addZombie(5, 5);
-		game.getInventory().addPistolBullets(1);
-		survivor.setGun(new Pistol(game.getInventory()));
+		items.getInventory().addPistolBullets(1);
+		survivor.setGun(new Pistol(items.getInventory()));
 		turn.fightZombies();
-		assertEquals(0, game.getInventory().getPistolBullets().getBullets());
+		assertEquals(0, items.getInventory().getPistolBullets().getBullets());
 	}
 	
 	@Test
@@ -212,7 +212,7 @@ public class TurnTest {
 		survivor.setGun(createGun(1));
 		turn.fightZombies();
 		turn.handleBullets();
-		assertEquals(new Point(6, 5), game.getBullets().get(0).getLocation());
+		assertEquals(new Point(6, 5), items.getBullets().get(0).getLocation());
 	}
 	
 	@Test
@@ -231,7 +231,7 @@ public class TurnTest {
 		addZombie(5, 5);
 		survivor.setGun(createGun(1));
 		fightZombiesForSeveralRounds(34);
-		assertEquals(1, game.getBullets().size());
+		assertEquals(1, items.getBullets().size());
 	}
 	
 	@Test
@@ -240,7 +240,7 @@ public class TurnTest {
 		addZombie(11, 10);
 		turn.fightZombies();
 		turn.handleBullets();
-		assertEquals(0, game.getZombies().size());
+		assertEquals(0, items.getZombies().size());
 	}
 	
 	@Test
@@ -249,13 +249,13 @@ public class TurnTest {
 		addZombie(13, 10);
 		turn.fightZombies();
 		turn.handleBullets();
-		assertEquals(1, game.getBullets().size());
+		assertEquals(1, items.getBullets().size());
 	}
 	
 	@Test
 	public void deleteSurvivorEventTriggersWhenSurvivorIsRemovedFromGame() {
 		DeleteSurvivorEventHandlerMock res = (DeleteSurvivorEventHandlerMock) deleteSurvivorEvent();
-		game.addNewResourceEventHandler(res, "deleteSurvivor");
+		turn.addNewResourceEventHandler(res, "deleteSurvivor");
 		addZombie(10, 10);
 		addSurvivor(10, 10);
 		turn.infectSurvivors();
@@ -267,7 +267,7 @@ public class TurnTest {
 		addZombie(10, 10);
 		addSurvivor(10, 10);
 		turn.infectSurvivors();
-		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		Text text = (Text) MessagePanel.getMessages().get(0);
 		assertEquals("     name was bit and turned into a zombie!", text.getText());
 	}
 	
@@ -275,7 +275,7 @@ public class TurnTest {
 	public void displayMessageWhenZombieIsRemovedFromGame() {
 		Zombie zombie = addZombie(10, 10);
 		turn.killAZombie(zombie);
-		Text text = (Text) game.messages.getVbox().getChildren().get(0);
+		Text text = (Text) MessagePanel.getMessages().get(0);
 		assertEquals("     Zombie dropped ", text.getText().subSequence(0, 20));
 	}
 	
@@ -283,16 +283,16 @@ public class TurnTest {
 	public void dayChangeConditionReturnsTrueWhenOnlyTrappedZombiesAreLeft() {
 		addSurvivor(20, 20);
 		addZombie(10, 10);
-		game.add(new Trap(new Point(10.2, 10.2), TrapType.BEARIRON));
+		items.add(new Trap(new Point(10.2, 10.2), TrapType.BEARIRON));
 		turn.moveZombies();
-		assertTrue(game.zombiesCleared());
+		assertTrue(items.zombiesCleared());
 	}
 	
 	@Test
 	public void turnHandlesBullets() {
-		game.getBullets().add(new Bullet(new Point(0, 10), game.getMap(), new Point(0, 0), 10));
+		items.getBullets().add(new Bullet(new Point(0, 10), items.getMap(), new Point(0, 0), 10));
 		turn.play();
-		assertEquals(new Point(0, 9), game.getBullets().get(0).getLocation());
+		assertEquals(new Point(0, 9), items.getBullets().get(0).getLocation());
 	}
 	
 	@Test
@@ -324,7 +324,7 @@ public class TurnTest {
 		Survivor survivor = addSurvivor(10, 10);
 		survivor.setWeapon(new Axe());
 		turn.play();
-		assertTrue(game.getZombies().isEmpty());
+		assertTrue(items.getZombies().isEmpty());
 	}
 	
 	@Test
@@ -332,7 +332,7 @@ public class TurnTest {
 		addZombie(10, 10);
 		addSurvivor(10, 10);
 		turn.play();
-		assertTrue(game.getSurvivors().isEmpty());
+		assertTrue(items.getSurvivors().isEmpty());
 	}
 	
 	private Survivor addSurvivorWithPistol(double x, double y, int bullets) {
@@ -342,20 +342,20 @@ public class TurnTest {
 	}
 	
 	private Survivor addSurvivor(double x, double y) {
-		Survivor survivor = new Survivor(new Point(x, y), game.getMap(), "name", 1);
-		game.add(survivor);
+		Survivor survivor = new Survivor(new Point(x, y), items.getMap(), "name", 1);
+		items.add(survivor);
 		return survivor;
 	}
 	
 	private Zombie addZombie(double x, double y) {
-		Zombie zombie = new Zombie(new Point(x, y), game.getMap(), game.getZombies());
-		game.add(zombie);
+		Zombie zombie = new Zombie(new Point(x, y), items.getMap(), items.getZombies());
+		items.add(zombie);
 		return zombie;
 	}
 	
 	private Pistol createGun(int bullets) {
-		game.getInventory().addPistolBullets(bullets);
-		return new Pistol(game.getInventory());
+		items.getInventory().addPistolBullets(bullets);
+		return new Pistol(items.getInventory());
 	}
 	
 	private void fightZombiesForSeveralRounds(int rounds) {

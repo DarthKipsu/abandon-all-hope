@@ -2,7 +2,7 @@ package abandonallhope.domain;
 
 import abandonallhope.domain.constructions.Trap;
 import abandonallhope.domain.constructions.Wall;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ public class Map {
 
 	private double width;
 	private double height;
-	private Game game;
+	private Items items;
 
 	/**
 	 * Creates a new game map
@@ -23,10 +23,10 @@ public class Map {
 	 * @param height map height
 	 * @Param survivors list of survivors
 	 */
-	public Map(int width, int height, Game game) {
+	public Map(int width, int height, Items items) {
 		this.width = width;
 		this.height = height;
-		this.game = game;
+		this.items = items;
 	}
 
 	/**
@@ -35,8 +35,8 @@ public class Map {
 	 * @param size map side length
 	 * @Param survivors list of survivors
 	 */
-	public Map(int size, Game game) {
-		this(size, size, game);
+	public Map(int size, Items items) {
+		this(size, size, items);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Map {
 	 * @return
 	 */
 	public List<Survivor> getSurvivors() {
-		return game.getSurvivors();
+		return items.getSurvivors();
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class Map {
 	 * @return true if location contains a wall
 	 */
 	public boolean hasObstacle(double x, double y) {
-		for (Wall wall : game.getWalls()) {
+		for (Wall wall : items.getWalls()) {
 			if (wall.occupiedArea().contains(x, y)) {
 				removeWallIfItBreaks(wall);
 				return true;
@@ -95,7 +95,7 @@ public class Map {
 	 * @return true if zombie is trapped
 	 */
 	public boolean isTrapped(Point point) {
-		for (Trap trap : game.getTraps()) {
+		for (Trap trap : items.getTraps()) {
 			if (trap.occupiedArea().contains(point.x, point.y) && trap.hasCapacityLeft()) {
 				trap.addZombie();
 				return true;
@@ -110,7 +110,7 @@ public class Map {
 	 * @return true if other trap is here
 	 */
 	public boolean hasTrap(double x, double y) {
-		for (Trap trap : game.getTraps()) {
+		for (Trap trap : items.getTraps()) {
 			if (trap.occupiedArea().contains(x, y)) {
 				return true;
 			}
@@ -120,7 +120,7 @@ public class Map {
 
 	private void removeWallIfItBreaks(Wall wall) {
 		if (wall.breakDown()) {
-			game.getWalls().remove(wall);
+			items.getWalls().remove(wall);
 		}
 	}
 

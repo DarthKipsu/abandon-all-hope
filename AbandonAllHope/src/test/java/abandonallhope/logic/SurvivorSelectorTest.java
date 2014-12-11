@@ -16,10 +16,10 @@ public class SurvivorSelectorTest {
 	@Before
 	public void setUp() {
 		Game game = new Game(30);
-		survivors = game.getSurvivors();
+		survivors = game.getItems().getSurvivors();
 		selector = new SurvivorSelector(survivors);
-		survivors.add(new Survivor(new Point(10, 10), game.getMap(), "name", 1));
-		survivors.add(new Survivor(new Point(20, 20), game.getMap(), "name", 1));
+		survivors.add(new Survivor(new Point(10, 10), game.getItems().getMap(), "name", 1));
+		survivors.add(new Survivor(new Point(20, 20), game.getItems().getMap(), "name", 1));
 	}
 	
 	@Test

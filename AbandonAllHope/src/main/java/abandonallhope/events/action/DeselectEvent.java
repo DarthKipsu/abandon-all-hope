@@ -1,7 +1,7 @@
 
 package abandonallhope.events.action;
 
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import abandonallhope.logic.SurvivorSelector;
 import abandonallhope.ui.GameCanvas;
 import javafx.event.ActionEvent;
@@ -14,21 +14,21 @@ import javafx.event.EventHandler;
 public class DeselectEvent implements EventHandler<ActionEvent> {
 	
 	private GameCanvas canvas;
-	private Game game;
+	private Items items;
 
 	/**
 	 * Deselect all survivors and cancel building.
 	 * @param canvas
-	 * @param game 
+	 * @param items 
 	 */
-	public DeselectEvent(GameCanvas canvas, Game game) {
+	public DeselectEvent(GameCanvas canvas, Items items) {
 		this.canvas = canvas;
-		this.game = game;
+		this.items = items;
 	}
 
 	@Override
 	public void handle(ActionEvent t) {
-		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		new SurvivorSelector(items.getSurvivors()).unselectAll();
 		canvas.removeWallBuildingEventListeners();
 		canvas.removeTrapBuildingEventListeners();
 	}

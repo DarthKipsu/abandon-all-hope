@@ -3,12 +3,11 @@ package abandonallhope.ui;
 import abandonallhope.domain.*;
 import abandonallhope.events.action.*;
 import abandonallhope.events.handlers.*;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.*;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -23,7 +22,8 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private VBox survivors;
 	private VBox resources;
 	private Inventory inventory;
-	private Game game;
+	private Items items;
+	private Turn turn;
 	private ArrayList<ComboBox> survivorWeapons;
 	private ArrayList<ComboBox> survivorGuns;
 
@@ -32,8 +32,9 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 * @param game game containing the resources
 	 */
 	public ResourcePanel(Game game) {
-		this.game = game;
-		addEventHandlers();
+		items = game.getItems();
+		turn = game.getTurn();
+		addEventHandlers(game.getTurn());
 		vBoxSetup();
 		survivors = new VBox();
 		survivors.setPrefHeight(360);
@@ -51,7 +52,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 * Update left panel bullet and material counts
 	 */
 	public void updateResources() {
-		inventory = game.getInventory();
+		inventory = items.getInventory();
 		resources.getChildren().clear();
 		resources.getChildren().add(new Text("      Bullets: " + inventory.getPistolBullets().getBullets()));
 		resources.getChildren().add(new Text("      Wood: " + inventory.getWood()));
@@ -115,11 +116,11 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		}
 	}
 
-	private void addEventHandlers() {
+	private void addEventHandlers(Turn turn) {
 		String[] events = new String[]{"newSurvivor", "deleteSurvivor", "newWeapon", "deleteWeapon",
 			"newFirearm", "deleteFirearm"};
 		for (int i = 0; i < events.length; i++) {
-			game.addNewResourceEventHandler(this, events[i]);
+			turn.addNewResourceEventHandler(this, events[i]);
 		}
 	}
 
@@ -158,8 +159,8 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		ComboBox<String> comboBox = new ComboBox();
 		addComboItems(comboBox, printSurvivorWeapon(e.getSurvivor()));
 		setCBProperties(comboBox, e, printSurvivorWeapon(e.getSurvivor()));
-		comboBox.valueProperty().addListener(new WeaponEvent(game.getInventory(),
-				e.getSurvivor(), game.getResourceEvents()));
+		comboBox.valueProperty().addListener(new WeaponEvent(items.getInventory(),
+				e.getSurvivor(), turn.getResourceEvents()));
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
@@ -168,8 +169,8 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		ComboBox<String> comboBox = new ComboBox();
 		addComboItems(comboBox, printSurvivorGun(e.getSurvivor()));
 		setCBProperties(comboBox, e, printSurvivorGun(e.getSurvivor()));
-		comboBox.valueProperty().addListener(new FirearmEvent(game.getInventory(),
-				e.getSurvivor(), game.getResourceEvents()));
+		comboBox.valueProperty().addListener(new FirearmEvent(items.getInventory(),
+				e.getSurvivor(), turn.getResourceEvents()));
 		survivorGuns.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}

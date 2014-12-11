@@ -78,7 +78,7 @@ public class BulletTest {
 		Game game = new Game(500);
 		bullet = new Bullet(
 				new Point(startX, startY), 
-				game.getMap(), 
+				game.getItems().getMap(), 
 				new Point(destX, destY), 
 				distance
 		);

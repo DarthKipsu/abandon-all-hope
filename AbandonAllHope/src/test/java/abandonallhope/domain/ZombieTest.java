@@ -26,11 +26,11 @@ public class ZombieTest {
 	@Before
 	public void setUp() {
 		Game game = new Game(30);
-		survivors = game.getSurvivors();
-		walls = game.getWalls();
-		traps = game.getTraps();
-		map = game.getMap();
-		zombies = game.getZombies();
+		survivors = game.getItems().getSurvivors();
+		walls = game.getItems().getWalls();
+		traps = game.getItems().getTraps();
+		map = game.getItems().getMap();
+		zombies = game.getItems().getZombies();
 		zombie = new Zombie(new Point(10, 10), map, zombies);
 		speed = zombie.getSpeed();
 		survivors.add(new Survivor(new Point(20,20), map, "name", 1));

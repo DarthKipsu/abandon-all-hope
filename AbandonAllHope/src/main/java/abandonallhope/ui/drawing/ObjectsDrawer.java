@@ -3,7 +3,7 @@ package abandonallhope.ui.drawing;
 import abandonallhope.domain.DrawableObject;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -17,11 +17,11 @@ public class ObjectsDrawer extends Drawer {
 	/**
 	 * Creates a new drawable objects drawer class
 	 *
-	 * @param game game containing the objects who will be drawn
+	 * @param items game containing the objects who will be drawn
 	 * @param gc graphics context where the objects will be displayed
 	 */
-	public ObjectsDrawer(Game game, GraphicsContext gc) {
-		super(game, gc);
+	public ObjectsDrawer(Items items, GraphicsContext gc) {
+		super(items, gc);
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class ObjectsDrawer extends Drawer {
 	 */
 	public void drawSurvivors() {
 		setGraphicsContextAttributes(Color.RED, 2);
-		for (Survivor survivor : game.getSurvivors()) {
+		for (Survivor survivor : items.getSurvivors()) {
 			setGCcolor(survivor.getColor());
 			draw(survivor);
 			if (survivor.isSelected()) {

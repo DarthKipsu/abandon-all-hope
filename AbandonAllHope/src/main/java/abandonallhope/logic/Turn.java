@@ -8,7 +8,9 @@ import abandonallhope.domain.Zombie;
 import abandonallhope.domain.weapons.Bullet;
 import abandonallhope.domain.weapons.Firearm;
 import abandonallhope.domain.weapons.Weapon;
+import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.logic.loot.LootDistributor;
+import abandonallhope.ui.MessagePanel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,48 +19,61 @@ import java.util.List;
  */
 public class Turn {
 	
-	private Game game;
+	private Items items;
 	private LootDistributor lootDistributor;
 	private ResourceEvents resourceEvents;
 
 	/**
 	 * Creates a new turn object
-	 * @param game 
+	 * @param items 
 	 */
-	public Turn(Game game) {
-		this.game = game;
-		lootDistributor = new LootDistributor(game.getResourceEvents());
-		resourceEvents = game.getResourceEvents();
+	public Turn(Items items) {
+		this.items = items;
+		resourceEvents = new ResourceEvents();
+		lootDistributor = new LootDistributor(resourceEvents);
 	}
 
 	public LootDistributor getLootDistributor() {
 		return lootDistributor;
+	}
+
+	public ResourceEvents getResourceEvents() {
+		return resourceEvents;
 	}
 	
 	/**
 	 * Play game for one turn
 	 */
 	public void play() {
-		lootDistributor.setInventory(game.getInventory());
+		lootDistributor.setInventory(items.getInventory());
 		handleBullets();
 		moveSurvivors();
-		if (!game.getZombies().isEmpty()) {
+		if (!items.getZombies().isEmpty()) {
 			moveZombies();
 			fightZombies();
 			infectSurvivors();
 		}
 	}
 
+	/**
+	 * Adds a new resource event handler in game.
+	 * @param event event handler to be added.
+	 * @param type type of the event: newSurvivor, deleteSurvivor
+	 */
+	public void addNewResourceEventHandler(ResourceEventHandler event, String type) {
+		resourceEvents.addNewResourceEventHandler(event, type);
+	}
+
 	protected void handleBullets() {
 		List<Bullet> bulletsToRemove = new ArrayList<>();
-		for (Bullet bullet : game.getBullets()) {
+		for (Bullet bullet : items.getBullets()) {
 			checkHitsAndMoveBullets(bullet, bulletsToRemove);
 		}
-		game.getBullets().removeAll(bulletsToRemove);
+		items.getBullets().removeAll(bulletsToRemove);
 	}
 
 	private void checkHitsAndMoveBullets(Bullet bullet, List<Bullet> bulletsToRemove) {
-		Zombie zombie = (Zombie) Collision.hitTest(bullet, game.getZombies());
+		Zombie zombie = (Zombie) Collision.hitTest(bullet, items.getZombies());
 		if (zombie != null) {
 			removeZombieAndBullet(zombie, bulletsToRemove, bullet);
 		} else if (bullet.hasReachedMaxDistance()) {
@@ -74,24 +89,24 @@ public class Turn {
 	}
 
 	protected void killAZombie(Zombie target) {
-		game.getZombies().remove(target);
-		game.getMessages().addMessage("Zombie dropped " + lootDistributor.getLoot());
+		items.getZombies().remove(target);
+		MessagePanel.addMessage("Zombie dropped " + lootDistributor.getLoot());
 	}
 
 	protected void moveSurvivors() {
-		for (Survivor survivor : game.getSurvivors()) {
+		for (Survivor survivor : items.getSurvivors()) {
 			survivor.move();
 		}
 	}
 
 	protected void moveZombies() {
-		for (Zombie zombie : game.getZombies()) {
+		for (Zombie zombie : items.getZombies()) {
 			zombie.move();
 		}
 	}
 
 	protected void fightZombies() {
-		for (Survivor survivor : game.getSurvivors()) {
+		for (Survivor survivor : items.getSurvivors()) {
 			fightNearestZombieIfPossible(survivor);
 		}
 	}
@@ -107,7 +122,7 @@ public class Turn {
 
 	private void useFirearmWeapon(Survivor survivor) {
 		Firearm gun = survivor.getGun();
-		MovingObject target = Collision.nearestPerson(survivor, game.getZombies());
+		MovingObject target = Collision.nearestPerson(survivor, items.getZombies());
 		if (target == null) {
 			return;
 		}
@@ -118,14 +133,14 @@ public class Turn {
 		if (Collision.distanceBetween(survivor.getLocation(), destination) <= gun.getRange() * 1.2) {
 			gun.use();
 			Bullet newBullet = new Bullet(new Point(survivor.getLocation().x, survivor.getLocation().y),
-					game.getMap(), destination, (int) gun.getRange());
-			game.getBullets().add(newBullet);
+					items.getMap(), destination, (int) gun.getRange());
+			items.getBullets().add(newBullet);
 		}
 	}
 
 	private void useMeleeWeapon(Survivor survivor) {
 		Weapon weapon = survivor.getWeapon();
-		MovingObject target = Collision.nearestPerson(survivor, game.getZombies());
+		MovingObject target = Collision.nearestPerson(survivor, items.getZombies());
 		if (target == null) {
 			return;
 		}
@@ -154,14 +169,14 @@ public class Turn {
 	}
 
 	protected void infectSurvivors() {
-		for (Zombie zombie : game.getZombies()) {
-			Survivor survivor = (Survivor) Collision.hitTest(zombie, game.getSurvivors());
+		for (Zombie zombie : items.getZombies()) {
+			Survivor survivor = (Survivor) Collision.hitTest(zombie, items.getSurvivors());
 			if (survivor != null) {
 				Point survivorLocation = survivor.getLocation();
-				game.getMessages().addMessage(survivor.getName() + " was bit and turned into a zombie!");
+				MessagePanel.addMessage(survivor.getName() + " was bit and turned into a zombie!");
 				resourceEvents.triggerDeleteSurvivorEvent(survivor);
-				game.getSurvivors().remove(survivor);
-				game.add(new Zombie(survivorLocation, game.getMap(), game.getZombies()));
+				items.getSurvivors().remove(survivor);
+				items.add(new Zombie(survivorLocation, items.getMap(), items.getZombies()));
 				return;
 			}
 		}

@@ -3,9 +3,10 @@ package abandonallhope.events.action;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import abandonallhope.logic.SurvivorSelector;
 import abandonallhope.ui.GameCanvas;
+import abandonallhope.ui.MessagePanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -17,7 +18,7 @@ import javafx.event.EventHandler;
 public class WallEvent implements EventHandler<ActionEvent> {
 
 	private GameCanvas canvas;
-	private Game game;
+	private Items items;
 	private WallType wallType;
 	private Wall wall;
 
@@ -28,9 +29,9 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	 * game field.
 	 * @param game Game object containing information about objects in game.
 	 */
-	public WallEvent(GameCanvas canvas, Game game, WallType wallType) {
+	public WallEvent(GameCanvas canvas, Items items, WallType wallType) {
 		this.canvas = canvas;
-		this.game = game;
+		this.items = items;
 		this.wallType = wallType;
 	}
 
@@ -47,7 +48,7 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	}
 
 	private void removeSurvivorSelections() {
-		new SurvivorSelector(game.getSurvivors()).unselectAll();
+		new SurvivorSelector(items.getSurvivors()).unselectAll();
 	}
 
 	private void createNewWall() {
@@ -55,7 +56,7 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	}
 
 	private boolean enoughResourcesForAtLeastOneWall() {
-		return game.getInventory().enoughResources(wall.getCost());
+		return items.getInventory().enoughResources(wall.getCost());
 	}
 
 	private void removePreviousEventListeners() {
@@ -65,7 +66,7 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	}
 
 	private void showErrorMessage() {
-		game.getMessages().addMessage("Not enough resources to build!");
+		MessagePanel.addMessage("Not enough resources to build!");
 	}
 
 }

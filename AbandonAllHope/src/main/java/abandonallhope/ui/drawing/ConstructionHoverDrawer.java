@@ -2,7 +2,7 @@ package abandonallhope.ui.drawing;
 
 import abandonallhope.domain.DrawableObject;
 import abandonallhope.domain.Inventory;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,11 +28,11 @@ public class ConstructionHoverDrawer extends Drawer {
 	 * Creates a new construction hover drawing object, used to draw shadows of
 	 * constructions in build mode.
 	 *
-	 * @param game game object containing game content
+	 * @param items game object containing game content
 	 * @param gc graphics context to draw the object with
 	 */
-	public ConstructionHoverDrawer(Game game, GraphicsContext gc) {
-		super(game, gc);
+	public ConstructionHoverDrawer(Items items, GraphicsContext gc) {
+		super(items, gc);
 		upperLeftX = 0;
 		upperLeftY = 0;
 	}
@@ -42,7 +42,7 @@ public class ConstructionHoverDrawer extends Drawer {
 	 * @param buildingDimension
 	 */
 	public void setConstructionDimensions(Rectangle2D buildingDimension) {
-		inventory = game.getInventory();
+		inventory = items.getInventory();
 		width = (int) buildingDimension.getWidth();
 		height = (int) buildingDimension.getHeight();
 		wallWidth = width;

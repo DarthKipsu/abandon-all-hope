@@ -3,7 +3,7 @@ package abandonallhope.events.mouse;
 import abandonallhope.domain.Inventory;
 import abandonallhope.domain.Point;
 import abandonallhope.domain.constructions.Wall;
-import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import abandonallhope.ui.GameCanvas;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class WallBuildEvent implements EventHandler<MouseEvent> {
 
-	private Game game;
+	private Items items;
 	private Inventory inventory;
 	private GameCanvas canvas;
 	private Wall wall;
@@ -30,16 +30,16 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	 * hovering over game field on click. Will also remove event listeners
 	 * related to building walls.
 	 *
-	 * @param game game where the wall will be built
+	 * @param items game where the wall will be built
 	 * @param canvas canvas with event listeners to build the wall and it's
 	 * shadow
 	 * @param wall Wall type
 	 */
-	public WallBuildEvent(Game game, GameCanvas canvas, Wall wall) {
-		this.game = game;
+	public WallBuildEvent(Items items, GameCanvas canvas, Wall wall) {
+		this.items = items;
 		this.canvas = canvas;
 		this.wall = wall;
-		inventory = game.getInventory();
+		inventory = items.getInventory();
 		buildingIsFinal = false;
 	}
 
@@ -67,7 +67,7 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	}
 
 	private void addNewWallToGame(Wall.Orientation orientation) {
-		game.add(new Wall(wall.getType(), orientation, new Point(startX, startY)));
+		items.add(new Wall(wall.getType(), orientation, new Point(startX, startY)));
 		inventory.payResources(wall.getCost());
 	}
 

@@ -17,8 +17,8 @@ public class TrapTest {
 	@Before
 	public void setUp() {
 		Game game = new Game(30);
-		game.getSurvivors().add(new Survivor(new Point(20,20), game.getMap(), "name", 1));
-		new Zombie(new Point(9.8, 9.8), game.getMap(), new ArrayList<Zombie>());
+		game.getItems().getSurvivors().add(new Survivor(new Point(20,20), game.getItems().getMap(), "name", 1));
+		new Zombie(new Point(9.8, 9.8), game.getItems().getMap(), new ArrayList<Zombie>());
 	}
 	
 	@Test

@@ -6,6 +6,7 @@ import abandonallhope.domain.constructions.TrapType;
 import abandonallhope.domain.constructions.Wall;
 import abandonallhope.domain.constructions.WallType;
 import abandonallhope.logic.Game;
+import abandonallhope.logic.Items;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +14,16 @@ import static org.junit.Assert.*;
 
 public class MapTest {
 	
-	private Game game;
+	private Items items;
 	private Map map;
 	private List<Survivor> survivors;
 	
 	@Before
 	public void setUp() {
-		game = new Game(500);
-		survivors = game.getSurvivors();
-		map = game.getMap();
+		Game game = new Game(500);
+		items = game.getItems();
+		survivors = items.getSurvivors();
+		map = items.getMap();
 		survivors.add(new Survivor(new Point(50, 20), map, "name", 1));
 		survivors.add(new Survivor(new Point(20, 50), map, "name", 2));
 	}
@@ -89,22 +91,22 @@ public class MapTest {
 	@Test
 	public void removeWallsWhenTheyBreakUp() {
 		Wall wall = new Wall(WallType.WOODEN, Wall.Orientation.VERTICAL, new Point(10, 10));
-		game.add(wall);
+		items.add(wall);
 		hitAWall(500);
-		assertFalse(game.getWalls().isEmpty());
+		assertFalse(items.getWalls().isEmpty());
 		map.hasObstacle(10, 10);
-		assertTrue(game.getWalls().isEmpty());
+		assertTrue(items.getWalls().isEmpty());
 	}
 	
 	@Test
 	public void givesInfomationAboutTraps() {
-		game.add(new Trap(new Point(10, 10), TrapType.PIT));
+		items.add(new Trap(new Point(10, 10), TrapType.PIT));
 		assertTrue(map.hasTrap(10, 10));
 	}
 	
 	@Test
 	public void doesNotGiveWrongInfomationAboutTraps() {
-		game.add(new Trap(new Point(10, 10), TrapType.PIT));
+		items.add(new Trap(new Point(10, 10), TrapType.PIT));
 		assertFalse(map.hasTrap(9, 9));
 	}
 

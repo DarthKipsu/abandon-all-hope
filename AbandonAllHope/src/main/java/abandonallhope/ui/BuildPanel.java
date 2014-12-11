@@ -1,14 +1,10 @@
 package abandonallhope.ui;
 
-import abandonallhope.domain.constructions.TrapType;
-import abandonallhope.domain.constructions.WallType;
-import abandonallhope.events.action.DeselectEvent;
-import abandonallhope.events.action.TrapEvent;
-import abandonallhope.events.action.WallEvent;
-import abandonallhope.logic.Game;
+import abandonallhope.domain.constructions.*;
+import abandonallhope.events.action.*;
+import abandonallhope.logic.Items;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,18 +18,18 @@ import javafx.scene.text.FontWeight;
 public class BuildPanel {
 
 	private VBox vbox;
-	private Game game;
+	private Items items;
 	private GameCanvas canvas;
 
 	/**
 	 * Creates a new building and weapons panel, displaying building types and
 	 * available weapons.
 	 */
-	public BuildPanel(Game game, GameCanvas canvas) {
+	public BuildPanel(Items items, GameCanvas canvas) {
 		vbox = new VBox();
 		vbox.getStyleClass().add("right");
 		vbox.setPrefWidth(252);
-		this.game = game;
+		this.items = items;
 		this.canvas = canvas;
 		createVBoxContent();
 	}
@@ -56,7 +52,7 @@ public class BuildPanel {
 	private void addDeselectionButton() {
 		Button deselect = new Button("Uselect all");
 		deselect.setPrefSize(100, 20);
-		deselect.setOnAction(new DeselectEvent(canvas, game));
+		deselect.setOnAction(new DeselectEvent(canvas, items));
 		vbox.getChildren().add(deselect);
 	}
 
@@ -71,7 +67,7 @@ public class BuildPanel {
 		Button wall = new Button();
 		wall.setId(wallCss);
 		wall.setPrefSize(80, 30);
-		wall.setOnAction(new WallEvent(canvas, game, wallType));
+		wall.setOnAction(new WallEvent(canvas, items, wallType));
 		vbox.getChildren().add(wall);
 	}
 
@@ -79,7 +75,7 @@ public class BuildPanel {
 		Button trap = new Button();
 		trap.setId(trapCss);
 		trap.setPrefSize(80, 30);
-		trap.setOnAction(new TrapEvent(canvas, game, trapType));
+		trap.setOnAction(new TrapEvent(canvas, items, trapType));
 		vbox.getChildren().add(trap);
 	}
 }
