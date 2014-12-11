@@ -109,6 +109,11 @@ public class MapTest {
 		items.add(new Trap(new Point(10, 10), TrapType.PIT));
 		assertFalse(map.hasTrap(9, 9));
 	}
+	
+	@Test
+	public void doesNotGiveWrongInfomationAboutTraps2() {
+		assertFalse(map.hasTrap(9, 9));
+	}
 
 	private void hitAWall(int times) {
 		for (int i = 0; i < times; i++) {

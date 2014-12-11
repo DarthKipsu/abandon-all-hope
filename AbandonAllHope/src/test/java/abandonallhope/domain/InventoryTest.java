@@ -110,4 +110,34 @@ public class InventoryTest {
 		assertEquals(-1, inventory.getMetal());
 	}
 	
+	@Test
+	public void noBulletsAfterReset() {
+		inventory.addPistolBullets(50);
+		inventory.reset();
+		assertFalse(inventory.getPistolBullets().notEmpty());
+	}
+	
+	@Test
+	public void noGunsAfterReset() {
+		inventory.addFireamrs(new Pistol(inventory));
+		inventory.reset();
+		assertTrue(inventory.getGuns().isEmpty());
+	}
+	
+	@Test
+	public void noWeaponsAfterReset() {
+		inventory.addWeapons(new Axe());
+		inventory.reset();
+		assertTrue(inventory.getWeapons().isEmpty());
+	}
+	
+	@Test
+	public void noMaterialsAfterReset() {
+		inventory.addWood(50);
+		inventory.addMetal(50);
+		inventory.reset();
+		assertEquals(0, inventory.getWood());
+		assertEquals(0, inventory.getMetal());
+	}
+	
 }
