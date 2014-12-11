@@ -40,4 +40,11 @@ public class MessagePanel {
 		}
 	}
 	
+	/**
+	 * Removes all messages from message panel.
+	 */
+	public void clearMessages() {
+		vbox.getChildren().clear();
+	}
+	
 }

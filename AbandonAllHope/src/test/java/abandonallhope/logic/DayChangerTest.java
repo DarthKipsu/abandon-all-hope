@@ -88,15 +88,15 @@ public class DayChangerTest {
 	}
 	
 	@Test
-	public void survivorsStartsWith50Wood() {
+	public void survivorsStartsWith75Wood() {
 		DayChanger.setupDayOne();
-		assertEquals(50, game.getInventory().getWood());
+		assertEquals(75, game.getInventory().getWood());
 	}
 	
 	@Test
-	public void survivorsStartWith20Metal() {
+	public void survivorsStartWith25Metal() {
 		DayChanger.setupDayOne();
-		assertEquals(20, game.getInventory().getMetal());
+		assertEquals(25, game.getInventory().getMetal());
 	}
 
 	@Test

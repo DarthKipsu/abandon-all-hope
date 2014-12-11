@@ -135,15 +135,6 @@ public class GameTest {
 		game.sleepUntilTheNextDay();
 		assertFalse(game.getZombies().isEmpty());
 	}
-	
-	@Test
-	public void gameOverStopsTimeline() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
-		timeline.play();
-		game.setGameTimeline(timeline);
-		game.gameOver();
-		assertEquals(Status.STOPPED, timeline.getStatus());
-	}
 
 	@Test
 	public void pauseStopsGameTimeline() {
@@ -162,14 +153,6 @@ public class GameTest {
 		game.pause();
 		game.pause();
 		assertEquals(Status.RUNNING, gtl.getStatus());
-	}
-	
-	@Test
-	public void gameOverCreatesAMessageToPlayer() {
-		game.setGameTimeline(new Timeline());
-		game.gameOver();
-		Text text = (Text) game.messages.getVbox().getChildren().get(0);
-		assertEquals("     All survivors are lost! You survived 1 days. Game over!", text.getText());
 	}
 	
 	@Test

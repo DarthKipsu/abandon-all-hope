@@ -2,8 +2,10 @@
 package abandonallhope;
 
 import abandonallhope.logic.Game;
+import abandonallhope.ui.PopupMessage;
 import abandonallhope.ui.UserInterface;
 import javafx.application.Application;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,6 +26,7 @@ public class AbandonAllHope extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		PopupMessage.setStage(primaryStage);
 		Group root = newGame();
 		primaryStage.setTitle(":: Abandon All Hope ::");
 		primaryStage.setScene(new Scene(root));

@@ -6,6 +6,7 @@ import abandonallhope.domain.constructions.*;
 import abandonallhope.domain.weapons.*;
 import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.ui.MessagePanel;
+import abandonallhope.ui.PopupMessage;
 import java.util.*;
 import javafx.animation.*;
 import javafx.event.*;
@@ -159,6 +160,17 @@ public class Game implements EventHandler {
 			gameTimeline.pause();
 		}
 	}
+	
+	public void startANewGame() {
+		zombies.clear();
+		messages.clearMessages();
+		inventory = new Inventory();
+		DayChanger.day = 1;
+		DayChanger.setupDayOne();
+		messages.addMessage("It's the first day of zombie apocalypse! You "
+				+ "managed to survive out of the city with your group...");
+		gameTimeline.play();
+	}
 
 	protected void sleepUntilTheNextDay() {
 		if (sleep == 1) {
@@ -169,8 +181,8 @@ public class Game implements EventHandler {
 	}
 
 	protected void gameOver() {
-		gameTimeline.stop();
-		messages.addMessage("All survivors are lost! You survived " + DayChanger.day + " days. Game over!");
+		gameTimeline.pause();
+		PopupMessage.showGameOverMessage(this);
 	}
 
 	protected void endTheCurrentDay() {

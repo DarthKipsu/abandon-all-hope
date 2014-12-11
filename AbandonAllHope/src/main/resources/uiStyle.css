@@ -30,6 +30,11 @@
     -fx-spacing: 8;
 }
 
+.popup {
+    -fx-background-color: seagreen;
+    -fx-padding: 10;
+}
+
 #wall-wooden {
     -fx-background-image: url("images/wall-wooden.jpg");
     -fx-background-insets: 0, 1;
