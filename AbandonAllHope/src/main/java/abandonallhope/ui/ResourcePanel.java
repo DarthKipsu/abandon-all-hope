@@ -21,9 +21,8 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private VBox vbox;
 	private VBox survivors;
 	private VBox resources;
-	private Inventory inventory;
 	private Items items;
-	private Turn turn;
+	private ResourceEvents resEvents;
 	private ArrayList<ComboBox> survivorWeapons;
 	private ArrayList<ComboBox> survivorGuns;
 
@@ -33,7 +32,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 */
 	public ResourcePanel(Game game) {
 		items = game.getItems();
-		turn = game.getTurn();
+		resEvents = game.getTurn().getResourceEvents();
 		addEventHandlers(game.getTurn());
 		vBoxSetup();
 		survivors = new VBox();
@@ -52,11 +51,10 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 * Update left panel bullet and material counts
 	 */
 	public void updateResources() {
-		inventory = items.getInventory();
 		resources.getChildren().clear();
-		resources.getChildren().add(new Text("      Bullets: " + inventory.getPistolBullets().getBullets()));
-		resources.getChildren().add(new Text("      Wood: " + inventory.getWood()));
-		resources.getChildren().add(new Text("      Metal: " + inventory.getMetal()));
+		resources.getChildren().add(new Text("      Bullets: " + items.getInventory().getPistolBullets().getBullets()));
+		resources.getChildren().add(new Text("      Wood: " + items.getInventory().getWood()));
+		resources.getChildren().add(new Text("      Metal: " + items.getInventory().getMetal()));
 	}
 
 	@Override
@@ -160,7 +158,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		addComboItems(comboBox, printSurvivorWeapon(e.getSurvivor()));
 		setCBProperties(comboBox, e, printSurvivorWeapon(e.getSurvivor()));
 		comboBox.valueProperty().addListener(new WeaponEvent(items.getInventory(),
-				e.getSurvivor(), turn.getResourceEvents()));
+				e.getSurvivor(), resEvents));
 		survivorWeapons.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}
@@ -170,7 +168,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 		addComboItems(comboBox, printSurvivorGun(e.getSurvivor()));
 		setCBProperties(comboBox, e, printSurvivorGun(e.getSurvivor()));
 		comboBox.valueProperty().addListener(new FirearmEvent(items.getInventory(),
-				e.getSurvivor(), turn.getResourceEvents()));
+				e.getSurvivor(), resEvents));
 		survivorGuns.add(comboBox);
 		survivors.getChildren().add(comboBox);
 	}

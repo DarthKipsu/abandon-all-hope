@@ -3,9 +3,6 @@ package abandonallhope.logic;
 
 import abandonallhope.domain.*;
 import abandonallhope.domain.constructions.*;
-import abandonallhope.events.action.NewSurvivorEvent;
-import abandonallhope.events.handlers.NewSurvivorEventHandler;
-import abandonallhope.events.handlers.ResourceEventHandler;
 import abandonallhope.ui.MessagePanel;
 import javafx.animation.Timeline;
 import javafx.scene.text.Text;
@@ -22,6 +19,7 @@ public class GameTest {
 	public void setUp() {
 		game = new Game(30);
 		items = game.getItems();
+		MessagePanel messages = new MessagePanel(game);
 		game.getTurn().getLootDistributor().setInventory(items.getInventory());
 		DayChanger.day = 1;
 	}

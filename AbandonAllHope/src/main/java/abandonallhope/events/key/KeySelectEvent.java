@@ -67,6 +67,7 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 		michonneNotYetPlaced = false;
 		Survivor michonne = new Survivor(new Point(250, 250), items.getMap(), "Michonne", 0);
 		michonne.setWeapon(new Katana());
+		game.getTurn().getResourceEvents().triggerNewSurvivorEvent(michonne);
 		items.add(michonne);
 	}
 

@@ -68,8 +68,8 @@ public class Game implements EventHandler {
 		items.reset();
 		DayChanger.day = 1;
 		DayChanger.setupDayOne();
-		MessagePanel.addMessage("It's the first day of zombie apocalypse! You "
-				+ "managed to survive out of the city with your group...");
+		MessagePanel.addMessage("It's the first day of zombie apocalypse! You " +
+				"managed to survive out of the city with your group...");
 		gameTimeline.play();
 	}
 
