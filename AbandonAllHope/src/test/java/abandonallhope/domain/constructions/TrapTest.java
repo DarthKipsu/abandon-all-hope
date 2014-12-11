@@ -36,7 +36,7 @@ public class TrapTest {
 	@Test
 	public void returnsCorrectOccupatedArea() {
 		createTrap(TrapType.BEARIRON);
-		assertEquals(new Rectangle2D(10, 10, 4, 4), trap.occupiedArea());
+		assertEquals(new Rectangle2D(10, 10, 3, 3), trap.occupiedArea());
 	}
 	
 	@Test

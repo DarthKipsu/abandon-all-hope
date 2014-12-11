@@ -6,9 +6,9 @@ import abandonallhope.events.action.DeselectEvent;
 import abandonallhope.events.action.TrapEvent;
 import abandonallhope.events.action.WallEvent;
 import abandonallhope.logic.Game;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -46,11 +46,11 @@ public class BuildPanel {
 		addDeselectionButton();
 		
 		addTitle("Build a wall:");
-		addWallButton("Wooden", WallType.WOODEN);
+		addWallButton(WallType.WOODEN, "wall-wooden");
 		
 		addTitle("Build a trap:");
-		addTrapButton("Bear Iron", TrapType.BEARIRON);
-		addTrapButton("Pit", TrapType.PIT);
+		addTrapButton(TrapType.BEARIRON, "trap-beariron");
+		addTrapButton(TrapType.PIT, "trap-pit");
 	}
 	
 	private void addDeselectionButton() {
@@ -67,16 +67,18 @@ public class BuildPanel {
 		vbox.getChildren().add(title);
 	}
 
-	private void addWallButton(String name, WallType wallType) {
-		Button wall = new Button(name);
-		wall.setPrefSize(100, 20);
+	private void addWallButton(WallType wallType, String wallCss) {
+		Button wall = new Button();
+		wall.setId(wallCss);
+		wall.setPrefSize(80, 30);
 		wall.setOnAction(new WallEvent(canvas, game, wallType));
 		vbox.getChildren().add(wall);
 	}
 
-	private void addTrapButton(String name, TrapType trapType) {
-		Button trap = new Button(name);
-		trap.setPrefSize(100, 20);
+	private void addTrapButton(TrapType trapType, String trapCss) {
+		Button trap = new Button();
+		trap.setId(trapCss);
+		trap.setPrefSize(80, 30);
 		trap.setOnAction(new TrapEvent(canvas, game, trapType));
 		vbox.getChildren().add(trap);
 	}

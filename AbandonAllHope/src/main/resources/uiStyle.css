@@ -29,3 +29,39 @@
     -fx-padding: 25;
     -fx-spacing: 8;
 }
+
+#wall-wooden {
+    -fx-background-image: url("images/wall-wooden.jpg");
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#wall-wooden:hover {
+    -fx-background-image: url("images/wall-wooden-hover.jpg");
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 2 , 2 );
+}
+
+#trap-beariron {
+    -fx-background-image: url("images/trap-beariron.jpg");
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#trap-beariron:hover {
+    -fx-background-image: url("images/trap-beariron-hover.jpg");
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 2 , 2 );
+}
+
+#trap-pit {
+    -fx-background-image: url("images/trap-pit.jpg");
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#trap-pit:hover {
+    -fx-background-image: url("images/trap-pit-hover.jpg");
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 2 , 2 );
+}

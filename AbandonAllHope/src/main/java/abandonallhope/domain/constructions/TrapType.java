@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
  */
 public enum TrapType {
 	
-	BEARIRON(4, 1, Color.SANDYBROWN, new Cost(0, 1)),
+	BEARIRON(3, 1, Color.SANDYBROWN, new Cost(0, 1)),
 	PIT(10, 4, Color.SIENNA, new Cost(8, 4));
 	
 	private final int size;
