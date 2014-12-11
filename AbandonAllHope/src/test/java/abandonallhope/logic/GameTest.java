@@ -135,25 +135,6 @@ public class GameTest {
 		game.sleepUntilTheNextDay();
 		assertFalse(game.getZombies().isEmpty());
 	}
-
-	@Test
-	public void pauseStopsGameTimeline() {
-		Timeline gtl = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
-		gtl.play();
-		game.setGameTimeline(gtl);
-		game.pause();
-		assertEquals(Status.PAUSED, gtl.getStatus());
-	}
-
-	@Test
-	public void pauseAgainContinuesGameTimeline() {
-		Timeline gtl = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
-		gtl.play();
-		game.setGameTimeline(gtl);
-		game.pause();
-		game.pause();
-		assertEquals(Status.RUNNING, gtl.getStatus());
-	}
 	
 	@Test
 	public void noLootIsDistributedAtTheEndOfTheDayIfNoZombiesAreTrapped() {

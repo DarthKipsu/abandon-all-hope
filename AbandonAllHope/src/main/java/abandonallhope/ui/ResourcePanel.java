@@ -35,7 +35,6 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	public ResourcePanel(Game game) {
 		this.game = game;
 		addEventHandlers();
-		inventory = game.getInventory();
 		vBoxSetup();
 		survivors = new VBox();
 		survivors.setPrefHeight(360);
@@ -53,6 +52,7 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	 * Update left panel bullet and material counts
 	 */
 	public void updateResources() {
+		inventory = game.getInventory();
 		resources.getChildren().clear();
 		resources.getChildren().add(new Text("      Bullets: " + inventory.getPistolBullets().getBullets()));
 		resources.getChildren().add(new Text("      Wood: " + inventory.getWood()));
@@ -195,5 +195,4 @@ public class ResourcePanel implements NewSurvivorEventHandler, DeleteSurvivorEve
 	private String printSurvivorGun(Survivor survivor) {
 		return survivor.getGun() != null ? survivor.getGun().toString() : "none";
 	}
-
 }

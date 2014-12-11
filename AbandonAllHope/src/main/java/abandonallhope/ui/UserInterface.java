@@ -63,12 +63,11 @@ public class UserInterface implements EventHandler {
 	private void setupDayOne(Timeline gameTimeline) {
 		game.setGameTimeline(gameTimeline);
 		DayChanger.setGame(game);
-		DayChanger.setupDayOne();
+		game.startANewGame();
 	}
 
 	private void createBorder() {
 		MessagePanel messages = new MessagePanel(game);
-		addInitialMessage(messages);
 		BuildPanel build = new BuildPanel(game, canvas);
 		VBox top = new VBox();
 		top.getStyleClass().add("top");
@@ -87,10 +86,5 @@ public class UserInterface implements EventHandler {
 		Timeline gameTimeline = new Timeline(new KeyFrame(frameDuration, eventHandler));
 		gameTimeline.setCycleCount(Timeline.INDEFINITE);
 		return gameTimeline;
-	}
-
-	private void addInitialMessage(MessagePanel messages) {
-		messages.addMessage("It's the first day of zombie apocalypse! You "
-				+ "managed to survive out of the city with your group...");
 	}
 }

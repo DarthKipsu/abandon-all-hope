@@ -16,31 +16,47 @@ import javafx.stage.WindowEvent;
 public class PopupMessage {
 	
 	private static Stage stage;
+	private static Popup pause = createPopup(createLabel(
+			"                        PAUSED\nPress pause again to continue playing"));
 
 	public static void setStage(Stage stage) {
 		PopupMessage.stage = stage;
 	}
 
+	/**
+	 * Display a popup message showing game over message and creating events for
+	 * starting a new game.
+	 * @param game 
+	 */
 	public static void showGameOverMessage(final Game game) {
-		Label label = createGameOverLabel("All survivors are lost! You managed to" +
-				"survive for " + (DayChanger.day - 1) + " days!\n" + 
+		Label label = AddGameOverMEssage();
+		final Popup popup = createPopup(label);
+		centerPopupOnStage(popup);
+		addNewGameEventHandler(popup, game);
+		popup.show(stage);
+	}
+	
+	/**
+	 * Displays a popup message showing game is paused.
+	 */
+	public static void showPauseMessage() {
+		pause.setAutoHide(false);
+		pause.show(stage);
+	}
+	
+	/**
+	 * Removes popup message showing game is paused.
+	 */
+	public static void removePauseMessage() {
+		pause.hide();
+	}
+
+	private static Label AddGameOverMEssage() {
+		Label label = createLabel("All survivors are lost! You managed to" +
+				"survive for " + DayChanger.day + " days!\n" +
 				"                               Game over!\n\n" +
 				"        Start a new game by clicking anywhere on stage!");
-		final Popup popup = createPopup(label);
-		popup.setOnShown(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent e) {
-				popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);
-				popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
-			}
-		});
-		popup.setOnHiding(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent e) {
-				game.startANewGame();
-			}
-		});
-		popup.show(stage);
+		return label;
 	}
 
 	private static Popup createPopup(Label label) {
@@ -56,11 +72,30 @@ public class PopupMessage {
 		popup.setHideOnEscape(true);
 	}
 
-	private static Label createGameOverLabel(String message) {
+	private static Label createLabel(String message) {
 		Label label = new Label(message);
 		label.getStylesheets().add("/uiStyle.css");
 		label.getStyleClass().add("popup");
 		return label;
+	}
+
+	private static void centerPopupOnStage(final Popup popup) {
+		popup.setOnShown(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent e) {
+				popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);
+				popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
+			}
+		});
+	}
+
+	private static void addNewGameEventHandler(final Popup popup, final Game game) {
+		popup.setOnHiding(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent e) {
+				game.startANewGame();
+			}
+		});
 	}
 
 }

@@ -156,13 +156,17 @@ public class Game implements EventHandler {
 	public void pause() {
 		if (gameTimeline.getStatus() == Animation.Status.PAUSED) {
 			gameTimeline.play();
+			PopupMessage.removePauseMessage();
 		} else {
 			gameTimeline.pause();
+			PopupMessage.showPauseMessage();
 		}
 	}
 	
 	public void startANewGame() {
 		zombies.clear();
+		walls.clear();
+		traps.clear();
 		messages.clearMessages();
 		inventory = new Inventory();
 		DayChanger.day = 1;

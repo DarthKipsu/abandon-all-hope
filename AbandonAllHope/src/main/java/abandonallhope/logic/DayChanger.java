@@ -24,7 +24,7 @@ public class DayChanger {
 	private static Map map;
 	
 	/**
-	 * Game day
+	 * Game day counter
 	 */
 	public static int day;
 
