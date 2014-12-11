@@ -33,7 +33,6 @@ public class ConstructionHoverDrawer extends Drawer {
 	 */
 	public ConstructionHoverDrawer(Game game, GraphicsContext gc) {
 		super(game, gc);
-		inventory = game.getInventory();
 		upperLeftX = 0;
 		upperLeftY = 0;
 	}
@@ -43,6 +42,7 @@ public class ConstructionHoverDrawer extends Drawer {
 	 * @param buildingDimension
 	 */
 	public void setConstructionDimensions(Rectangle2D buildingDimension) {
+		inventory = game.getInventory();
 		width = (int) buildingDimension.getWidth();
 		height = (int) buildingDimension.getHeight();
 		wallWidth = width;
