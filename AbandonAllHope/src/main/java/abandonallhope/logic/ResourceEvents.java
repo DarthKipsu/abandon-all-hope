@@ -63,9 +63,9 @@ public class ResourceEvents {
 	 */
 	public void triggerNewSurvivorEvent(Survivor survivor) {
 		NewSurvivorEvent newSurvivorEvent = new NewSurvivorEvent(survivor);
-		for (NewSurvivorEventHandler nseh : newSurvivorEventHandlers) {
-			nseh.handle(newSurvivorEvent);
-		}
+		newSurvivorEventHandlers
+				.parallelStream()
+				.forEach(nseh -> nseh.handle(newSurvivorEvent));
 	}
 
 	/**
@@ -75,9 +75,9 @@ public class ResourceEvents {
 	 */
 	public void triggerDeleteSurvivorEvent(Survivor survivor) {
 		DeleteSurvivorEvent deleteSurvivorEvent = new DeleteSurvivorEvent(survivor);
-		for (DeleteSurvivorEventHandler dseh : deleteSurvivorEventHandlers) {
-			dseh.handle(deleteSurvivorEvent);
-		}
+		deleteSurvivorEventHandlers
+				.parallelStream()
+				.forEach(dseh -> dseh.handle(deleteSurvivorEvent));
 	}
 
 	/**
@@ -87,9 +87,9 @@ public class ResourceEvents {
 	 */
 	public void triggerNewWeaponEvent(Weapon weapon) {
 		NewWeaponEvent newWeaponEvent = new NewWeaponEvent(weapon);
-		for (NewWeaponEventHandler nweh : newWeaponEventHandlers) {
-			nweh.handle(newWeaponEvent);
-		}
+		newWeaponEventHandlers
+				.parallelStream()
+				.forEach(nweh -> nweh.handle(newWeaponEvent));
 	}
 
 	/**
@@ -100,9 +100,9 @@ public class ResourceEvents {
 	 */
 	public void triggerDeleteWeaponEvent(Weapon weapon) {
 		DeleteWeaponEvent deleteWeaponEvent = new DeleteWeaponEvent(weapon);
-		for (DeleteWeaponEventHandler dweh : deleteWeaponEventHandlers) {
-			dweh.handle(deleteWeaponEvent);
-		}
+		deleteWeaponEventHandlers
+				.parallelStream()
+				.forEach(dweh -> dweh.handle(deleteWeaponEvent));
 	}
 
 	/**
@@ -112,9 +112,9 @@ public class ResourceEvents {
 	 */
 	public void triggerNewFirearmEvent(Firearm firearm) {
 		NewFirearmEvent newFirearmEvent = new NewFirearmEvent(firearm);
-		for (NewFirearmEventHandler nfeh : newFirearmEventHandlers) {
-			nfeh.handle(newFirearmEvent);
-		}
+		newFirearmEventHandlers
+				.parallelStream()
+				.forEach(nfeh -> nfeh.handle(newFirearmEvent));
 	}
 
 	/**
@@ -125,8 +125,8 @@ public class ResourceEvents {
 	 */
 	public void triggerDeleteFirearmEvent(Firearm firearm) {
 		DeleteFirearmEvent deleteFirearmEvent = new DeleteFirearmEvent(firearm);
-		for (DeleteFirearmEventHandler dfeh : deleteFirearmEventHandlers) {
-			dfeh.handle(deleteFirearmEvent);
-		}
+		deleteFirearmEventHandlers
+				.parallelStream()
+				.forEach(dfeh -> dfeh.handle(deleteFirearmEvent));
 	}
 }
