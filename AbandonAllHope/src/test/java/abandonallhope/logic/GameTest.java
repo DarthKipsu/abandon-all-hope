@@ -20,7 +20,6 @@ public class GameTest {
 		game = new Game(30);
 		items = game.getItems();
 		MessagePanel messages = new MessagePanel(game);
-		game.getTurn().getLootDistributor().setInventory(items.getInventory());
 		DayChanger.day = 1;
 	}
 	

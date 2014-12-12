@@ -25,7 +25,6 @@ public class TurnTest {
 		MessagePanel messages = new MessagePanel(game);
 		items = game.getItems();
 		turn = game.getTurn();
-		turn.getLootDistributor().setInventory(items.getInventory());
 	}
 	
 	@Test

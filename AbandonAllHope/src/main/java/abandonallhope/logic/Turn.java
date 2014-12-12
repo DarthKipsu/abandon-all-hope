@@ -30,7 +30,7 @@ public class Turn {
 	public Turn(Items items) {
 		this.items = items;
 		resourceEvents = new ResourceEvents();
-		lootDistributor = new LootDistributor(resourceEvents);
+		lootDistributor = new LootDistributor(resourceEvents, items.getInventory());
 	}
 
 	public LootDistributor getLootDistributor() {
@@ -45,7 +45,6 @@ public class Turn {
 	 * Play game for one turn
 	 */
 	public void play() {
-		lootDistributor.setInventory(items.getInventory());
 		handleBullets();
 		moveSurvivors();
 		if (!items.getZombies().isEmpty()) {

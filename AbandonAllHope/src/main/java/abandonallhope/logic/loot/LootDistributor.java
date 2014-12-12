@@ -20,12 +20,9 @@ public class LootDistributor {
 	 * Create new loot distributor to distribute loot to player after killing zombies.
 	 * @param inventory inventory where the loot is added
 	 */
-	public LootDistributor(ResourceEvents resEvents) {
+	public LootDistributor(ResourceEvents resEvents, Inventory inventory) {
 		random = new Random();
 		loot = addLootTypes(resEvents);
-	}
-
-	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
 	
@@ -45,7 +42,7 @@ public class LootDistributor {
 		for (int i = 0; i < amount;) {
 			getLoot();
 			i++;
-			if (DayChanger.day > 20) {
+			if (DayChanger.day > 12) {
 				i++;
 			}
 		}

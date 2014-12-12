@@ -16,8 +16,8 @@ public class WoodLoot implements Loot {
 	@Override
 	public String giveOut(Inventory inventory) {
 		int amount = random.nextInt(8) + 3;
-		if (DayChanger.day > 15) {
-			amount /= 2;
+		if (DayChanger.day > 12) {
+			amount /= 3;
 		}
 		inventory.addWood(amount);
 		return amount + " wood.";

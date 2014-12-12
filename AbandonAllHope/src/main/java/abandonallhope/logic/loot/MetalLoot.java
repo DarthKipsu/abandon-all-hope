@@ -16,7 +16,7 @@ public class MetalLoot implements Loot {
 	@Override
 	public String giveOut(Inventory inventory) {
 		int amount = random.nextInt(4) + 2;
-		if (DayChanger.day > 15) {
+		if (DayChanger.day > 12) {
 			amount /= 2;
 		}
 		inventory.addMetal(amount);
