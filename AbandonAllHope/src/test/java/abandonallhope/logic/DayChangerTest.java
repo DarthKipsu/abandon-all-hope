@@ -78,8 +78,8 @@ public class DayChangerTest {
 	public void zombieLocationIsOnTheBorderOfTheMap() {
 		DayChanger.setupDayOne();
 		Point firstZombieLocation = items.getZombies().get(0).getLocation();
-		assertTrue((firstZombieLocation.x == 0 || firstZombieLocation.x == 499) ? true :
-				(firstZombieLocation.y == 0 || firstZombieLocation.y == 499));
+		assertTrue((firstZombieLocation.x == 1 || firstZombieLocation.x == 499) ? true :
+				(firstZombieLocation.y == 1 || firstZombieLocation.y == 499));
 	}
 
 	@Test
@@ -108,14 +108,15 @@ public class DayChangerTest {
 	}
 
 	@Test
-	public void randomLocationTest() {
+	public void randomLocationTestCoordinatesInCorrectIntervals() {
 		for (int i = 0; i < 100; i++) {
 			Point point = DayChanger.createRandomLocation();
-			if (point.x == 0 || point.x == 500) {
-				assertTrue(point.y >= 0);
+			System.out.println(point);
+			if (point.x == 1 || point.x == 499) {
+				assertTrue(point.y >= 1);
 				assertTrue(point.y < 500);
 			} else {
-				assertTrue(point.x >= 0);
+				assertTrue(point.x >= 1);
 				assertTrue(point.x < 500);
 			}
 		}
@@ -124,10 +125,10 @@ public class DayChangerTest {
 	@Test
 	public void locationNearCity0Test() {
 		for (int i = 0; i < 100; i++) {
-			Point point = DayChanger.createLocationNearPoint(new Point(100, 0));
-			assertTrue(point.x >= 100);
-			assertTrue(point.x < 200);
-			assertTrue(point.y == 0);
+			Point point = DayChanger.createLocationNearPoint(new Point(1, 1));
+			assertTrue(point.x >= 1);
+			assertTrue(point.x < 101);
+			assertTrue(point.y == 1);
 		}
 	}
 
@@ -137,17 +138,17 @@ public class DayChangerTest {
 			Point point = DayChanger.createLocationNearPoint(new Point(0, 200));
 			assertTrue(point.y >= 200);
 			assertTrue(point.y < 300);
-			assertTrue(point.x == 0);
+			assertTrue(point.x == 1);
 		}
 	}
 
 	@Test
 	public void locationNearCity2Test() {
 		for (int i = 0; i < 100; i++) {
-			Point point = DayChanger.createLocationNearPoint(new Point(100, 500));
-			assertTrue(point.x >= 100);
-			assertTrue(point.x < 200);
-			assertTrue(point.y == 500);
+			Point point = DayChanger.createLocationNearPoint(new Point(50, 499));
+			assertTrue(point.x >= 50);
+			assertTrue(point.x < 150);
+			assertTrue(point.y == 499);
 		}
 	}
 }

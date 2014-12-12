@@ -16,9 +16,9 @@ public class DayChanger {
 
 	private static final Random RANDOM = new Random(42);
 	private static final Point[] CITIES = new Point[]{
-		new Point(100, 0),
+		new Point(1, 1),
 		new Point(0, 200),
-		new Point(100, 500)};
+		new Point(50, 499)};
 	private static Items items;
 	private static Turn turn;
 	
@@ -98,16 +98,16 @@ public class DayChanger {
 
 	protected static Point createRandomLocation() {
 		double side = RANDOM.nextDouble();
-		if (side < 0) {
-			return new Point(RANDOM.nextInt(500), RANDOM.nextDouble() < 0 ? 0 : 499);
+		if (side < 0.5) {
+			return new Point(RANDOM.nextInt(500), RANDOM.nextDouble() < 0.5 ? 1 : 499);
 		} else {
-			return new Point(RANDOM.nextDouble() < 0 ? 0 : 499, RANDOM.nextInt(500));
+			return new Point(RANDOM.nextDouble() < 0.5 ? 1 : 499, RANDOM.nextInt(500));
 		}
 	}
 
 	protected static Point createLocationNearPoint(Point point) {
 		if (point.x == 0) {
-			return new Point(0, point.y + RANDOM.nextInt(100));
+			return new Point(1, point.y + RANDOM.nextInt(100));
 		} else {
 			return new Point(point.x + RANDOM.nextInt(100), point.y);
 		}
