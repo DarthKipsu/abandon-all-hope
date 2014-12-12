@@ -21,7 +21,7 @@ public class GameTest {
 	public void setUp() {
 		game = new Game(30);
 		items = game.getItems();
-		MessagePanel messages = new MessagePanel(game);
+		MessagePanel messages = new MessagePanel();
 		Timeline gtl = new Timeline(new KeyFrame(Duration.millis(1000 / 60), game));
 		gtl.play();
 		game.setGameTimeline(gtl);

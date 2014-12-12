@@ -10,7 +10,6 @@ import javafx.stage.WindowEvent;
 
 /**
  * Creates a popup window for game over scenario
- *
  * @author kipsu
  */
 public class PopupMessage {
@@ -26,7 +25,7 @@ public class PopupMessage {
 	/**
 	 * Display a popup message showing game over message and creating events for
 	 * starting a new game.
-	 * @param game 
+	 * @param game game used to begin game
 	 */
 	public static void showGameOverMessage(final Game game) {
 		Label label = addGameOverMessage();

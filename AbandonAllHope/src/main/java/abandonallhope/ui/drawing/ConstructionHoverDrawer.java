@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 /**
  * class to draw construction hover shadows while hovering over game field
  * during build mode.
- *
  * @author kipsu
  */
 public class ConstructionHoverDrawer extends Drawer {
@@ -27,7 +26,6 @@ public class ConstructionHoverDrawer extends Drawer {
 	/**
 	 * Creates a new construction hover drawing object, used to draw shadows of
 	 * constructions in build mode.
-	 *
 	 * @param items game object containing game content
 	 * @param gc graphics context to draw the object with
 	 */
@@ -39,7 +37,7 @@ public class ConstructionHoverDrawer extends Drawer {
 
 	/**
 	 * gives the drawer dimensions used to build the hover units
-	 * @param buildingDimension
+	 * @param buildingDimension size of the building to draw
 	 */
 	public void setConstructionDimensions(Rectangle2D buildingDimension) {
 		inventory = items.getInventory();
@@ -51,9 +49,8 @@ public class ConstructionHoverDrawer extends Drawer {
 
 	/**
 	 * Updates the coordinates where the shadow wall is drawn to.
-	 *
-	 * @param x
-	 * @param y
+	 * @param x x coordinate of building
+	 * @param y y coordinate of the building
 	 */
 	public void updateUpperLeftCornerCoordinates(int x, int y) {
 		upperLeftX = x;
@@ -90,7 +87,6 @@ public class ConstructionHoverDrawer extends Drawer {
 
 	/**
 	 * Draws unbuilt objects in the list.
-	 *
 	 * @param objects List of objects to draw.
 	 */
 	public void drawUnbuilt(List<? extends DrawableObject> objects) {

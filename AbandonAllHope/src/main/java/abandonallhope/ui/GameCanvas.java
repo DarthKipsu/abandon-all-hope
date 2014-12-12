@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Contains game field presentation and events.
- *
  * @author kipsu
  */
 public class GameCanvas implements EventHandler {
@@ -33,10 +32,8 @@ public class GameCanvas implements EventHandler {
 	private TrapBuildEvent trapBuildEvent;
 
 	/**
-	 * Creates a new game canvas and drawer classes to draw objects on game
-	 * field.
-	 *
-	 * @param items
+	 * Creates a new game canvas and drawer classes to draw objects on game field.
+	 * @param items game items
 	 */
 	public GameCanvas(Items items) {
 		this.items = items;
@@ -92,7 +89,6 @@ public class GameCanvas implements EventHandler {
 	 * Adds event listeners to display a shadow of a wall before building it and
 	 * listener that will handle the wall building once the building location is
 	 * clicked.
-	 *
 	 * @param wall wall element containing information about the wall type
 	 */
 	public void addWallHoverEventListener(Wall wall) {
@@ -104,7 +100,6 @@ public class GameCanvas implements EventHandler {
 
 	/**
 	 * Removes wall hover event from game canvas.
-	 *
 	 * @param wall wall element containing information about the wall type
 	 */
 	public void changeToBuildHoverEventListener(Wall wall) {
@@ -133,7 +128,6 @@ public class GameCanvas implements EventHandler {
 	 * Adds event listeners to display a shadow of a trap before building it and
 	 * listener that will handle the trap building once the building location is
 	 * clicked.
-	 *
 	 * @param trap trap element containing information about the trap type
 	 */
 	public void addTrapHoverEventListener(Trap trap) {
@@ -143,6 +137,9 @@ public class GameCanvas implements EventHandler {
 		canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, trapBuildEvent);
 	}
 
+	/**
+	 * Remove event listeners for building traps.
+	 */
 	public void removeTrapBuildingEventListeners() {
 		try {
 			canvas.removeEventHandler(MouseEvent.MOUSE_MOVED, trapHoverEvent);

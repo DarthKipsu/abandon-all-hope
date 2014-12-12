@@ -1,7 +1,6 @@
 
 package abandonallhope.ui;
 
-import abandonallhope.logic.Game;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -18,7 +17,7 @@ public class MessagePanel {
 	/**
 	 * Creates a new message panel displaying messages to player.
 	 */
-	public MessagePanel(Game game) {
+	public MessagePanel() {
 		vbox = new VBox();
 		vbox.getStyleClass().add("bottom");
 		vbox.setPrefHeight(152);

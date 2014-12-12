@@ -22,7 +22,7 @@ public class TurnTest {
 	@Before
 	public void setUp() {
 		Game game = new Game(30);
-		MessagePanel messages = new MessagePanel(game);
+		MessagePanel messages = new MessagePanel();
 		items = game.getItems();
 		turn = game.getTurn();
 	}

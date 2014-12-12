@@ -68,7 +68,7 @@ public class UserInterface implements EventHandler {
 	}
 
 	private void createBorder() {
-		MessagePanel messages = new MessagePanel(game);
+		MessagePanel messages = new MessagePanel();
 		BuildPanel build = new BuildPanel(game.getItems(), canvas);
 		border = new BorderPane();
 		border.getStylesheets().add("/uiStyle.css");

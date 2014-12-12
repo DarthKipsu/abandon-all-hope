@@ -12,7 +12,6 @@ import javafx.scene.text.FontWeight;
 
 /**
  * Right ui panel containing objects about building and weapons.
- *
  * @author kipsu
  */
 public class BuildPanel {
@@ -24,6 +23,8 @@ public class BuildPanel {
 	/**
 	 * Creates a new building and weapons panel, displaying building types and
 	 * available weapons.
+	 * @param items items containing the game objects
+	 * @param canvas canvas drawing the ui
 	 */
 	public BuildPanel(Items items, GameCanvas canvas) {
 		vbox = new VBox();
