@@ -17,7 +17,7 @@ public class Game implements EventHandler {
 
 	/**
 	 * Create new game event handler
-	 * @param mapSize
+	 * @param mapSize size of the game map to be created
 	 */
 	public Game(int mapSize) {
 		items = new Items(mapSize);
@@ -39,6 +39,7 @@ public class Game implements EventHandler {
 
 	/**
 	 * Handle game event: move survivors and zombies, fight zombies and infect survivors.
+	 * @param t Turn event
 	 */
 	@Override
 	public void handle(Event t) {
@@ -53,6 +54,9 @@ public class Game implements EventHandler {
 		}
 	}
 
+	/**
+	 * Set game on pause or continue once game is already paused.
+	 */
 	public void pause() {
 		if (gameTimeline.getStatus() == Animation.Status.PAUSED) {
 			gameTimeline.play();

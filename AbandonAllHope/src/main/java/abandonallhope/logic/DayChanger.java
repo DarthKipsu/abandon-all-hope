@@ -9,7 +9,6 @@ import java.util.Random;
 
 /**
  * Class to contain logic for a change of a day.
- *
  * @author kipsu
  */
 public class DayChanger {
@@ -28,10 +27,9 @@ public class DayChanger {
 	public static int day;
 
 	/**
-	 * Give game object to game changer so new survivors and zombies can be
-	 * added.
-	 *
-	 * @param game game where the units will be placed.
+	 * Give game object to game changer so new survivors and zombies can be added.
+	 * @param items items containing game objects
+	 * @param turn game turn containing event trigggerers
 	 */
 	public static void setGame(Items items, Turn turn) {
 		DayChanger.items = items;

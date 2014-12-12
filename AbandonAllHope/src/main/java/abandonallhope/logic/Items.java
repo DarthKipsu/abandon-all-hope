@@ -28,7 +28,6 @@ public class Items {
 	/**
 	 * Create new game items container.
 	 * @param mapSize size of map to be created.
-	 * @param game Game to be connected with the Map.
 	 */
 	public Items(int mapSize) {
 		inventory = new Inventory();

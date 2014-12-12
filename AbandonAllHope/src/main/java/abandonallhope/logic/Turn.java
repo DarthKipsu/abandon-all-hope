@@ -25,7 +25,7 @@ public class Turn {
 
 	/**
 	 * Creates a new turn object
-	 * @param items 
+	 * @param items items containing game objects
 	 */
 	public Turn(Items items) {
 		this.items = items;

@@ -14,6 +14,10 @@ public class FirearmLoot implements Loot {
 
 	private ResourceEvents resEvents;
 
+	/**
+	 * Create new firearm loot
+	 * @param resEvents resource events to trigger events
+	 */
 	public FirearmLoot(ResourceEvents resEvents) {
 		this.resEvents = resEvents;
 	}

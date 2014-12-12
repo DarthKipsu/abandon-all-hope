@@ -7,13 +7,16 @@ import abandonallhope.logic.ResourceEvents;
 
 /**
  * Used to add melee weapons to inventory.
- *
  * @author kipsu
  */
 public class WeaponLoot implements Loot {
 
 	private ResourceEvents resEvents;
 
+	/**
+	 * Create new weapon loot distributor
+	 * @param resEvents 
+	 */
 	public WeaponLoot(ResourceEvents resEvents) {
 		this.resEvents = resEvents;
 	}

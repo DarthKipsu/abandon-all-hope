@@ -7,7 +7,6 @@ import java.util.Random;
 
 /**
  * Will divide loot from a zombie.
- *
  * @author kipsu
  */
 public class LootDistributor {
@@ -18,6 +17,7 @@ public class LootDistributor {
 
 	/**
 	 * Create new loot distributor to distribute loot to player after killing zombies.
+	 * @param resEvents Resource events used to trigger events
 	 * @param inventory inventory where the loot is added
 	 */
 	public LootDistributor(ResourceEvents resEvents, Inventory inventory) {
