@@ -19,10 +19,10 @@ public class Bullet extends MovingObject implements DrawableObject {
 
 	/**
 	 * Create a new bullet object
-	 * @param startingLocation
-	 * @param map
-	 * @param destination
-	 * @param distance 
+	 * @param startingLocation location where the bullet will leave from
+	 * @param map Map of the game
+	 * @param destination destination which way the bullet is shot at
+	 * @param distance distance the bullet can move
 	 */
 	public Bullet(Point startingLocation, Map map, Point destination, int distance) {
 		super(startingLocation, map, 2, Color.BLACK);

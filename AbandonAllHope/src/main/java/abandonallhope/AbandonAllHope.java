@@ -5,14 +5,12 @@ import abandonallhope.logic.Game;
 import abandonallhope.ui.PopupMessage;
 import abandonallhope.ui.UserInterface;
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
  * Main class for abandon all hope td game
- * @author kipsu
  */
 public class AbandonAllHope extends Application {
 	

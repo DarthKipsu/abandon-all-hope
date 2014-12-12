@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * Contains inventory for the player resources.
- *
  * @author kipsu
  */
 public class Inventory {
@@ -53,7 +52,7 @@ public class Inventory {
 
 	/**
 	 * Adds bullets for pistol firearm.
-	 * @param amount 
+	 * @param amount amount of bullets to add
 	 */
 	public void addPistolBullets(int amount) {
 		pistolBullets.add(amount);
@@ -61,7 +60,7 @@ public class Inventory {
 
 	/**
 	 * Adds one or more new melee weapons.
-	 * @param weapons 
+	 * @param weapons weapons to be added
 	 */
 	public void addWeapons(Weapon... weapons) {
 		for (Weapon weapon : weapons) {
@@ -71,7 +70,7 @@ public class Inventory {
 
 	/**
 	 * Adds one or more firearms
-	 * @param firearms 
+	 * @param firearms firearms to be added
 	 */
 	public void addFireamrs(Firearm... firearms) {
 		for (Firearm firearm : firearms) {
@@ -81,7 +80,7 @@ public class Inventory {
 	
 	/**
 	 * Adds new wood to player resources
-	 * @param amount 
+	 * @param amount amount of wood to add
 	 */
 	public void addWood(int amount) {
 		wood += amount;
@@ -89,7 +88,7 @@ public class Inventory {
 	
 	/**
 	 * Adds new metal to player resources
-	 * @param amount 
+	 * @param amount amount of metal to add
 	 */
 	public void addMetal(int amount) {
 		metal += amount;

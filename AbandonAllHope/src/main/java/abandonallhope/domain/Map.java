@@ -18,10 +18,9 @@ public class Map {
 
 	/**
 	 * Creates a new game map
-	 *
-	 * @param width map width
-	 * @param height map height
-	 * @Param survivors list of survivors
+	 * @param width width of the map
+	 * @param height height of the map
+	 * @param items items in game, used to check trap and wall locations
 	 */
 	public Map(int width, int height, Items items) {
 		this.width = width;
@@ -31,27 +30,21 @@ public class Map {
 
 	/**
 	 * Creates a new game map
-	 *
 	 * @param size map side length
-	 * @Param survivors list of survivors
+	 * @param items items in game, used to check trap and wall locations
 	 */
 	public Map(int size, Items items) {
 		this(size, size, items);
 	}
-
-	/**
-	 * Returns list of survivors from game.
-	 *
-	 * @return
-	 */
+	
 	public List<Survivor> getSurvivors() {
 		return items.getSurvivors();
 	}
 
 	/**
 	 * Returns true if the given point is a valid move inside the game map
-	 *
 	 * @param point point that needs to be validated
+	 * @return true if movement is valid
 	 */
 	public boolean isValidMove(Point point) {
 		return point.x >= 0 && point.x <= width &&
@@ -61,10 +54,10 @@ public class Map {
 	/**
 	 * Returns true if the given point with the displacements added is a valid
 	 * move inside the game map
-	 *
 	 * @param point point that needs to be validated
 	 * @param dx displacement to x direction
 	 * @param dy displacement to y direction
+	 * @return true if movement is valid
 	 */
 	public boolean isValidMove(Point point, double dx, double dy) {
 		return point.x + dx >= 0 && point.x + dx <= width &&
@@ -73,9 +66,8 @@ public class Map {
 
 	/**
 	 * Returns true if given coordinates contains a wall in game.
-	 *
-	 * @param x
-	 * @param y
+	 * @param x x coordinate
+	 * @param y y coordinate
 	 * @return true if location contains a wall
 	 */
 	public boolean hasObstacle(double x, double y) {
@@ -90,7 +82,6 @@ public class Map {
 
 	/**
 	 * Checks if a zombie location contains a trap that has capacity left.
-	 *
 	 * @param point Location of a zombie
 	 * @return true if zombie is trapped
 	 */
@@ -106,7 +97,8 @@ public class Map {
 
 	/**
 	 * Checks if a building location contains a trap.
-	 * @param point Location of the trap
+	 * @param x x coordinate to check
+	 * @param y y coordinate to check
 	 * @return true if other trap is here
 	 */
 	public boolean hasTrap(double x, double y) {

@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 
 /**
  * New zombie object
- *
  * @author kipsu
  */
 public class Zombie extends MovingObject implements DrawableObject {
@@ -19,10 +18,9 @@ public class Zombie extends MovingObject implements DrawableObject {
 
 	/**
 	 * Constructor for the zombie class
-	 *
-	 * @param startingLocation location where the zombie will be placed when
-	 * entering game
+	 * @param startingLocation location where the zombie will be placed when entering game
 	 * @param map Map where the zombie is added
+	 * @param zombies list of other zombies in game
 	 */
 	public Zombie(Point startingLocation, Map map, List<Zombie> zombies) {
 		super(startingLocation, map, 3, Color.LIME);

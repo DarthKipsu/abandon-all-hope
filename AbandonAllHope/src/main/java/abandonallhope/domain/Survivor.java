@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 
 /**
  * New survivor object
- *
  * @author kipsu
  */
 public class Survivor extends MovingObject implements DrawableObject {
@@ -21,9 +20,10 @@ public class Survivor extends MovingObject implements DrawableObject {
 	/**
 	 * Constructor for the survivor class
 	 *
-	 * @param startingLocation location where the survivor will be placed when
-	 * entering game
+	 * @param startingLocation location where the survivor will be placed when entering game
 	 * @param map Map where the survivor is added
+	 * @param name name of the survivor
+	 * @param id survivor id used to select survivor
 	 */
 	public Survivor(Point startingLocation, Map map, String name, int id) {
 		super(startingLocation, map, 3, Color.BLACK);
@@ -61,10 +61,16 @@ public class Survivor extends MovingObject implements DrawableObject {
 		return selected;
 	}
 
+	/**
+	 * Sets the survivor status as selected
+	 */
 	public void select() {
 		selected = true;
 	}
 
+	/**
+	 * Removes selected status from survivor
+	 */
 	public void unselect() {
 		selected = false;
 	}
@@ -72,7 +78,6 @@ public class Survivor extends MovingObject implements DrawableObject {
 	/**
 	 * Move towards another point in the game Moves until the destination is
 	 * reached or a new destination set.
-	 *
 	 * @param destination
 	 */
 	public void moveTowards(Point destination) {

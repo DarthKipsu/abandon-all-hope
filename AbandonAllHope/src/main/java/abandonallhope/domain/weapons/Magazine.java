@@ -18,7 +18,7 @@ public class Magazine {
 	
 	/**
 	 * Add more bullets to magazine
-	 * @param amount 
+	 * @param amount amount of bullets to add
 	 */
 	public void add(int amount) {
 		bullets += amount;
@@ -33,7 +33,7 @@ public class Magazine {
 	
 	/**
 	 * Returns true if there are bullets left in this magazine
-	 * @return 
+	 * @return true if bullets left
 	 */
 	public boolean notEmpty() {
 		return bullets > 0;

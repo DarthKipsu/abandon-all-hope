@@ -18,6 +18,13 @@ public abstract class MovingObject {
 	protected Color color;
 	protected boolean trapped;
 
+	/**
+	 * Constructor for moving objects class.
+	 * @param startingLocation location to place the object
+	 * @param map MAp containing the object
+	 * @param width width of the object presentation
+	 * @param color color of the object presentation
+	 */
 	public MovingObject(Point startingLocation, Map map, double width, Color color) {
 		location = startingLocation;
 		this.map = map;
