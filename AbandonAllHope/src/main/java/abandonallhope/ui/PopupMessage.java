@@ -29,7 +29,7 @@ public class PopupMessage {
 	 * @param game 
 	 */
 	public static void showGameOverMessage(final Game game) {
-		Label label = AddGameOverMessage();
+		Label label = addGameOverMessage();
 		final Popup popup = createPopup(label);
 		centerPopupOnStage(popup);
 		addNewGameEventHandler(popup, game);
@@ -51,7 +51,7 @@ public class PopupMessage {
 		pause.hide();
 	}
 
-	private static Label AddGameOverMessage() {
+	private static Label addGameOverMessage() {
 		Label label = createLabel("All survivors are lost! You managed to" +
 				"survive for " + DayChanger.day + " days!\n" +
 				"                               Game over!\n\n" +
