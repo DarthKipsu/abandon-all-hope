@@ -1,0 +1,24 @@
+-classpath
+'/home/kipsu/NetBeansProjects/AbandonAllHope/AbandonAllHope/target/classes'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/kipsu/NetBeansProjects/AbandonAllHope/AbandonAllHope/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2014. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/kipsu/NetBeansProjects/AbandonAllHope/AbandonAllHope/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'AbandonAllHope 1.0-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' '/home/kipsu/NetBeansProjects/AbandonAllHope/AbandonAllHope/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'AbandonAllHope 1.0-SNAPSHOT API'

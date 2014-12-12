@@ -1,0 +1,12 @@
+abandonallhope
+abandonallhope.ui
+abandonallhope.ui.drawing
+abandonallhope.logic
+abandonallhope.logic.loot
+abandonallhope.domain
+abandonallhope.domain.constructions
+abandonallhope.domain.weapons
+abandonallhope.events.handlers
+abandonallhope.events.action
+abandonallhope.events.key
+abandonallhope.events.mouse
