@@ -1,0 +1,1211 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+border: 1px solid #dddddd;
+padding-top: 10px;
+padding-right: 5px;
+padding-left: 5px;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+</style>
+
+</head>
+<body>
+
+
+<h1>MovingObject.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_1'/>
+1
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_1'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_2'/>
+2
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_2'></a>
+</td>
+<td class=''><pre><span  class=''>package abandonallhope.domain;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_3'/>
+3
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_3'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_4'/>
+4
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_4'></a>
+</td>
+<td class=''><pre><span  class=''>import javafx.geometry.Rectangle2D;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_5'/>
+5
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_5'></a>
+</td>
+<td class=''><pre><span  class=''>import javafx.scene.paint.Color;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_6'/>
+6
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_6'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_7'/>
+7
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_7'></a>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_8'/>
+8
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_8'></a>
+</td>
+<td class=''><pre><span  class=''> * Moving object is a superclass for moving objects and contains methods to move</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_9'/>
+9
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_9'></a>
+</td>
+<td class=''><pre><span  class=''> * objects around.</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_10'/>
+10
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_10'></a>
+</td>
+<td class=''><pre><span  class=''> * @author kipsu</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_11'/>
+11
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_11'></a>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_12'/>
+12
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_12'></a>
+</td>
+<td class=''><pre><span  class=''>public abstract class MovingObject {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_13'/>
+13
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_13'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_14'/>
+14
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_14'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected Point location;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_15'/>
+15
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_15'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected Map map;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_16'/>
+16
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_16'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected double speed;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_17'/>
+17
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_17'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected double width;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_18'/>
+18
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_18'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected Color color;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_19'/>
+19
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_19'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected boolean trapped;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_20'/>
+20
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_20'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_21'/>
+21
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_21'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public MovingObject(Point startingLocation, Map map, double width, Color color) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_22'/>
+22
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_22'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;location = startingLocation;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_23'/>
+23
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_23'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.map = map;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_24'/>
+24
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_24'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.width = width;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_25'/>
+25
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_25'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.color = color;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_26'/>
+26
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_26'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.trapped = false;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_27'/>
+27
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_27'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_28'/>
+28
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_28'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_29'/>
+29
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_29'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public Point getLocation() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_30'/>
+30
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_30'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return location;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_31'/>
+31
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_31'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_32'/>
+32
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_32'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_33'/>
+33
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_33'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public double getSpeed() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_34'/>
+34
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_34'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return speed;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_35'/>
+35
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_35'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_36'/>
+36
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_36'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_37'/>
+37
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_37'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public Color getColor() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_38'/>
+38
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_38'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return color;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_39'/>
+39
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_39'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_40'/>
+40
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_40'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_41'/>
+41
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_41'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public boolean isTrapped() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_42'/>
+42
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_42'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return trapped;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_43'/>
+43
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_43'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_44'/>
+44
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_44'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_45'/>
+45
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_45'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_46'/>
+46
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_46'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * Move to direction x,y</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_47'/>
+47
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_47'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * The length of the movement is based on objects speed</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_48'/>
+48
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_48'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param x direction x</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_49'/>
+49
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_49'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param y direction y</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_50'/>
+50
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_50'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_51'/>
+51
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_51'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public void move(double x, double y) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_52'/>
+52
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_52'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;double dx = normalize(x);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_53'/>
+53
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_53'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;double dy = normalize(y);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_54'/>
+54
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_54'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (map.isValidMove(location, dx, dy)) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_55'/>
+55
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_55'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;location.translate(dx, dy);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_56'/>
+56
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_56'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_57'/>
+57
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_57'></a>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_58'/>
+58
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_58'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_59'/>
+59
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_59'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public abstract void move();</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_60'/>
+60
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_60'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_61'/>
+61
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_61'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_62'/>
+62
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_62'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * Get the area this object is occupying at the moment</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_63'/>
+63
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_63'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; * @return occupied area</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_64'/>
+64
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_64'></a>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_65'/>
+65
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_65'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public Rectangle2D occupiedArea() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_66'/>
+66
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_66'>5</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return new Rectangle2D(location.x - width / 2, location.y - width / 2, width, width);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_67'/>
+67
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_67'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_68'/>
+68
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_68'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_69'/>
+69
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_69'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;protected double normalize(double direction) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_70'/>
+70
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_70'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;if (direction == 0) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_71'/>
+71
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_71'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return 0;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_72'/>
+72
+</td>
+<td class='survived'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_72'>2</a>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;} else if (direction &#62; 0) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_73'/>
+73
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_73'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return speed;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_74'/>
+74
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_74'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;} else {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_75'/>
+75
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_75'>2</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;&#9;return -1 * speed;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_76'/>
+76
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_76'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_77'/>
+77
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_77'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_78'/>
+78
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_78'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_79'/>
+79
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_79'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_80'/>
+80
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_80'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;public String toString() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_81'/>
+81
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_81'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return String.format(&#34;%s location: %.1f,%.1f&#34;, getClass().getName().substring(22), location.x, location.y);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_82'/>
+82
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_82'></a>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@736048ed_83'/>
+83
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_83'></a>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_30'>30</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_30'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/MovingObject::getLocation to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.logic.SurvivorSelectorTest.returnNullIfNoSurvivorsGetSelectedAndNoneAreCurrentlySelected(abandonallhope.logic.SurvivorSelectorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_34'/> 
+
+<p class='KILLED'>replaced return of double value with -(x + 1) for abandonallhope/domain/MovingObject::getSpeed : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_38'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/MovingObject::getColor to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.domain.SurvivorTest.colorIsBlack(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_42'/> 
+
+<p class='KILLED'>replaced return of integer sized value with (x == 0 ? 1 : 0) : KILLED -> abandonallhope.logic.GameTest.dayChangeConditionReturnsFalseIfThereAreZombies(abandonallhope.logic.GameTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_54'/> 
+
+<p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_55'/> 
+
+<p class='KILLED'>removed call to abandonallhope/domain/Point::translate : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_66'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/MovingObject::occupiedArea to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.domain.ZombieTest.occupies3x3Space(abandonallhope.domain.ZombieTest)</p> <p class='KILLED'>Replaced double division with multiplication : KILLED -> abandonallhope.domain.ZombieTest.occupies3x3Space(abandonallhope.domain.ZombieTest)</p> <p class='KILLED'>Replaced double subtraction with addition : KILLED -> abandonallhope.domain.ZombieTest.occupies3x3Space(abandonallhope.domain.ZombieTest)</p> <p class='KILLED'>Replaced double subtraction with addition : KILLED -> abandonallhope.domain.ZombieTest.occupies3x3Space(abandonallhope.domain.ZombieTest)</p> <p class='KILLED'>Replaced double division with multiplication : KILLED -> abandonallhope.domain.ZombieTest.occupies3x3Space(abandonallhope.domain.ZombieTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_70'/> 
+
+<p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_71'/> 
+
+<p class='KILLED'>replaced return of double value with -(x + 1) for abandonallhope/domain/MovingObject::normalize : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_72'/> 
+
+<p class='KILLED'>negated conditional : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> <p class='SURVIVED'>changed conditional boundary : SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_73'/> 
+
+<p class='KILLED'>replaced return of double value with -(x + 1) for abandonallhope/domain/MovingObject::normalize : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresRight(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_75'/> 
+
+<p class='KILLED'>replaced return of double value with -(x + 1) for abandonallhope/domain/MovingObject::normalize : KILLED -> abandonallhope.domain.ZombieTest.canMoveDiagonally(abandonallhope.domain.ZombieTest)</p> <p class='KILLED'>Replaced double multiplication with division : KILLED -> abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@736048ed_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@736048ed_81'/> 
+
+<p class='KILLED'>mutated return of Object value for abandonallhope/domain/MovingObject::toString to ( if (x != null) null else throw new RuntimeException ) : KILLED -> abandonallhope.domain.SurvivorTest.printsSurvivorLocationCorrectly(abandonallhope.domain.SurvivorTest)</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>abandonallhope.logic.SurvivorSelectorTest.returnNullIfANewSurvivorGetsSelected(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.printsSurvivorLocationCorrectly(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.returnsName(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.dontRemoveBulletsWhenTheyHaveNotYetMovedTheirMaxDistance(abandonallhope.logic.TurnTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.stopsIfComesAcrossAWall(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.colorIsBlack(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.canMoveDiagonally(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.doesNotMoveStraightIfAnotherZombieIsAtLocation(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.returnNullIfSurvivorIsSelected(abandonallhope.logic.SurvivorSelectorTest) (0 ms)</li><li>abandonallhope.logic.TurnTest.infectSurvivorInASamePointWithZombie(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.canBeSelected(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.movesCorrectlyAfterSeveralSteps(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotHaveAFireArmInitially(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.survivorDoesNotMoveOutsideMap2(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.twoZombiesDoNotGetTrappedOnBearIron(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.usesAxeWhenCloseEnoughToZombieAndWeaponIsNotYetReloaded(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.doesNotMoveIfOnTopOfSurvivor(abandonallhope.domain.ZombieTest) (3 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotHaveAWeaponInitially(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.movesSurvivors(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.zombieDoesNotMoveOutsideMap(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.movesSpeedSquaresUp(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.unselectOtherSurvivorsWhenNewOneIsSelected(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.anotherZomieTooNear5(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.turnMovesZombiesIfSurvivorsIsNotEmpty(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.killZombieCloseToArmedSurvivor(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesSpeedSquaresDown(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.movesCorrectlyAfterSeveralSteps(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.doesNotShootABulletIfNotCloseEnoughToZombieAndHasBulletsLeft(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.anotherZomieTooNear6(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.anotherZomieTooNear4(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.turnHandlesBullets(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.zombieIsRemovedWhenBulletHitsIt(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.infectSSurvivorsTooCloseToZombies(abandonallhope.logic.TurnTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.turnMovesSurvivors(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.selectSurvivorEvenIfCoordinate4pixelsWrong(abandonallhope.logic.SurvivorSelectorTest) (0 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.returnSurvivor2ThatWasSelectedAndNoNewSelectionsWereMeade(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesSpeeedSquaresUp(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.canBeGivenAWeapon(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.movesZombies(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.returnNullIfNoSurvivorsGetSelectedAndNoneAreCurrentlySelected(abandonallhope.logic.SurvivorSelectorTest) (0 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.returnSurvivorThatWasSelectedAndNoNewSelectionsWereMeade(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.shootsABulletIfCloseEnoughToZombieAndHasBulletsLeft(abandonallhope.logic.TurnTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.isInitiallyNotSelected(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.logic.DayChangerTest.zombieLocationIsOnTheBorderOfTheMap(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.unselectOtherSurvivorsWhenNewOneIsSelected2(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.canMoveDiagonally(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.canBeGivenAFirearm(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.canBeUnselected(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.movesSpeedSquaresRight(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesTowardsDestination(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.usesAxeWhenCloseEnoughToZombieAndHasGunButNoBullets(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.movesSpeedSquaresLeft(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.deleteSurvivorEventTriggersWhenSurvivorIsRemovedFromGame(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.zombieDoesNotMoveOutsideMap2(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.doesNotMoveIfNoSurvivorsLeft(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesSpeedSquaresLeft(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.unselectSurvivorIfItsAlreadySelected(abandonallhope.logic.SurvivorSelectorTest) (0 ms)</li><li>abandonallhope.domain.ZombieTest.occupies3x3Space(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotMoveFurtherIfHasReachedAsCloseAsItCanGet(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.dontKillZombieCloseToArmedSurvivorIfWeaponIsNotUsable(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.doesNotUseOtherWeaponIfSurvivorHasAGun(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.anotherZomieTooNear2(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.movesOnlySpeedSquaresUpWithOneMove(abandonallhope.domain.SurvivorTest) (17 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotMovePastDestination(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.movesTowardsNearestSurvivor1(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.printsZombieLocationCorrectly(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.returnsId(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotMoveWithoutCoordinates(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.zombieDoesNotPassAWall(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.movesTowardsNearestSurvivor3(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.zombieGetsTrappedIfOnTopOfAnEmptyTrap(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.dontInfectSurvivorsFarEnoughFromZombies(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesUntilDestinationHasBeenReached(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.logic.GameTest.dayChangeConditionReturnsFalseIfThereAreZombies(abandonallhope.logic.GameTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.movesTowardsNearestSurvivor2(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotMoveOutsideMap(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.zombieTakesRandomStepIfFacedWithWall(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.doesNotMoveThroughWalls(abandonallhope.domain.SurvivorTest) (7 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.selectSurvivor2EvenIfCoordinate4pixelsWrong(abandonallhope.logic.SurvivorSelectorTest) (0 ms)</li><li>abandonallhope.logic.TurnTest.zombieIsNotRemovedWhenBulletDoesNotHitIt(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.bulletsDecreaseWhenFightingZombiesAndGunIsUsed(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.bulletMovesOnceInOneFrame(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.occupies3x3Space(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.domain.ZombieTest.anotherZomieTooNear1(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.dayChangeConditionReturnsTrueWhenOnlyTrappedZombiesAreLeft(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.turnDoesNotMoveZombiesIfSurvivorsIsEmpty(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.turnFightsZombies(abandonallhope.logic.TurnTest) (2 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.selectsSurvivorAtTheRightCoordinates(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.doesNotWasteBulletsOnTrappedZombies(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.turnInfectsSurvivors(abandonallhope.logic.TurnTest) (0 ms)</li><li>abandonallhope.logic.DayChangerTest.dayOneSurvivorsAreLocatedInsideTheCamp(abandonallhope.logic.DayChangerTest) (1 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.dontSelectSurvivorsIfCoordinates5pixelsWrong(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.movesFiveSquaresDown(abandonallhope.domain.ZombieTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.infectSSurvivorsTooCloseToZombies2(abandonallhope.logic.TurnTest) (2 ms)</li><li>abandonallhope.domain.SurvivorTest.survivorDoesNotMoveOutsideMap(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.logic.TurnTest.displayMessageWhenSurvivorIsRemovedFromGame(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesSpeedSquaresRight(abandonallhope.domain.SurvivorTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.anotherZomieTooNear3(abandonallhope.domain.ZombieTest) (26 ms)</li><li>abandonallhope.logic.SurvivorSelectorTest.unselectSurvivor2IfItsAlreadySelected(abandonallhope.logic.SurvivorSelectorTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.movesOnlySpeedSquaresUpWithOneMove(abandonallhope.domain.ZombieTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.doesNotShootABulletIfCloseEnoughToZombieButHasNoBulletsLeft(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.SurvivorTest.movesTowardsDestination2(abandonallhope.domain.SurvivorTest) (2 ms)</li><li>abandonallhope.logic.TurnTest.createANewZombieAfterInfection(abandonallhope.logic.TurnTest) (1 ms)</li><li>abandonallhope.domain.ZombieTest.zombieDoesNotGetTrappedIfTrapIsBehindHim(abandonallhope.domain.ZombieTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 0.30
+
+</body>
+</html>
