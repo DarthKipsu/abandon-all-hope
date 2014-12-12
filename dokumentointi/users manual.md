@@ -13,6 +13,7 @@ Survive as many days as you can from the beginning of zombie apocalypse.
 ### Building walls and traps
 * Traps can be built by simply clicking the trap button and  then clicking the game map on a desired location.
 * For walls, you first need to select the starting position of the wall and then select the length and direction of the wall by a second click.
+* Building costs are shown on the construction buttons. The first two numbers represent cost in wood/metal, the third number is the strength or capacity of the construction.
 * If you want to cancel building any constructions, simply click 'deselect all' button or press Esc key.
 
 ### Strategy tips
