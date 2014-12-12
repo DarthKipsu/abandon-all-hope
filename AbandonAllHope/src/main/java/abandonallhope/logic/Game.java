@@ -59,10 +59,17 @@ public class Game implements EventHandler {
 			PopupMessage.removePauseMessage();
 		} else {
 			gameTimeline.pause();
-			PopupMessage.showPauseMessage();
+			try {
+				PopupMessage.showPauseMessage();
+			} catch (ExceptionInInitializerError e) {
+				// Needed for tests to run without initializing popup
+			}
 		}
 	}
 	
+	/**
+	 * Creates a new game and deletes objects from the previous game.
+	 */
 	public void startANewGame() {
 		MessagePanel.clearMessages();
 		items.reset();
@@ -71,10 +78,6 @@ public class Game implements EventHandler {
 		MessagePanel.addMessage("It's the first day of zombie apocalypse! You " +
 				"managed to survive out of the city with your group...");
 		gameTimeline.play();
-	}
-
-	public void addMessage(String message) {
-		MessagePanel.addMessage(message);
 	}
 
 	protected void sleepUntilTheNextDay() {

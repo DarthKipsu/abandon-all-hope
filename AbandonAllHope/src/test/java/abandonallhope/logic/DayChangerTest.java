@@ -4,6 +4,9 @@ import abandonallhope.domain.Point;
 import abandonallhope.domain.Survivor;
 import abandonallhope.domain.weapons.Axe;
 import abandonallhope.domain.weapons.Pistol;
+import abandonallhope.events.action.NewSurvivorEvent;
+import abandonallhope.events.handlers.NewSurvivorEventHandler;
+import abandonallhope.events.handlers.ResourceEventHandler;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +15,12 @@ import static org.junit.Assert.*;
 public class DayChangerTest {
 
 	private Items items;
+	private Turn turn;
 
 	@Before
 	public void setUp() {
 		Game game = new Game(500);
+		turn = game.getTurn();
 		items = game.getItems();
 		DayChanger.setGame(items, game.getTurn());
 	}
@@ -111,7 +116,6 @@ public class DayChangerTest {
 	public void randomLocationTestCoordinatesInCorrectIntervals() {
 		for (int i = 0; i < 100; i++) {
 			Point point = DayChanger.createRandomLocation();
-			System.out.println(point);
 			if (point.x == 1 || point.x == 499) {
 				assertTrue(point.y >= 1);
 				assertTrue(point.y < 500);
@@ -149,6 +153,38 @@ public class DayChangerTest {
 			assertTrue(point.x >= 50);
 			assertTrue(point.x < 150);
 			assertTrue(point.y == 499);
+		}
+	}
+	
+	@Test
+	public void dayNHasCorrectAmoutnOfZombies() {
+		for (int i = 2; i < 50; i++) {
+			items.reset();
+			DayChanger.day = i - 1;
+			DayChanger.nextDay();
+			assertTrue(items.getZombies().size() >= i * 2);
+			assertTrue(items.getZombies().size() <= i * 3);
+		}
+	}
+	
+	@Test
+	public void newSurvivorEventTriggersWhenSurvivorIsAddedToGame() {
+		NewSurvivorEventHandlerMock res = (NewSurvivorEventHandlerMock) newSurvivorEvent();
+		turn.addNewResourceEventHandler(res, "newSurvivor");
+		DayChanger.setupDayOne();
+		assertEquals(5, res.handleEvents);
+	}
+
+	private ResourceEventHandler newSurvivorEvent() {
+		return new NewSurvivorEventHandlerMock();
+	}
+
+	private class NewSurvivorEventHandlerMock implements NewSurvivorEventHandler {
+		public int handleEvents = 0;
+		
+		@Override
+		public void handle(NewSurvivorEvent e) {
+			handleEvents++;
 		}
 	}
 }
