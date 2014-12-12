@@ -18,8 +18,8 @@ public class DeselectEvent implements EventHandler<ActionEvent> {
 
 	/**
 	 * Deselect all survivors and cancel building.
-	 * @param canvas
-	 * @param items 
+	 * @param canvas Canvas containing event listeners to remove
+	 * @param items items containing survivors to delselect
 	 */
 	public DeselectEvent(GameCanvas canvas, Items items) {
 		this.canvas = canvas;

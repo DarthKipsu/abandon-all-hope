@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Handles the mouse event used to select survivors
- *
  * @author kipsu
  */
 public class SurvivorEvent implements EventHandler<MouseEvent> {
@@ -19,19 +18,12 @@ public class SurvivorEvent implements EventHandler<MouseEvent> {
 
 	/**
 	 * Create a new mouse event for tracking survivor selector
-	 *
-	 * @param items
+	 * @param items containing the survivors
 	 */
 	public SurvivorEvent(Items items) {
 		survivors = items.getSurvivors();
 	}
 
-	/**
-	 * Handles a mouse click moving survivor if one is selected and selecting
-	 * one if not or if selecting a new survivor, using SurvivorSelector class.
-	 *
-	 * @param event
-	 */
 	@Override
 	public void handle(MouseEvent event) {
 		Survivor moving = getSelectedSurvivor(event);

@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 
 /**
  * Handles what happens after user clicks build trap button.
- *
  * @author kipsu
  */
 public class TrapEvent implements EventHandler<ActionEvent> {
@@ -24,9 +23,8 @@ public class TrapEvent implements EventHandler<ActionEvent> {
 
 	/**
 	 * Creates a new trap event.
-	 *
 	 * @param canvas game canvas
-	 * @param game game where the trap will be built in
+	 * @param items items where the trap will be built in
 	 * @param trapType type of the trap
 	 */
 	public TrapEvent(GameCanvas canvas, Items items, TrapType trapType) {

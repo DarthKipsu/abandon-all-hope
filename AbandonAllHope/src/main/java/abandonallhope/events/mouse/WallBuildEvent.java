@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Event handler to build walls when user clicks their build location.
- *
  * @author kipsu
  */
 public class WallBuildEvent implements EventHandler<MouseEvent> {
@@ -29,10 +28,8 @@ public class WallBuildEvent implements EventHandler<MouseEvent> {
 	 * Creates a new AllBuildEvent that will build the wall the player is
 	 * hovering over game field on click. Will also remove event listeners
 	 * related to building walls.
-	 *
-	 * @param items game where the wall will be built
-	 * @param canvas canvas with event listeners to build the wall and it's
-	 * shadow
+	 * @param items items object where the wall will be built
+	 * @param canvas canvas with event listeners to build the wall and it's shadow
 	 * @param wall Wall type
 	 */
 	public WallBuildEvent(Items items, GameCanvas canvas, Wall wall) {

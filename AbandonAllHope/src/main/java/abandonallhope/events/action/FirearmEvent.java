@@ -9,7 +9,6 @@ import javafx.beans.value.ObservableValue;
 
 /**
  * Event handling giving a survivor a new firearm.
- *
  * @author kipsu
  */
 public class FirearmEvent implements ChangeListener<String> {
@@ -20,11 +19,9 @@ public class FirearmEvent implements ChangeListener<String> {
 
 	/**
 	 * Creates a new firearm event handling firearm displays in ui.
-	 *
-	 * @param inventory
-	 * @param survivor
-	 * @param resEvent
-	 * @param combo
+	 * @param inventory player inventory
+	 * @param survivor survivor whose weapon is changed
+	 * @param resEvent event container to trigger events with
 	 */
 	public FirearmEvent(Inventory inventory, Survivor survivor, ResourceEvents resEvent) {
 		this.inventory = inventory;

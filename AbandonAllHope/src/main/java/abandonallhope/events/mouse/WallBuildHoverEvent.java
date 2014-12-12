@@ -20,8 +20,8 @@ public class WallBuildHoverEvent implements EventHandler<MouseEvent> {
 	/**
 	 * Create new wall build hover event used to update wall dimensions when 
 	 * drawing construction shadows
-	 * @param wall
-	 * @param constrHoverDrawer 
+	 * @param wall wall that will be built
+	 * @param constrHoverDrawer drawer to draw the hover effect
 	 */
 	public WallBuildHoverEvent(Wall wall, ConstructionHoverDrawer constrHoverDrawer) {
 		this.start = wall.getLocation();

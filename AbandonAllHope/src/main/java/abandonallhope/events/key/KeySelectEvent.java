@@ -15,7 +15,6 @@ import javafx.scene.input.KeyEvent;
 /**
  * Event to track keystrokes to select or deselect survivors. Also handles
  * creating easter egg Michonne
- *
  * @author kipsu
  */
 public class KeySelectEvent implements EventHandler<KeyEvent> {
@@ -30,9 +29,9 @@ public class KeySelectEvent implements EventHandler<KeyEvent> {
 
 	/**
 	 * Creates a new key selection event to track player keystrokes.
-	 *
 	 * @param canvas canvas containing other events
-	 * @param items game containing selectable objects
+	 * @param items items containing selectable objects
+	 * @param game game containing event triggerers
 	 */
 	public KeySelectEvent(GameCanvas canvas, Items items, Game game) {
 		this.canvas = canvas;

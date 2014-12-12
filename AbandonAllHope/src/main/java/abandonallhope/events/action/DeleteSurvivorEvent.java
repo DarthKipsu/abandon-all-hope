@@ -13,7 +13,7 @@ public class DeleteSurvivorEvent {
 
 	/**
 	 * Delete given survivor from ui.
-	 * @param survivor 
+	 * @param survivor survivor to be removed
 	 */
 	public DeleteSurvivorEvent(Survivor survivor) {
 		this.survivor = survivor;

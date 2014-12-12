@@ -13,7 +13,7 @@ public class NewFirearmEvent {
 
 	/**
 	 * Sets a new firearm to select from ui.
-	 * @param firearm 
+	 * @param firearm  firearm to be added
 	 */
 	public NewFirearmEvent(Firearm firearm) {
 		this.firearm = firearm;

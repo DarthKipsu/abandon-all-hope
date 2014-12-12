@@ -13,7 +13,7 @@ public class DeleteWeaponEvent {
 
 	/**
 	 * Delete given weapon from ui.
-	 * @param weapon 
+	 * @param weapon weapon to be deleted
 	 */
 	public DeleteWeaponEvent(Weapon weapon) {
 		this.weapon = weapon;

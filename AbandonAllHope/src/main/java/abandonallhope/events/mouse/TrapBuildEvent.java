@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Event handler to build traps once user clicks the build location.
- *
  * @author kipsu
  */
 public class TrapBuildEvent implements EventHandler<MouseEvent> {
@@ -22,8 +21,7 @@ public class TrapBuildEvent implements EventHandler<MouseEvent> {
 	/**
 	 * Build event will build the trap the player is hovering over game field on
 	 * click. Will also remove trap building related event listeners.
-	 *
-	 * @param items game where the trap will be built.
+	 * @param items items object where the trap will be built.
 	 * @param canvas canvas containing the event listeners.
 	 * @param trap Trap type.
 	 */

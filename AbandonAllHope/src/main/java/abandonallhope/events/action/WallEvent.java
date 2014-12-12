@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 
 /**
  * Handles what happens after user clicks build wall button.
- *
  * @author kipsu
  */
 public class WallEvent implements EventHandler<ActionEvent> {
@@ -25,9 +24,9 @@ public class WallEvent implements EventHandler<ActionEvent> {
 	/**
 	 * Creates a new wall event.
 	 *
-	 * @param canvas GameCanvas object containing information about drawing to
-	 * game field.
-	 * @param game Game object containing information about objects in game.
+	 * @param canvas GameCanvas object containing information about drawing to game field.
+	 * @param items Items object containing information about objects in game.
+	 * @param wallType walltype to be built
 	 */
 	public WallEvent(GameCanvas canvas, Items items, WallType wallType) {
 		this.canvas = canvas;

@@ -13,7 +13,7 @@ public class NewWeaponEvent {
 
 	/**
 	 * Adds a new weapon to display in ui.
-	 * @param weapon 
+	 * @param weapon weapon to be added
 	 */
 	public NewWeaponEvent(Weapon weapon) {
 		this.weapon = weapon;
